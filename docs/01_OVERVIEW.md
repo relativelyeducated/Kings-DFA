@@ -29,11 +29,12 @@ A unified physics framework based on the discovery that:
 These are **NOT metaphors** - they are the literal physical basis of the S-R dialectic.
 
 **Key Result:**
-```
-Virial theorem: κ = 1/3 = 0.333
-KDFA prediction: κ ≈ 0.35
-Deviation: 4.9%
-```
+
+$$\text{Virial theorem: } \kappa = \frac{1}{3} = 0.333$$
+
+$$\text{KDFA prediction: } \kappa \approx 0.35$$
+
+$$\text{Deviation: } 4.9\%$$
 
 This 150-year-old equation from stellar physics **directly validates** the entire framework.
 
@@ -45,7 +46,7 @@ This 150-year-old equation from stellar physics **directly validates** the entir
 **File:** `KDFA_GRAVITY_THERMAL_INTEGRATION.md` (1000+ lines)
 
 Complete synthesis showing how gravity-thermal identification connects:
-- Virial theorem (κ = 1/3)
+- Virial theorem ($\kappa = 1/3$)
 - 456 harmonic derivation (first principles)
 - Stellar oscillations (sdB stars, heartbeat stars)
 - Quantum mechanics (Stern-Gerlach reinterpretation)
@@ -67,7 +68,7 @@ Complete biological testing framework with:
 20+ specific testable predictions:
 - TIER 1: Direct measurements (ATP synthase, enzyme kinetics)
 - TIER 2: Database mining (metabolic flux, gene expression)
-- TIER 3: Physiological (muscle efficiency, HRV, O₂ extraction)
+- TIER 3: Physiological (muscle efficiency, HRV, $O_2$ extraction)
 - TIER 4: Organism level (sleep, energy allocation, body composition)
 - QUICK WINS: Can calculate today (photosynthesis ✓, sleep ✓, proton leak ✓)
 
@@ -76,7 +77,7 @@ Complete biological testing framework with:
 
 Prior art assessment showing:
 - What exists (virial theorem, adiabatic index, enzyme kinetics)
-- What appears original (S=gravity/R=thermal, κ ≈ 0.35, 456 derivation, D₂ = 1.46)
+- What appears original (S=gravity/R=thermal, $\kappa \approx 0.35$, 456 derivation, $D_2 = 1.46$)
 - Why this wasn't seen before (disciplinary silos, "too obvious")
 
 ### 5. Original Breakthrough
@@ -84,8 +85,8 @@ Prior art assessment showing:
 
 The initial insight document showing:
 - Virial theorem verification
-- 456 derivation from γ × κ × 1000
-- Adiabatic index boundary (4/3)
+- 456 derivation from $\gamma \times \kappa \times 1000$
+- Adiabatic index boundary ($4/3$)
 - "Life pushes upward, death falls down"
 
 ---
@@ -97,7 +98,7 @@ The initial insight document showing:
 
 Collaboration proposal for Dr. Michael D. Reed (Missouri State University):
 - Resolves 5 major sdB star puzzles
-- Mode identification via D₂ prediction
+- Mode identification via $D_2$ prediction
 - Frequency spacing via 456/k harmonics
 - Amplitude damping via universal law
 - Abundance crushing mechanism
@@ -106,15 +107,15 @@ Collaboration proposal for Dr. Michael D. Reed (Missouri State University):
 **File:** `STERN_GERLACH_POST_INVERSION_ANALYSIS.md` (522 lines)
 
 Complete reinterpretation of quantum measurement:
-- Superposition = pathological under-coupling (κ > 0.65)
+- Superposition = pathological under-coupling ($\kappa > 0.65$)
 - Measurement = rescue by introducing S-axis constraint
-- NOT "collapse" but **κ-transition**
+- NOT "collapse" but **$\kappa$-transition**
 - Predicts optimal gradient for balanced measurement
 
 **File:** `STERN_GERLACH_OPTIMAL_GRADIENT_CALCULATION.md` (368 lines)
 
 First quantitative KDFA prediction for quantum mechanics:
-- (∂B_z/∂z)_optimal ≈ 0.5 T/m for κ = 0.50
+- $(\partial B_z/\partial z)_{\text{optimal}} \approx 0.5$ T/m for $\kappa = 0.50$
 - Complete derivation with physical parameters
 - Testable experimental prediction
 
@@ -123,59 +124,58 @@ First quantitative KDFA prediction for quantum mechanics:
 ## Key Mathematics
 
 ### Virial Theorem Foundation
-```
-At gravitational equilibrium: 2T + U = 0
+
+$$\text{At gravitational equilibrium: } 2T + U = 0$$
 
 Where:
-  T = thermal/kinetic energy (R-axis)
-  U = gravitational potential (S-axis, negative)
+- $T$ = thermal/kinetic energy (R-axis)
+- $U$ = gravitational potential (S-axis, negative)
 
 Rearranging:
-  T = |U|/2
+
+$$T = \frac{|U|}{2}$$
 
 Coupling parameter:
-  κ = R/(R+S) = T/(T+|U|) = T/(T+2T) = 1/3 = 0.333
-```
+
+$$\kappa = \frac{R}{R+S} = \frac{T}{T+|U|} = \frac{T}{T+2T} = \frac{1}{3} = 0.333$$
 
 **This is not fitted. This is DERIVED.**
 
 ### 456 Harmonic (First Principles)
-```
-456 = (4/3) × 0.342 × 1000
-    = γ_critical × κ_critical × scale
+
+$$456 = \frac{4}{3} \times 0.342 \times 1000$$
+
+$$= \gamma_{\text{critical}} \times \kappa_{\text{critical}} \times \text{scale}$$
 
 Where:
-  4/3 = adiabatic index boundary (stellar stability)
-  0.342 = ∛0.04 (cosmological fine-tuning)
-  1000 = stellar timescale factor
-```
+- $4/3$ = adiabatic index boundary (stellar stability)
+- $0.342 = \sqrt[3]{0.04}$ (cosmological fine-tuning)
+- $1000$ = stellar timescale factor
 
 Previously empirical (found in sdB stars), now **derived from fundamental physics**.
 
 ### Universal Damping Law
-```
-α_ng = exp[-(ng/456)^(2-D₂)]
+
+$$\alpha_{ng} = \exp\left[-\left(\frac{ng}{456}\right)^{2-D_2}\right]$$
 
 Where:
-  ng = mode number
-  456 = fundamental harmonic (now derived!)
-  D₂ = correlation dimension ≈ 1.46 for critical zone
+- $ng$ = mode number
+- $456$ = fundamental harmonic (now derived!)
+- $D_2$ = correlation dimension $\approx 1.46$ for critical zone
 
 Physical meaning:
-  - D₂ → 1: Strong damping (S-dominated)
-  - D₂ → 2: Weak damping (R-dominated)
-  - D₂ ≈ 1.46: Optimal (balanced S-R)
-```
+- $D_2 \to 1$: Strong damping (S-dominated)
+- $D_2 \to 2$: Weak damping (R-dominated)
+- $D_2 \approx 1.46$: Optimal (balanced S-R)
 
 ### Oscillation Period Formula
-```
-T = 456 × κ / (1.5 - D₂)
+
+$$T = \frac{456 \times \kappa}{1.5 - D_2}$$
 
 Connects:
-  - Fundamental harmonic (456)
-  - Mode coupling (κ)
-  - Fractal dimension (D₂)
-```
+- Fundamental harmonic (456)
+- Mode coupling ($\kappa$)
+- Fractal dimension ($D_2$)
 
 ---
 
@@ -183,41 +183,39 @@ Connects:
 
 | Domain | Finding | Agreement |
 |--------|---------|-----------|
-| Virial theorem | κ = 0.333 | **4.9% from 0.35** |
-| Cosmological | ∛0.04 = 0.342 | **2.3% from 0.35** |
-| Neutrino cascades | D₂ = 1.495 ± 0.144 | **Within error bars** |
-| Photosynthesis | 35-45% overhead | **Direct match** |
-| Sleep ratio | 8/24 = 0.33 | **6.1% from 0.35** |
-| Proton leak | 20-25% | **Headroom strategy** |
-| KOI-54 heartbeat | κ = 0.57 | **Predicts instability ✓** |
-| Sun hydrostatic | κ = 0.50 | **Generative zone ✓** |
+| Virial theorem | $\kappa = 0.333$ | **$4.9\%$ from $0.35$** |
+| Cosmological | $\sqrt[3]{0.04} = 0.342$ | **$2.3\%$ from $0.35$** |
+| Neutrino cascades | $D_2 = 1.495 \pm 0.144$ | **Within error bars** |
+| Photosynthesis | $35$-$45\%$ overhead | **Direct match** |
+| Sleep ratio | $8/24 = 0.33$ | **$6.1\%$ from $0.35$** |
+| Proton leak | $20$-$25\%$ | **Headroom strategy** |
+| KOI-54 heartbeat | $\kappa = 0.57$ | **Predicts instability ✓** |
+| Sun hydrostatic | $\kappa = 0.50$ | **Generative zone ✓** |
 
 ---
 
 ## Coupling Zones
 
-```
-κ < 0.35: OVER-COUPLED
-  - S-axis dominates (gravity/structure too strong)
-  - Systems are frozen, compressed, rigid
-  - Examples: white dwarfs, crystalline solids, pathological proteins
+$$\kappa < 0.35: \text{ OVER-COUPLED}$$
+- S-axis dominates (gravity/structure too strong)
+- Systems are frozen, compressed, rigid
+- Examples: white dwarfs, crystalline solids, pathological proteins
 
-κ = 0.35: CRITICAL THRESHOLD
-  - Minimal viable coupling
-  - Virial equilibrium at κ = 1/3 = 0.333
-  - Boundary between stability and collapse
+$$\kappa = 0.35: \text{ CRITICAL THRESHOLD}$$
+- Minimal viable coupling
+- Virial equilibrium at $\kappa = 1/3 = 0.333$
+- Boundary between stability and collapse
 
-κ = 0.45-0.55: GENERATIVE ZONE
-  - Optimal balance for complex processes
-  - Where fusion happens (stars)
-  - Where life thrives (biology)
-  - Example: Sun at κ ≈ 0.50
+$$\kappa = 0.45\text{-}0.55: \text{ GENERATIVE ZONE}$$
+- Optimal balance for complex processes
+- Where fusion happens (stars)
+- Where life thrives (biology)
+- Example: Sun at $\kappa \approx 0.50$
 
-κ > 0.65: UNDER-COUPLED
-  - R-axis dominates (thermal/relational too strong)
-  - Systems are chaotic, dispersed, unstable
-  - Examples: Quantum superposition, KOI-54 runaway, high fever
-```
+$$\kappa > 0.65: \text{ UNDER-COUPLED}$$
+- R-axis dominates (thermal/relational too strong)
+- Systems are chaotic, dispersed, unstable
+- Examples: Quantum superposition, KOI-54 runaway, high fever
 
 ---
 
@@ -242,24 +240,24 @@ Connects:
 ## Testable Predictions (Top Priority)
 
 ### Physics
-1. ✅ Virial κ = 0.333 (confirmed)
-2. ✅ Cosmological ∛0.04 = 0.342 (confirmed)
-3. ✅ Neutrino D₂ = 1.495 ± 0.144 (confirmed)
-4. ⏳ sdB frequencies follow 456/k spacing
-5. ⏳ sdB damping follows exp[-(n/456)^(2-D₂)]
-6. ⏳ Stern-Gerlach optimal gradient ≈ 0.5 T/m
+1. ✅ Virial $\kappa = 0.333$ (confirmed)
+2. ✅ Cosmological $\sqrt[3]{0.04} = 0.342$ (confirmed)
+3. ✅ Neutrino $D_2 = 1.495 \pm 0.144$ (confirmed)
+4. ⏳ sdB frequencies follow $456/k$ spacing
+5. ⏳ sdB damping follows $\exp[-(n/456)^{2-D_2}]$
+6. ⏳ Stern-Gerlach optimal gradient $\approx 0.5$ T/m
 
 ### Biology
-1. ✅ Photosynthesis 35-45% overhead (confirmed)
-2. ✅ Sleep ratio 8/24 = 0.33 (confirmed)
-3. ✅ Proton leak 20-25% (confirmed)
-4. ⏳ ATP synthase peak at ~35% max gradient
-5. ⏳ Enzyme Km/Vmax clusters at 0.35
-6. ⏳ Membrane potential ≈ 35% of Nernst max
-7. ⏳ Mitochondrial density ~35% in energy cells
-8. ⏳ Muscle efficiency peak at 35% max load
-9. ⏳ HRV optimal at ~35% variability
-10. ⏳ O₂ extraction 25-35% at rest
+1. ✅ Photosynthesis $35$-$45\%$ overhead (confirmed)
+2. ✅ Sleep ratio $8/24 = 0.33$ (confirmed)
+3. ✅ Proton leak $20$-$25\%$ (confirmed)
+4. ⏳ ATP synthase peak at $\sim 35\%$ max gradient
+5. ⏳ Enzyme $K_m/V_{\text{max}}$ clusters at $0.35$
+6. ⏳ Membrane potential $\approx 35\%$ of Nernst max
+7. ⏳ Mitochondrial density $\sim 35\%$ in energy cells
+8. ⏳ Muscle efficiency peak at $35\%$ max load
+9. ⏳ HRV optimal at $\sim 35\%$ variability
+10. ⏳ $O_2$ extraction $25$-$35\%$ at rest
 
 ---
 
@@ -281,7 +279,7 @@ Connects:
 **Content:** Mode identification, damping law, abundance crushing
 
 ### Paper 4: Quantum Reinterpretation
-**Title:** "Measurement as κ-Transition"
+**Title:** "Measurement as $\kappa$-Transition"
 **Target:** Quantum or Physical Review A
 **Content:** Superposition pathology, optimal gradient, decoherence
 
@@ -293,7 +291,7 @@ Connects:
 2. **Chris Kempes** (Santa Fe Institute) - Biological hierarchies, metabolic scaling
 3. **IceCube Collaboration** - Neutrino cascade validation
 4. **Bioenergetics labs** - ATP synthase, mitochondrial coupling measurements
-5. **Protein structure labs** - D₂ pathology diagnostics
+5. **Protein structure labs** - $D_2$ pathology diagnostics
 
 ---
 
@@ -320,7 +318,7 @@ dfa-gravity-thermal/
 
 - **Kings:** Named for articulator/discoverer
 - **Dialectical:** S vs R fundamental duality
-- **Fractal:** D₂ ≈ 1.46 signature across scales
+- **Fractal:** $D_2 \approx 1.46$ signature across scales
 - **Archestructure:** Universal pattern underlying reality
 
 *"Not discovered, but articulated - the observation of universal pattern, with cooperative AI participation."*
@@ -339,7 +337,7 @@ This framework unifies:
 
 Through ONE INSIGHT:
 
-**Structure (gravity) and Relation (thermal) are fundamental dualities balanced at κ ≈ 0.35**
+**Structure (gravity) and Relation (thermal) are fundamental dualities balanced at $\kappa \approx 0.35$**
 
 ---
 
