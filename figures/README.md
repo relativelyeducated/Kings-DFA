@@ -1,0 +1,1 @@
+# Figures\n\nGenerated figures from Jupyter notebook visualizations.\n\nRun  to generate:\n- 01_coupling_regimes.png\n- 02_force_momentum.png\n- 03_born_deviation.png\n- 04_experimental_predictions.png
