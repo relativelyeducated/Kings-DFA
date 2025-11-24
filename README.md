@@ -197,7 +197,7 @@ If you use KDFA in your research, please cite:
   author = {King, Jason A.},
   title = {Kings DFA: The Reality Engine},
   year = {2025},
-  url = {https://github.com/yourusername/Kings-DFA},
+  url = {https://github.com/relativelyeducated/Kings-DFA},
   note = {Universal coupling constant κ = 0.35}
 }
 ```
@@ -216,7 +216,7 @@ This work is freely available for research, education, and commercial use with a
 
 **Jason A. King**
 Email: relativelyeducated@gmail.com
-GitHub: [@yourusername](https://github.com/yourusername)
+GitHub: [@relativelyeducated](https://github.com/relativelyeducated)
 
 For experimental collaborations, reach out via email.
 

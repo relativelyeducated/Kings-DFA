@@ -27,7 +27,7 @@ ATTRIBUTION REQUIREMENTS:
 If you use this work in academic research, please cite:
 
 King, J.A. (2025). Kings DFA: The Reality Engine.
-GitHub: https://github.com/yourusername/Kings-DFA
+GitHub: https://github.com/relativelyeducated/Kings-DFA
 DOI: [pending]
 
 BibTeX:
@@ -35,7 +35,7 @@ BibTeX:
   author = {King, Jason A.},
   title = {Kings DFA: The Reality Engine},
   year = {2025},
-  url = {https://github.com/yourusername/Kings-DFA},
+  url = {https://github.com/relativelyeducated/Kings-DFA},
   license = {CC-BY-4.0}
 }
 
