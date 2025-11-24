@@ -151,7 +151,9 @@ Structure drives Relations
 - **[Momentum Formulation](docs/03_MOMENTUM_FORMULATION.md)** - Why Force=S, Momentum=R
 - **[Born Rule Deviation](docs/04_BORN_RULE_DEVIATION.md)** - Experimental predictions
 - **[Biological Validation](docs/05_BIOLOGICAL_VALIDATION.md)** - Life at κ=0.45
-- **[Experimental Tests](docs/06_EXPERIMENTAL_TESTS.md)** - How to test KDFA
+- **[Simulation Analysis](docs/06_SIMULATION_ANALYSIS.md)** - Validation and bug fixes
+- **[Biological Test List](docs/07_BIOLOGICAL_TEST_LIST.md)** - Specific experimental protocols
+- **[Literature Status](docs/08_LITERATURE_STATUS.md)** - Supporting evidence review
 
 ---
 
