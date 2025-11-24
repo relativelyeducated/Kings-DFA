@@ -17,11 +17,15 @@
 
 ## Breakthroughs Being Applied
 
-### Breakthrough 1: [Name]
-- **Date Discovered**:
-- **Core Insight**:
-- **Documents to Update**:
-- **Status**: 🔴 Not Started
+### Breakthrough 1: S/R Physical Identification
+- **Date Discovered**: 2025-11-24
+- **Core Insight**: S = GRAVITY (least action, constraint) | R = THERMODYNAMICS (entropy, relations)
+- **Key Claim**: Life = Thermal fighting Gravity. All living systems are R-axis pushing against S-axis collapse.
+- **Mathematical Form**:
+  - S-axis: Gravity, Force, Potential Energy, Least Action Principle
+  - R-axis: Thermal, Momentum, Kinetic Energy, Entropy Maximization
+- **Documents to Update**: MATHEMATICS.md, docs/02_CORE_FRAMEWORK.md, docs/03_MOMENTUM_FORMULATION.md
+- **Status**: 🟡 In Progress
 
 ### Breakthrough 2: [Name]
 - **Date Discovered**:
