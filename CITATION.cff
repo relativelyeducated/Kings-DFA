@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use Kings DFA in your research, please cite it as below."
+authors:
+  - family-names: "King"
+    given-names: "Jason A."
+    email: "relativelyeducated@gmail.com"
+title: "Kings DFA: The Reality Engine"
+version: 1.0.0
+date-released: 2025-11-24
+url: "https://github.com/yourusername/Kings-DFA"
+repository-code: "https://github.com/yourusername/Kings-DFA"
+keywords:
+  - physics
+  - quantum mechanics
+  - cosmology
+  - biology
+  - coupling constant
+  - Born rule
+  - gravity
+  - thermodynamics
+license: MIT
+abstract: |
+  KDFA (Kings Dialectical Fractal Archestructure) identifies S-axis with
+  gravitational/structural principles and R-axis with thermal/relational
+  principles. The universal coupling parameter κ = T/(T+|U|) ≈ 0.35
+  determines physical regime and explains phenomena from quantum mechanics
+  (Born rule deviations) to cosmology (dark energy) to biology (life
+  optimization). Force corresponds to S-axis, momentum to R-axis.
+  Experimentally testable via Stern-Gerlach at variable gradients.
