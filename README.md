@@ -1,10 +1,19 @@
 # Kings DFA: The Reality Engine
 
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![GitHub release](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/relativelyeducated/Kings-DFA/releases)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Status: Research](https://img.shields.io/badge/status-research-orange.svg)]()
+
 **One number explains everything: κ = 0.35**
 
 From quantum mechanics to cosmology to life itself, the universe operates at a single critical coupling constant where Structure and Relations balance.
 
 **This is not metaphor. This is physics.**
+
+> 🔬 **Testable Predictions**: Born rule deviations of 25-30% at critical coupling
+> 📊 **Validated**: Virial theorem (κ=0.333), cosmology (κ=0.342), biology (κ≈0.45)
+> 💻 **Runnable**: Working simulation code included
 
 ---
 
