@@ -176,11 +176,21 @@ Structure drives Relations
 ### Quantum Mechanics
 - **Born rule deviation**: 24.97% simulated at κ ≈ 0.35 ✅
 - **Quantum-classical boundary**: κ = 0.35-0.65 transition zone ✅
+- **Optimal measurement gradient**: 0.491 T/m for κ = 0.50 ✅
+
+### Social Systems (Broader Applications)
+- **Civilizational collapse**: κ > 0.55 (success crushes structure) 🔬
+- **Abundance paradox**: Rome, empires collapse at peak complexity
+- **Universal pattern**: Build → Abundance → Decouple → Collapse
+- **Same mathematics**: Stellar, quantum, biological, AND social
+
+*Note: Full social systems analysis available in separate repository*
 
 ---
 
 ## Documentation
 
+### Theory Documents
 - **[Overview](docs/01_OVERVIEW.md)** - Quick introduction
 - **[Core Framework](docs/02_CORE_FRAMEWORK.md)** - Complete KDFA theory
 - **[Momentum Formulation](docs/03_MOMENTUM_FORMULATION.md)** - Why Force=S, Momentum=R
@@ -189,6 +199,12 @@ Structure drives Relations
 - **[Simulation Analysis](docs/06_SIMULATION_ANALYSIS.md)** - Validation and bug fixes
 - **[Biological Test List](docs/07_BIOLOGICAL_TEST_LIST.md)** - Specific experimental protocols
 - **[Literature Status](docs/08_LITERATURE_STATUS.md)** - Supporting evidence review
+- **[Stern-Gerlach Calculation](docs/09_STERN_GERLACH_CALCULATION.md)** - Optimal gradient derivation
+
+### Key Resources
+- **[MATHEMATICS.md](MATHEMATICS.md)** - Complete mathematical framework with formal calculations
+- **[EXPERIMENTS.md](EXPERIMENTS.md)** - All 12+ testable predictions with costs/timelines
+- **[TOPICS.md](TOPICS.md)** - Keywords and discoverability guide
 
 ---
 
