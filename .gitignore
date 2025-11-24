@@ -194,6 +194,10 @@ wip/
 PERSONAL_NOTES.md
 TODO_PRIVATE.md
 
+# Planning documents (internal use, not for main visibility)
+# Note: We keep planning/ in git for history, but these aren't primary docs
+# planning/
+
 # Large experimental data
 experiments/data/*
 !experiments/data/README.md

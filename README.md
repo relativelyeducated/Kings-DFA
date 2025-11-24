@@ -59,7 +59,9 @@ This is the experimental signature of KDFA - testable with Stern-Gerlach apparat
 
 ---
 
-## Run The Simulation
+## 🚀 Quick Start
+
+### Run The Simulation
 
 See the Born rule deviation yourself:
 
@@ -70,6 +72,30 @@ python test_born_deviation.py
 ```
 
 **Expected output**: ~25% deviation at balanced apparatus (κ ≈ 0.35)
+
+### Explore Interactively
+
+Open the Jupyter notebook for interactive exploration:
+
+```bash
+jupyter notebook notebooks/01_KDFA_Interactive_Demo.ipynb
+```
+
+**Includes**:
+- κ calculation across physical scales
+- Coupling regime phase diagrams
+- Born rule deviation visualizations
+- Force vs momentum analysis
+
+### See All Testable Predictions
+
+📋 **[EXPERIMENTS.md](EXPERIMENTS.md)** - Complete list of 12+ testable predictions
+
+**Highlights**:
+- 🔬 Born rule test (~$50K, 6-12 months)
+- 🧬 Biological EM at 456 Hz (~$100K, 6-12 months)
+- 🌱 Photosynthesis efficiency (~$25K, 3 months)
+- ⭐ Stellar oscillation modes (observational, free)
 
 ---
 
