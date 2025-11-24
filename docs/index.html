@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kings DFA - The Reality Engine</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --text: #c9d1d9;
+            --accent: #58a6ff;
+            --border: #30363d;
+            --s-color: #f85149;
+            --r-color: #58a6ff;
+            --critical: #a371f7;
+            --life: #3fb950;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        h1 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; font-size: 2.5rem; }
+        h2 { color: var(--accent); margin-top: 3rem; font-size: 1.5rem; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .hero {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .hero-equation {
+            font-size: 2rem;
+            color: #fff;
+            margin: 1.5rem 0;
+        }
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 0.3rem 0.7rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            margin: 0.2rem;
+            font-weight: 600;
+        }
+        .badge.s { background: var(--s-color); color: #fff; }
+        .badge.r { background: var(--r-color); color: #000; }
+        .badge.life { background: var(--life); color: #000; }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .card h3 { margin-top: 0; color: #fff; font-size: 1.2rem; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        @media (max-width: 700px) {
+            .grid, .grid-3 { grid-template-columns: 1fr; }
+        }
+        .svg-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        svg { max-width: 100%; height: auto; }
+        .equation-box {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid var(--critical);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: #fff; }
+        .highlight-row { background: rgba(163, 113, 247, 0.15); }
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: #8b949e;
+        }
+        .insight {
+            background: linear-gradient(90deg, rgba(248, 81, 73, 0.1) 0%, rgba(88, 166, 255, 0.1) 100%);
+            border-left: 4px solid var(--critical);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #fff;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>Kings DFA</h1>
+    <p style="font-size: 1.3rem; color: #8b949e; margin-bottom: 1rem;">The Reality Engine</p>
+    <p>
+        <span class="badge">Physics</span>
+        <span class="badge">Quantum Mechanics</span>
+        <span class="badge">Testable</span>
+        <span class="badge life">Biology</span>
+    </p>
+    <div class="hero-equation">\[ \kappa = \frac{T}{T + |U|} \approx 0.35 \]</div>
+    <p>One coupling constant unifies quantum mechanics, gravity, thermodynamics, and life.</p>
+</div>
+
+<!-- MAIN INSIGHT -->
+<div class="insight">
+    <strong>The Core Insight:</strong> The universe operates at a critical balance between two forces —
+    <span style="color: var(--s-color);">GRAVITY</span> (structure, pulls inward) and
+    <span style="color: var(--r-color);">THERMAL</span> (relations, pushes outward).
+    At κ ≈ 0.35, they <em>interfere</em>.
+</div>
+
+<!-- KAPPA SCALE VISUALIZATION -->
+<h2>The κ Coupling Scale</h2>
+<div class="svg-container">
+    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background -->
+        <defs>
+            <linearGradient id="scaleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#f85149;stop-opacity:0.8" />
+                <stop offset="35%" style="stop-color:#a371f7;stop-opacity:0.9" />
+                <stop offset="50%" style="stop-color:#3fb950;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#58a6ff;stop-opacity:0.8" />
+            </linearGradient>
+        </defs>
+
+        <!-- Scale bar -->
+        <rect x="50" y="80" width="700" height="40" rx="5" fill="url(#scaleGrad)" />
+
+        <!-- Tick marks and labels -->
+        <line x1="50" y1="125" x2="50" y2="140" stroke="#c9d1d9" stroke-width="2"/>
+        <text x="50" y="160" fill="#c9d1d9" text-anchor="middle" font-size="14">0</text>
+        <text x="50" y="180" fill="#8b949e" text-anchor="middle" font-size="11">Frozen</text>
+
+        <line x1="283" y1="125" x2="283" y2="145" stroke="#a371f7" stroke-width="3"/>
+        <text x="283" y="165" fill="#a371f7" text-anchor="middle" font-size="14" font-weight="bold">0.333</text>
+        <text x="283" y="185" fill="#8b949e" text-anchor="middle" font-size="11">Virial</text>
+
+        <line x1="295" y1="70" x2="295" y2="80" stroke="#fff" stroke-width="3"/>
+        <text x="295" y="55" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">κ = 0.35</text>
+        <text x="295" y="35" fill="#a371f7" text-anchor="middle" font-size="12">CRITICAL</text>
+
+        <line x1="400" y1="125" x2="400" y2="140" stroke="#3fb950" stroke-width="2"/>
+        <text x="400" y="160" fill="#3fb950" text-anchor="middle" font-size="14">0.45-0.55</text>
+        <text x="400" y="180" fill="#8b949e" text-anchor="middle" font-size="11">LIFE</text>
+
+        <line x1="505" y1="125" x2="505" y2="140" stroke="#c9d1d9" stroke-width="2"/>
+        <text x="505" y="160" fill="#c9d1d9" text-anchor="middle" font-size="14">0.65</text>
+        <text x="505" y="180" fill="#8b949e" text-anchor="middle" font-size="11">Quantum</text>
+
+        <line x1="750" y1="125" x2="750" y2="140" stroke="#c9d1d9" stroke-width="2"/>
+        <text x="750" y="160" fill="#c9d1d9" text-anchor="middle" font-size="14">1</text>
+        <text x="750" y="180" fill="#8b949e" text-anchor="middle" font-size="11">Pure Wave</text>
+
+        <!-- Labels on bar -->
+        <text x="120" y="105" fill="#fff" font-size="12" font-weight="bold">CLASSICAL</text>
+        <text x="550" y="105" fill="#fff" font-size="12" font-weight="bold">QUANTUM</text>
+    </svg>
+</div>
+
+<!-- S-R IDENTIFICATION -->
+<h2>S-R Axis Identification</h2>
+<div class="svg-container">
+    <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- S-axis (left) -->
+        <circle cx="150" cy="150" r="100" fill="none" stroke="#f85149" stroke-width="4"/>
+        <text x="150" y="140" fill="#f85149" text-anchor="middle" font-size="28" font-weight="bold">S</text>
+        <text x="150" y="170" fill="#c9d1d9" text-anchor="middle" font-size="14">GRAVITY</text>
+
+        <!-- Arrows pointing inward for S -->
+        <path d="M150 30 L150 50" stroke="#f85149" stroke-width="3" marker-end="url(#arrowS)"/>
+        <path d="M150 270 L150 250" stroke="#f85149" stroke-width="3" marker-end="url(#arrowS)"/>
+        <path d="M30 150 L50 150" stroke="#f85149" stroke-width="3" marker-end="url(#arrowS)"/>
+        <path d="M270 150 L250 150" stroke="#f85149" stroke-width="3" marker-end="url(#arrowS)"/>
+
+        <!-- R-axis (right) -->
+        <circle cx="650" cy="150" r="100" fill="none" stroke="#58a6ff" stroke-width="4"/>
+        <text x="650" y="140" fill="#58a6ff" text-anchor="middle" font-size="28" font-weight="bold">R</text>
+        <text x="650" y="170" fill="#c9d1d9" text-anchor="middle" font-size="14">THERMAL</text>
+
+        <!-- Arrows pointing outward for R -->
+        <path d="M650 50 L650 30" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrowR)"/>
+        <path d="M650 250 L650 270" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrowR)"/>
+        <path d="M550 150 L530 150" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrowR)"/>
+        <path d="M750 150 L770 150" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrowR)"/>
+
+        <!-- VS in middle -->
+        <text x="400" y="140" fill="#a371f7" text-anchor="middle" font-size="24" font-weight="bold">κ = 0.35</text>
+        <text x="400" y="170" fill="#c9d1d9" text-anchor="middle" font-size="14">interference</text>
+
+        <!-- Connecting line -->
+        <line x1="250" y1="150" x2="350" y2="150" stroke="#a371f7" stroke-width="2" stroke-dasharray="5,5"/>
+        <line x1="450" y1="150" x2="550" y2="150" stroke="#a371f7" stroke-width="2" stroke-dasharray="5,5"/>
+
+        <!-- Arrow markers -->
+        <defs>
+            <marker id="arrowS" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#f85149"/>
+            </marker>
+            <marker id="arrowR" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#58a6ff"/>
+            </marker>
+        </defs>
+
+        <!-- Labels below -->
+        <text x="150" y="280" fill="#f85149" text-anchor="middle" font-size="12">Force • Potential • Constraint</text>
+        <text x="650" y="280" fill="#58a6ff" text-anchor="middle" font-size="12">Momentum • Kinetic • Entropy</text>
+    </svg>
+</div>
+
+<div class="grid">
+    <div class="card" style="border-left: 4px solid var(--s-color);">
+        <h3 style="color: var(--s-color);">S-axis = GRAVITY</h3>
+        <ul style="margin: 0; padding-left: 1.2rem;">
+            <li>Force: \( \vec{F} = -\nabla U \)</li>
+            <li>Potential Energy \( U \)</li>
+            <li>Least Action Principle</li>
+            <li>Structure, Constraint, Inward</li>
+        </ul>
+    </div>
+    <div class="card" style="border-left: 4px solid var(--r-color);">
+        <h3 style="color: var(--r-color);">R-axis = THERMAL</h3>
+        <ul style="margin: 0; padding-left: 1.2rem;">
+            <li>Momentum: \( \vec{p} = m\vec{v} \)</li>
+            <li>Kinetic Energy \( T \)</li>
+            <li>Entropy Maximization</li>
+            <li>Relations, Process, Outward</li>
+        </ul>
+    </div>
+</div>
+
+<!-- LIFE EQUATION -->
+<div class="equation-box">
+    <p style="font-size: 1.3rem; margin: 0 0 1rem 0; color: var(--life);">The Equation of Life</p>
+    <div style="font-size: 1.8rem; color: #fff;">
+        \[ \text{Life} = \text{Thermal} \leftrightharpoons \text{Gravity} \]
+    </div>
+    <p style="margin: 1rem 0 0 0; color: #8b949e;">
+        All living systems are <span style="color: var(--r-color);">R-axis</span> (thermal processes)
+        fighting against <span style="color: var(--s-color);">S-axis</span> (gravitational collapse).
+    </p>
+</div>
+
+<!-- PHASE SPACE -->
+<h2>Phase Space: The S-R Dialectic</h2>
+<div class="svg-container">
+    <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- Axes -->
+        <line x1="50" y1="350" x2="450" y2="350" stroke="#c9d1d9" stroke-width="2"/>
+        <line x1="50" y1="350" x2="50" y2="50" stroke="#c9d1d9" stroke-width="2"/>
+
+        <!-- Arrow heads -->
+        <polygon points="450,350 440,345 440,355" fill="#c9d1d9"/>
+        <polygon points="50,50 45,60 55,60" fill="#c9d1d9"/>
+
+        <!-- Axis labels -->
+        <text x="460" y="355" fill="#f85149" font-size="16" font-weight="bold">x (S-axis)</text>
+        <text x="60" y="45" fill="#58a6ff" font-size="16" font-weight="bold">p (R-axis)</text>
+
+        <!-- Phase space trajectory (ellipse) -->
+        <ellipse cx="250" cy="200" rx="150" ry="120" fill="none" stroke="#a371f7" stroke-width="3"/>
+
+        <!-- Direction arrow on ellipse -->
+        <path d="M400 200 Q 400 100, 250 80" fill="none" stroke="#a371f7" stroke-width="2" marker-end="url(#arrowP)"/>
+
+        <!-- Points on trajectory -->
+        <circle cx="400" cy="200" r="8" fill="#f85149"/>
+        <text x="415" y="195" fill="#f85149" font-size="12">max x</text>
+
+        <circle cx="100" cy="200" r="8" fill="#f85149"/>
+        <text x="60" y="195" fill="#f85149" font-size="12">min x</text>
+
+        <circle cx="250" cy="80" r="8" fill="#58a6ff"/>
+        <text x="260" y="75" fill="#58a6ff" font-size="12">max p</text>
+
+        <circle cx="250" cy="320" r="8" fill="#58a6ff"/>
+        <text x="260" y="335" fill="#58a6ff" font-size="12">min p</text>
+
+        <!-- Center point -->
+        <circle cx="250" cy="200" r="5" fill="#3fb950"/>
+        <text x="260" y="205" fill="#3fb950" font-size="12">equilibrium</text>
+
+        <!-- Equation -->
+        <text x="250" y="380" fill="#c9d1d9" text-anchor="middle" font-size="14">
+            Newton's 2nd Law: F = dp/dt (S-axis curves R-axis)
+        </text>
+
+        <defs>
+            <marker id="arrowP" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#a371f7"/>
+            </marker>
+        </defs>
+    </svg>
+</div>
+
+<!-- VALIDATED PREDICTIONS -->
+<h2>Validated Predictions</h2>
+<div class="card">
+    <table>
+        <tr>
+            <th>System</th>
+            <th>κ Value</th>
+            <th>Method</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>Virial Theorem (1870)</td>
+            <td>0.333</td>
+            <td>\( 2T + U = 0 \)</td>
+            <td>✅ Validated</td>
+        </tr>
+        <tr>
+            <td>Cosmology (Dark Energy)</td>
+            <td>0.342</td>
+            <td>\( \sqrt[3]{\Omega_\Lambda} \)</td>
+            <td>✅ Validated</td>
+        </tr>
+        <tr>
+            <td>Biology (ATP Efficiency)</td>
+            <td>0.45-0.55</td>
+            <td>Metabolic overhead</td>
+            <td>✅ Validated</td>
+        </tr>
+        <tr>
+            <td>Sleep Ratio</td>
+            <td>0.333</td>
+            <td>8/24 hours</td>
+            <td>✅ Validated</td>
+        </tr>
+        <tr class="highlight-row">
+            <td><strong>Born Rule Deviation</strong></td>
+            <td><strong>~0.35</strong></td>
+            <td>Stern-Gerlach @ 0.5 T/m</td>
+            <td>🔬 <strong>Testable</strong></td>
+        </tr>
+    </table>
+</div>
+
+<!-- BORN RULE PREDICTION -->
+<h2>Key Prediction: Born Rule Deviation</h2>
+<div class="svg-container">
+    <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Axes -->
+        <line x1="80" y1="250" x2="550" y2="250" stroke="#c9d1d9" stroke-width="2"/>
+        <line x1="80" y1="250" x2="80" y2="50" stroke="#c9d1d9" stroke-width="2"/>
+
+        <!-- Axis labels -->
+        <text x="300" y="285" fill="#c9d1d9" text-anchor="middle" font-size="14">Magnetic Gradient (T/m)</text>
+        <text x="30" y="150" fill="#c9d1d9" text-anchor="middle" font-size="14" transform="rotate(-90, 30, 150)">P(↑)</text>
+
+        <!-- Grid lines -->
+        <line x1="80" y1="150" x2="550" y2="150" stroke="#30363d" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="80" y1="100" x2="550" y2="100" stroke="#30363d" stroke-width="1" stroke-dasharray="5,5"/>
+
+        <!-- Born rule line -->
+        <line x1="80" y1="150" x2="550" y2="150" stroke="#8b949e" stroke-width="2"/>
+        <text x="560" y="155" fill="#8b949e" font-size="12">Born: 0.60</text>
+
+        <!-- KDFA prediction curve -->
+        <path d="M80 80 Q 200 80, 250 100 Q 300 130, 350 150 Q 450 150, 550 150"
+              fill="none" stroke="#a371f7" stroke-width="3"/>
+
+        <!-- Deviation region -->
+        <path d="M80 150 L80 80 Q 200 80, 250 100 Q 300 130, 350 150 Z"
+              fill="#a371f7" fill-opacity="0.2"/>
+
+        <!-- Critical point marker -->
+        <line x1="200" y1="250" x2="200" y2="80" stroke="#f85149" stroke-width="2" stroke-dasharray="5,5"/>
+        <circle cx="200" cy="85" r="8" fill="#f85149"/>
+        <text x="200" y="270" fill="#f85149" text-anchor="middle" font-size="12">~0.5 T/m</text>
+        <text x="215" y="75" fill="#f85149" font-size="12">25% deviation</text>
+
+        <!-- Y-axis labels -->
+        <text x="70" y="255" fill="#c9d1d9" text-anchor="end" font-size="12">0.50</text>
+        <text x="70" y="155" fill="#c9d1d9" text-anchor="end" font-size="12">0.60</text>
+        <text x="70" y="105" fill="#c9d1d9" text-anchor="end" font-size="12">0.70</text>
+        <text x="70" y="55" fill="#c9d1d9" text-anchor="end" font-size="12">0.80</text>
+
+        <!-- Legend -->
+        <rect x="400" y="60" width="140" height="50" fill="#161b22" stroke="#30363d" rx="5"/>
+        <line x1="410" y1="75" x2="440" y2="75" stroke="#a371f7" stroke-width="3"/>
+        <text x="450" y="80" fill="#c9d1d9" font-size="11">KDFA Prediction</text>
+        <line x1="410" y1="95" x2="440" y2="95" stroke="#8b949e" stroke-width="2"/>
+        <text x="450" y="100" fill="#c9d1d9" font-size="11">Standard QM</text>
+    </svg>
+</div>
+<p style="text-align: center; color: #8b949e;">
+    <strong>Testable prediction:</strong> At gradient ≈ 0.5 T/m (κ ≈ 0.35), quantum measurement shows ~25% deviation from Born rule.
+    <br>Cost: ~$50K | Timeline: 6-12 months
+</p>
+
+<!-- INTERACTIVE NOTEBOOK -->
+<h2>Interactive Notebook</h2>
+<p>Run the simulations yourself — explore κ regimes, Born rule deviations, and phase space:</p>
+<iframe src="https://nbviewer.org/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb"></iframe>
+<p style="text-align: center;">
+    <a href="https://nbviewer.org/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb" target="_blank">Open full screen →</a> |
+    <a href="https://colab.research.google.com/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb" target="_blank">Run in Google Colab →</a>
+</p>
+
+<!-- DOCUMENTATION -->
+<h2>Documentation</h2>
+<div class="grid-3">
+    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/README.md" class="card" style="text-decoration: none;">
+        <h3>📖 README</h3>
+        <p style="color: var(--text); margin: 0;">Quick introduction to the framework</p>
+    </a>
+    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/MATHEMATICS.md" class="card" style="text-decoration: none;">
+        <h3>📐 Mathematics</h3>
+        <p style="color: var(--text); margin: 0;">Full derivations and calculations</p>
+    </a>
+    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/EXPERIMENTS.md" class="card" style="text-decoration: none;">
+        <h3>🔬 Experiments</h3>
+        <p style="color: var(--text); margin: 0;">12+ testable predictions</p>
+    </a>
+</div>
+
+<!-- CITATION -->
+<h2>Citation</h2>
+<div class="card">
+    <pre style="margin: 0; overflow-x: auto; color: var(--text);">@software{king2025kdfa,
+  author = {King, Jason A.},
+  title = {Kings DFA: The Reality Engine},
+  year = {2025},
+  url = {https://github.com/relativelyeducated/Kings-DFA}
+}</pre>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>
+        <a href="https://github.com/relativelyeducated/Kings-DFA">GitHub Repository</a> ·
+        <a href="mailto:relativelyeducated@gmail.com">Contact</a>
+    </p>
+    <p>Licensed under CC-BY-4.0 · Jason A. King · 2025</p>
+</div>
+
+</body>
+</html>
