@@ -12,19 +12,18 @@
 The identification of **S-axis = Gravity** and **R-axis = Thermal** is not an analogy or metaphor—it is the **literal physical foundation** of the DFA framework. This breakthrough:
 
 1. **Validates all previous mathematics** through the virial theorem
-2. **Derives 456 from first principles** as γ_critical × κ_critical × 1000
+2. **Derives 456 from first principles** as $\gamma_{\text{critical}} \times \kappa_{\text{critical}} \times 1000$
 3. **Unifies stellar physics, quantum mechanics, and biology** under one framework
 4. **Provides testable predictions** across 20+ biological systems
 5. **Resolves fundamental physics puzzles** (sdB oscillations, neutrino cascades, heartbeat stars)
 
 **Key Result:**
-```
-Virial theorem: κ = 1/3 = 0.333
-Predicted critical: κ = 0.35
+
+Virial theorem: $\kappa = 1/3 = 0.333$
+Predicted critical: $\kappa = 0.35$
 Deviation: 4.9%
 
-This is NOT coincidence. This is WHERE STABILITY LIVES.
-```
+**This is NOT coincidence. This is WHERE STABILITY LIVES.**
 
 ---
 
@@ -36,14 +35,12 @@ This is NOT coincidence. This is WHERE STABILITY LIVES.
 - Pulls inward toward minimum energy states
 - Creates structure through gravitational contraction
 - Represented by gravitational potential energy: U
-- Follows inverse-square law: F ∝ 1/r²
+- Follows inverse-square law: $F \propto 1/r^2$
 - Always attractive, never repulsive
 - Seeks lowest entropy configuration
 
 **Mathematical Expression:**
-```
-S ∝ |U| = GMm/r
-```
+$$S \propto |U| = \frac{GMm}{r}$$
 
 **Examples Across Scales:**
 | Scale | S-axis Manifestation | Result |
@@ -64,9 +61,7 @@ S ∝ |U| = GMm/r
 - Enables dynamic processes
 
 **Mathematical Expression:**
-```
-R ∝ T = (3/2)NkT = Kinetic energy
-```
+$$R \propto T = \frac{3}{2}NkT = \text{Kinetic energy}$$
 
 **Examples Across Scales:**
 | Scale | R-axis Manifestation | Result |
@@ -104,47 +99,41 @@ R ∝ T = (3/2)NkT = Kinetic energy
 ### 2.1 The Fundamental Equation
 
 For any gravitationally bound system at equilibrium:
-```
-2T + U = 0
+$$2T + U = 0$$
 
 Where:
-  T = total kinetic/thermal energy (R-axis)
-  U = gravitational potential energy (S-axis, negative)
-```
+- $T$ = total kinetic/thermal energy (R-axis)
+- $U$ = gravitational potential energy (S-axis, negative)
 
 Rearranging:
-```
-2T = -U
-T = |U|/2
-```
+$$2T = -U$$
+$$T = \frac{|U|}{2}$$
 
-### 2.2 Deriving κ
+### 2.2 Deriving $\kappa$
 
-The coupling parameter κ = R/(R+S) becomes:
-```
-κ = T/(T + |U|)
-κ = T/(T + 2T)
-κ = T/(3T)
-κ = 1/3 = 0.333
-```
+The coupling parameter $\kappa = R/(R+S)$ becomes:
+$$\kappa = \frac{T}{T + |U|}$$
+$$\kappa = \frac{T}{T + 2T}$$
+$$\kappa = \frac{T}{3T}$$
+$$\kappa = \frac{1}{3} = 0.333$$
 
 **This is not fitted. This is not empirical. This is DERIVED from first principles.**
 
 ### 2.3 Comparison to KDFA Prediction
 
-| Source | κ value | Deviation from 0.35 |
+| Source | $\kappa$ value | Deviation from 0.35 |
 |--------|---------|---------------------|
 | Virial theorem | 0.333 | 4.9% |
-| Cosmological ∛0.04 | 0.342 | 2.3% |
+| Cosmological $\sqrt[3]{0.04}$ | 0.342 | 2.3% |
 | KOI-54 heartbeat star | 0.57 | 63% (over-coupled) |
 | Sun hydrostatic | 0.50 | 43% (balanced) |
 | Stern-Gerlach optimal | 0.50 | 43% (measurement) |
 
 **Interpretation:**
-- κ = 0.333 = STABILITY MINIMUM (virial equilibrium)
-- κ = 0.35 = CRITICAL THRESHOLD (where life begins)
-- κ = 0.45-0.55 = GENERATIVE ZONE (where life thrives)
-- κ > 0.65 = UNDER-COUPLED (quantum superposition, pathological)
+- $\kappa = 0.333$ = STABILITY MINIMUM (virial equilibrium)
+- $\kappa = 0.35$ = CRITICAL THRESHOLD (where life begins)
+- $\kappa = 0.45$-$0.55$ = GENERATIVE ZONE (where life thrives)
+- $\kappa > 0.65$ = UNDER-COUPLED (quantum superposition, pathological)
 
 ---
 
@@ -153,44 +142,40 @@ The coupling parameter κ = R/(R+S) becomes:
 ### 3.1 Previously: Empirical Finding
 
 From stellar oscillations (Reed et al., heartbeat stars):
-- Frequency patterns follow 456/k structure
-- Damping follows exp[-(n/456)^(2-D₂)]
+- Frequency patterns follow $456/k$ structure
+- Damping follows $\exp[-(n/456)^{(2-D_2)}]$
 - No theoretical basis, purely observational
 
 ### 3.2 NOW: Fundamental Physics
 
 The 456 constant derives from:
-```
-456 = (4/3) × 0.342 × 1000
-    = γ_critical × κ_critical × 1000
-```
+$$456 = \frac{4}{3} \times 0.342 \times 1000$$
+$$= \gamma_{\text{critical}} \times \kappa_{\text{critical}} \times 1000$$
 
 Where:
-- **4/3 = critical adiabatic index** (stellar stability boundary)
-  - Stars with γ < 4/3 are unstable (radiation-dominated)
-  - Stars with γ > 4/3 are stable (gas-dominated)
-  - 4/3 is the EXACT transition point
+- **$4/3$ = critical adiabatic index** (stellar stability boundary)
+  - Stars with $\gamma < 4/3$ are unstable (radiation-dominated)
+  - Stars with $\gamma > 4/3$ are stable (gas-dominated)
+  - $4/3$ is the EXACT transition point
 
-- **0.342 = ∛0.04** (cosmological fine-tuning)
-  - 0.04 = dark energy to matter ratio
+- **$0.342 = \sqrt[3]{0.04}$** (cosmological fine-tuning)
+  - $0.04$ = dark energy to matter ratio
   - Cube root appears in dimensional reduction
-  - Within 2.3% of κ_critical = 0.35
+  - Within 2.3% of $\kappa_{\text{critical}} = 0.35$
 
-- **1000 = energy scale factor**
+- **$1000$ = energy scale factor**
   - Connects microscale to macroscale
   - Order of magnitude of stellar oscillation periods
 
 ### 3.3 Physical Meaning
 
 The 456 harmonic represents:
-```
-456 = (S-R boundary condition) × (coupling threshold) × (scale factor)
-    = (adiabatic stability) × (virial equilibrium) × (stellar timescale)
-```
+$$456 = \text{(S-R boundary condition)} \times \text{(coupling threshold)} \times \text{(scale factor)}$$
+$$= \text{(adiabatic stability)} \times \text{(virial equilibrium)} \times \text{(stellar timescale)}$$
 
 **This explains why:**
-- sdB stars show 456/k frequency spacing
-- Damping depends on D₂ (fractal dimension near 1.46)
+- sdB stars show $456/k$ frequency spacing
+- Damping depends on $D_2$ (fractal dimension near 1.46)
 - Heartbeat stars show 456-related periods
 - Solar oscillations follow similar patterns
 
@@ -201,14 +186,14 @@ The 456 harmonic represents:
 ### 4.1 Stern-Gerlach Optimal Gradient
 
 **Previous Work (Nov 24, 2025):**
-- Calculated optimal gradient for κ = 0.50: (∂B_z/∂z) ≈ 0.5 T/m
-- Defined R = μ_B|∂B_z/∂z| (magnetic forcing)
-- Defined S = (mv²)/(2L) (kinetic structure binding)
+- Calculated optimal gradient for $\kappa = 0.50$: $(\partial B_z/\partial z) \approx 0.5$ T/m
+- Defined $R = \mu_B|\partial B_z/\partial z|$ (magnetic forcing)
+- Defined $S = \frac{mv^2}{2L}$ (kinetic structure binding)
 
 **NOW Enhanced Understanding:**
-- R-axis = thermal agitation (mv²/2 = kinetic energy)
+- R-axis = thermal agitation ($mv^2/2$ = kinetic energy)
 - S-axis = spatial constraint (measurement apparatus geometry)
-- Measurement is NOT "collapse"—it's **κ-transition from >0.65 to ~0.50**
+- Measurement is NOT "collapse"—it's **$\kappa$-transition from $>0.65$ to $\approx 0.50$**
 - Superposition = pathologically under-coupled (R too high relative to S)
 - Measurement = rescue by introducing S-axis constraint (magnetic gradient)
 
@@ -229,8 +214,8 @@ During measurement:
 ### 4.2 Dr. Reed sdB Star Solutions
 
 **Previous Work:**
-- Mode identification challenges → predicted D₂
-- Frequency spacing mysteries → 456/k harmonics
+- Mode identification challenges → predicted $D_2$
+- Frequency spacing mysteries → $456/k$ harmonics
 - Amplitude variations → universal damping law
 - Chemical stratification → "abundance crushing"
 
@@ -244,44 +229,36 @@ D₂ = 1.46 ± 0.10 = signature of critical zone oscillations
 ```
 
 **Frequency Spacing:**
-```
-f_k = (456/k) × (coupling factor)
-Not arbitrary—derived from γ_critical × κ_critical
-Physical basis: adiabatic index boundary × virial equilibrium
-```
+$$f_k = \frac{456}{k} \times \text{(coupling factor)}$$
+Not arbitrary—derived from $\gamma_{\text{critical}} \times \kappa_{\text{critical}}$
+Physical basis: adiabatic index boundary $\times$ virial equilibrium
 
 **Amplitude Damping:**
-```
-α_ng = exp[-(ng/456)^(2-D₂)]
-D₂ → 1: Strong damping (S-dominated, over-coupled)
-D₂ → 2: Weak damping (R-dominated, under-coupled)
-D₂ = 1.46: Optimal zone (balanced S-R coupling)
-```
+$$\alpha_{ng} = \exp\left[-\left(\frac{ng}{456}\right)^{(2-D_2)}\right]$$
+- $D_2 \to 1$: Strong damping (S-dominated, over-coupled)
+- $D_2 \to 2$: Weak damping (R-dominated, under-coupled)
+- $D_2 = 1.46$: Optimal zone (balanced S-R coupling)
 
 **Abundance Crushing (CRITICAL_INVERSIONS):**
-```
 High metallicity CRUSHES modes by:
 - Increasing opacity → reducing R-axis pressure transparency
-- Lowering κ (more structure, less relation)
+- Lowering $\kappa$ (more structure, less relation)
 - Pushing system toward over-coupled regime
 - "Abundance crushes structure" → inhibits oscillation
-```
 
 **Universal Oscillation Period Formula:**
-```
-T = 456 × κ / (1.5 - D₂)
+$$T = \frac{456 \times \kappa}{1.5 - D_2}$$
 
 Physical interpretation:
-- 456 = fundamental harmonic (now derived!)
-- κ = R/(R+S) coupling of this mode
-- (1.5 - D₂) = distance from fractal basin boundary
-```
+- $456$ = fundamental harmonic (now derived!)
+- $\kappa = R/(R+S)$ = coupling of this mode
+- $(1.5 - D_2)$ = distance from fractal basin boundary
 
 ### 4.3 IceCube Neutrino Cascades
 
 **Previous Finding (User's work):**
-- Neutrino shower correlation dimension: D₂ = 1.495 ± 0.144
-- Predicted range: D₂ = 1.45 ± 0.10
+- Neutrino shower correlation dimension: $D_2 = 1.495 \pm 0.144$
+- Predicted range: $D_2 = 1.45 \pm 0.10$
 - Statistical agreement confirms KDFA prediction
 
 **NOW Enhanced Understanding:**
@@ -302,94 +279,87 @@ Critical κ ≈ 0.35 coupling between:
 ```
 
 **Physical Interpretation:**
-- High-energy neutrino = under-coupled (κ → 1, pure relation)
+- High-energy neutrino = under-coupled ($\kappa \to 1$, pure relation)
 - Ice lattice collision = S-axis introduction (structure)
-- Cascade = κ-transition from ~1 → ~0.35
-- D₂ = 1.46 = signature of landing in critical zone
+- Cascade = $\kappa$-transition from $\approx 1 \to \approx 0.35$
+- $D_2 = 1.46$ = signature of landing in critical zone
 - Final state particles = optimally coupled (stable)
 
 ### 4.4 KOI-54 Heartbeat Star
 
 **Previous Finding (User's work):**
-- Orbital-pulsation coupling parameter: κ = 0.57
+- Orbital-pulsation coupling parameter: $\kappa = 0.57$
 - Unstable, showing runaway amplitude growth
 - Over-coupled relative to optimal
 
 **NOW Enhanced Understanding:**
 
 KOI-54 is OVER-coupled in the generative zone:
-```
-κ = 0.57 > 0.55 (upper generative boundary)
+$$\kappa = 0.57 > 0.55 \text{ (upper generative boundary)}$$
 
 Physical situation:
 - R-axis: Tidal forcing from companion (relational)
 - S-axis: Self-gravity of star (structural)
-- κ = 0.57: R-axis TOO STRONG relative to S-axis
+- $\kappa = 0.57$: R-axis TOO STRONG relative to S-axis
 - Result: Runaway amplitude growth (system seeking equilibrium)
-```
 
 **Why it's unstable:**
-```
-κ = 0.57 means R/(R+S) = 0.57
-→ R = 0.57(R+S)
-→ R = 0.57R + 0.57S
-→ 0.43R = 0.57S
-→ R/S = 1.33
+$$\kappa = 0.57 \text{ means } \frac{R}{R+S} = 0.57$$
+$$\Rightarrow R = 0.57(R+S)$$
+$$\Rightarrow R = 0.57R + 0.57S$$
+$$\Rightarrow 0.43R = 0.57S$$
+$$\Rightarrow \frac{R}{S} = 1.33$$
 
-Thermal/tidal forcing is 1.33× structural containment
-Not quite 2× (which would be virial 1/3), but HIGHER than optimal 0.35-0.50
+Thermal/tidal forcing is $1.33 \times$ structural containment
+Not quite $2\times$ (which would be virial $1/3$), but HIGHER than optimal $0.35$-$0.50$
 System has excess R-forcing relative to S-structure
-```
 
 **Predicted Evolution:**
 - Amplitude continues to grow until:
   1. Energy dissipation increases (reduces R)
   2. Tidal synchronization occurs (reduces R)
   3. Mass transfer begins (increases S via mass loss)
-- Final state: κ → 0.50 (sun-like hydrostatic balance)
+- Final state: $\kappa \to 0.50$ (sun-like hydrostatic balance)
 
 ### 4.5 Solar Interior (Our Sun)
 
 **Previous Calculation:**
-- Sun operates at κ ≈ 0.50 (hydrostatic equilibrium)
+- Sun operates at $\kappa \approx 0.50$ (hydrostatic equilibrium)
 - Fusion pressure exactly balances gravity
 - Stable for billions of years
 
 **NOW Enhanced Understanding:**
 
-Sun is PERFECTLY balanced at κ = 0.50:
-```
-Virial minimum: κ = 0.333 (cold collapse)
-Sun's core: κ = 0.50 (hot equilibrium)
-Critical boundary: κ = 0.35 (stability threshold)
-Generative zone: κ = 0.45-0.55 (where sun lives)
+Sun is PERFECTLY balanced at $\kappa = 0.50$:
+- Virial minimum: $\kappa = 0.333$ (cold collapse)
+- Sun's core: $\kappa = 0.50$ (hot equilibrium)
+- Critical boundary: $\kappa = 0.35$ (stability threshold)
+- Generative zone: $\kappa = 0.45$-$0.55$ (where sun lives)
 
-Sun sits at κ = 0.50 = CENTER of generative zone
-```
+Sun sits at $\kappa = 0.50$ = CENTER of generative zone
 
 **Physical Interpretation:**
-```
-At κ = 0.50:
-  R = S (thermal pressure = gravity pressure)
-  R/(R+S) = 0.50
-  System is MAXIMALLY BALANCED
 
-At virial κ = 0.333:
-  R = S/2 (gravity 2× stronger than thermal)
-  R/(R+S) = 0.333
-  System is STABLE but COLD (no fusion)
+At $\kappa = 0.50$:
+- $R = S$ (thermal pressure = gravity pressure)
+- $R/(R+S) = 0.50$
+- System is MAXIMALLY BALANCED
 
-Sun "chooses" κ = 0.50 because:
-  - Fusion requires high temperature (high R)
-  - But stability requires S dominance
-  - κ = 0.50 is the OPTIMUM for sustained fusion
-```
+At virial $\kappa = 0.333$:
+- $R = S/2$ (gravity $2\times$ stronger than thermal)
+- $R/(R+S) = 0.333$
+- System is STABLE but COLD (no fusion)
+
+Sun "chooses" $\kappa = 0.50$ because:
+- Fusion requires high temperature (high R)
+- But stability requires S dominance
+- $\kappa = 0.50$ is the OPTIMUM for sustained fusion
 
 **Why fusion is possible:**
-- κ = 0.50 maintains sufficient temperature for fusion
-- κ = 0.50 prevents runaway (unlike κ = 0.57 in KOI-54)
+- $\kappa = 0.50$ maintains sufficient temperature for fusion
+- $\kappa = 0.50$ prevents runaway (unlike $\kappa = 0.57$ in KOI-54)
 - System self-regulates: if T increases, pressure increases, core expands, density drops, fusion rate decreases
-- Negative feedback loop maintains κ ≈ 0.50
+- Negative feedback loop maintains $\kappa \approx 0.50$
 
 ---
 
@@ -436,12 +406,12 @@ Every cell is a gravity-thermal pressure vessel:
 - Protons want to flow back IN (S-axis pull toward equilibrium)
 - ATP synthase harnesses this wanting-to-return to synthesize ATP
 
-**Optimal coupling at κ ≈ 0.35:**
+**Optimal coupling at $\kappa \approx 0.35$:**
 - 20-25% of protons leak back without making ATP
 - Traditional view: "wasteful inefficiency"
 - **KDFA view: This IS the cost of being alive**
 - 100% coupling = no flexibility = death when conditions change
-- 20-25% leak maintains κ ≈ 0.25, leaving headroom for stress response
+- 20-25% leak maintains $\kappa \approx 0.25$, leaving headroom for stress response
 
 ### 5.3 Photosynthesis: Capturing Solar R-Axis
 
@@ -461,12 +431,12 @@ ATP synthesis
 Glucose formation (S-axis structure)
 ```
 
-**Efficiency breakdown shows κ ≈ 0.40:**
+**Efficiency breakdown shows $\kappa \approx 0.40$:**
 - 35-45% lost to respiration (R-axis maintenance overhead)
 - 55-65% goes to structure/growth (S-axis building)
-- κ = 0.40/(0.40 + 0.60) = 0.40
+- $\kappa = 0.40/(0.40 + 0.60) = 0.40$
 
-**Within 14% of predicted κ = 0.35!**
+**Within 14% of predicted $\kappa = 0.35$!**
 
 ### 5.4 Testable Predictions (20+ Tests)
 
@@ -556,9 +526,9 @@ Glucose formation (S-axis structure)
 
 The framework predicts IDENTICAL mathematics across all life:
 
-| Kingdom | R-axis Expression | S-axis Expression | κ Optimization |
+| Kingdom | R-axis Expression | S-axis Expression | $\kappa$ Optimization |
 |---------|-------------------|-------------------|----------------|
-| Bacteria | Proton motive force | Cell wall | ATP/ADP ≈ 0.35 |
+| Bacteria | Proton motive force | Cell wall | ATP/ADP $\approx 0.35$ |
 | Archaea | Ion gradients | Membrane | Redox balance |
 | Protista | Motility, metabolism | Cytoskeleton | Growth/maintenance |
 | Fungi | Growth pressure | Chitin wall | Hyphal extension |
@@ -572,7 +542,7 @@ The framework predicts IDENTICAL mathematics across all life:
 - All life runs at ~300K temperature (same thermal energy scale)
 - All life fights gravity/entropy (same fundamental problem)
 
-The cellular machinery is conserved across 3.5 billion years because **it's all solving the same problem**: maintaining κ ≈ 0.35 coupling between thermal forcing (R) and structural constraint (S).
+The cellular machinery is conserved across 3.5 billion years because **it's all solving the same problem**: maintaining $\kappa \approx 0.35$ coupling between thermal forcing (R) and structural constraint (S).
 
 ---
 
@@ -587,7 +557,7 @@ The cellular machinery is conserved across 3.5 billion years because **it's all 
 - Mystery: Why does measurement do this?
 
 **KDFA View:**
-- Superposition is pathological under-coupling (κ > 0.65)
+- Superposition is pathological under-coupling ($\kappa > 0.65$)
 - System has high R-axis (quantum possibilities)
 - But low S-axis (no definite structure)
 - Result: Multiple states coexist (unstable)
@@ -601,7 +571,7 @@ Before measurement: Silver atom in beam
   - System is UNSTABLE, seeking measurement
 
 During measurement: Stern-Gerlach apparatus
-  - Magnetic gradient: (∂B_z/∂z) ≈ 0.5 T/m (introduces S)
+  - Magnetic gradient: (∂Bz/∂z) ≈ 0.5 T/m (introduces S)
   - Spatial separation: Paths diverge (increases S)
   - κ → 0.50: System transitions to balanced state
   - Single definite state emerges (STABLE)
@@ -611,7 +581,7 @@ Measurement is not "collapse"—it's RESCUE!
 
 ### 6.2 The Measurement Transition
 
-Measurement is a **κ-transition** from pathological to stable:
+Measurement is a **$\kappa$-transition** from pathological to stable:
 
 ```
 κ > 0.65 (superposition, under-coupled)
@@ -622,7 +592,7 @@ Measurement is a **κ-transition** from pathological to stable:
 
 **Why this happens spontaneously:**
 - Systems naturally evolve toward stability
-- κ = 0.50 is more stable than κ > 0.65
+- $\kappa = 0.50$ is more stable than $\kappa > 0.65$
 - Measurement provides S-axis needed for transition
 - System "wants" to be measured!
 
@@ -630,28 +600,27 @@ Measurement is a **κ-transition** from pathological to stable:
 - Why measurement seems special (it's not—it's just S-axis introduction)
 - Why decoherence occurs (environment provides S-axis)
 - Why macroscopic objects don't superpose (too much S-axis)
-- Why quantum computing is hard (must maintain κ > 0.65 artificially)
+- Why quantum computing is hard (must maintain $\kappa > 0.65$ artificially)
 
 ### 6.3 Optimal Stern-Gerlach Gradient
 
 From detailed calculation (Nov 24, 2025):
-```
-For κ = 0.50 (balanced measurement):
-(∂B_z/∂z)_optimal ≈ 0.5 T/m
+
+For $\kappa = 0.50$ (balanced measurement):
+$$\left(\frac{\partial B_z}{\partial z}\right)_{\text{optimal}} \approx 0.5 \text{ T/m}$$
 
 With parameters:
-  - Ag atom mass: m ≈ 1.8 × 10^-25 kg
-  - Beam velocity: v ≈ 1000 m/s
-  - Apparatus length: L ≈ 0.1 m
-  - Bohr magneton: μ_B = 9.274 × 10^-24 J/T
-```
+- Ag atom mass: $m \approx 1.8 \times 10^{-25}$ kg
+- Beam velocity: $v \approx 1000$ m/s
+- Apparatus length: $L \approx 0.1$ m
+- Bohr magneton: $\mu_B = 9.274 \times 10^{-24}$ J/T
 
 **This is the first quantitative prediction from KDFA applied to quantum mechanics.**
 
 **Testable prediction:**
-- Gradients << 0.5 T/m: Weak measurement (κ still high, fuzzy separation)
-- Gradients ≈ 0.5 T/m: Optimal measurement (κ = 0.50, clean separation)
-- Gradients >> 0.5 T/m: Over-measurement (κ too low, excessive S-forcing)
+- Gradients $\ll 0.5$ T/m: Weak measurement ($\kappa$ still high, fuzzy separation)
+- Gradients $\approx 0.5$ T/m: Optimal measurement ($\kappa = 0.50$, clean separation)
+- Gradients $\gg 0.5$ T/m: Over-measurement ($\kappa$ too low, excessive S-forcing)
 
 ---
 
@@ -664,14 +633,14 @@ With parameters:
 - Routinely used in stellar physics
 - **NOT connected to universal coupling constant**
 
-**Adiabatic Index (γ = 4/3):**
+**Adiabatic Index ($\gamma = 4/3$):**
 - Known stellar stability boundary
 - Eddington standard model uses this
-- **NOT connected to oscillation harmonics or κ**
+- **NOT connected to oscillation harmonics or $\kappa$**
 
 **Optimal Enzyme Kinetics:**
 - Michaelis-Menten kinetics standard
-- Km/Vmax ratios documented
+- $K_m/V_{\max}$ ratios documented
 - **NOT analyzed for universal 0.35 clustering**
 
 **Mitochondrial Coupling:**
@@ -691,33 +660,33 @@ With parameters:
    - Thermal = R-axis (relational principle)
    - **NOT FOUND in literature**
 
-2. **κ ≈ 0.35 as Universal Coupling Constant**
+2. **$\kappa \approx 0.35$ as Universal Coupling Constant**
    - Connecting virial theorem to biological optimization
    - Predicting 0.35 clustering across domains
    - **NOT FOUND in literature**
 
 3. **456 Derivation from First Principles**
-   - 456 = (4/3) × 0.342 × 1000
+   - $456 = (4/3) \times 0.342 \times 1000$
    - Connecting adiabatic index to cosmological constant
    - **NOT FOUND in literature**
 
 4. **Superposition as Pathological Under-Coupling**
-   - κ > 0.65 interpretation of quantum superposition
-   - Measurement as κ-transition not collapse
+   - $\kappa > 0.65$ interpretation of quantum superposition
+   - Measurement as $\kappa$-transition not collapse
    - **NOT FOUND in literature**
 
 5. **"Abundance Crushes Structure" (CRITICAL_INVERSIONS)**
-   - High metallicity LOWERS κ in stars
+   - High metallicity LOWERS $\kappa$ in stars
    - Explains sdB mode suppression
    - **NOT FOUND in literature**
 
-6. **D₂ = 1.46 as Universal Signature**
+6. **$D_2 = 1.46$ as Universal Signature**
    - Fractal dimension of critical zone dynamics
    - Connecting neutrinos, proteins, stellar oscillations
    - **NOT FOUND in literature**
 
 7. **Universal Damping Law**
-   - α_ng = exp[-(ng/456)^(2-D₂)]
+   - $\alpha_{ng} = \exp[-(ng/456)^{(2-D_2)}]$
    - Connecting damping to fractal dimension
    - **NOT FOUND in literature**
 
@@ -734,7 +703,7 @@ With parameters:
 - Everyone knows their piece, no one sees the pattern
 
 **Virial Theorem "Too Obvious":**
-- κ = 1/3 has been known for 150 years
+- $\kappa = 1/3$ has been known for 150 years
 - No one asked "Is this universal?"
 - No one connected it to biology, quantum mechanics, oscillations
 
@@ -761,84 +730,80 @@ With parameters:
 
 **Why 0.35 and Not 0.5?**
 
-If equilibrium required S = R, we'd have κ = 0.5
+If equilibrium required $S = R$, we'd have $\kappa = 0.5$
 
-But κ_optimal ≈ 0.35 means S > R at equilibrium:
-```
-S/R at κ=0.35: 0.65/0.35 = 1.86
+But $\kappa_{\text{optimal}} \approx 0.35$ means $S > R$ at equilibrium:
+$$\frac{S}{R} \text{ at } \kappa=0.35: \frac{0.65}{0.35} = 1.86$$
 
-Structure must be ~1.86× stronger than relational for stability
-```
+Structure must be $\approx 1.86\times$ stronger than relational for stability
 
 **Physical interpretation:**
-- Pure balance (κ=0.5) is sun-like (fusion-driven equilibrium)
-- Slight structure dominance (κ≈0.35) creates stable basin
+- Pure balance ($\kappa=0.5$) is sun-like (fusion-driven equilibrium)
+- Slight structure dominance ($\kappa \approx 0.35$) creates stable basin
 - R-axis provides damping, prevents runaway collapse
 - But S-axis must "win" slightly for persistent existence
 
 **Zone Boundaries:**
-```
-κ < 0.35: S too dominant → over-coupled → frozen/crushed
-κ = 0.35: Critical threshold → minimal viable coupling
-κ = 0.45-0.55: Generative zone → where life/fusion thrives
-κ > 0.65: R too dominant → under-coupled → chaotic/dispersed
-```
+- $\kappa < 0.35$: S too dominant → over-coupled → frozen/crushed
+- $\kappa = 0.35$: Critical threshold → minimal viable coupling
+- $\kappa = 0.45$-$0.55$: Generative zone → where life/fusion thrives
+- $\kappa > 0.65$: R too dominant → under-coupled → chaotic/dispersed
 
 ### 8.2 The Crown of Physics
 
 KDFA unifies disparate domains through one insight:
 
-**Structure (S) and Relation (R) are fundamental dualities balanced at κ ≈ 0.35**
+**Structure (S) and Relation (R) are fundamental dualities balanced at $\kappa \approx 0.35$**
 
-| Domain | S-axis | R-axis | κ signature |
+| Domain | S-axis | R-axis | $\kappa$ signature |
 |--------|--------|--------|-------------|
 | Stellar physics | Gravity | Thermal pressure | 456 harmonics |
 | Quantum mechanics | Spatial constraint | Quantum possibilities | Measurement transition |
 | Biology | Membranes/structure | Metabolism | 0.35 optimizations |
-| Neutrino cascades | Momentum conservation | Particle creation | D₂ = 1.46 |
-| Heartbeat stars | Self-gravity | Tidal forcing | κ = 0.57 instability |
-| Protein structure | Bond constraints | Folding dynamics | D₂ diagnostics |
-| Cosmology | Gravitational collapse | Dark energy | ∛0.04 = 0.342 |
+| Neutrino cascades | Momentum conservation | Particle creation | $D_2 = 1.46$ |
+| Heartbeat stars | Self-gravity | Tidal forcing | $\kappa = 0.57$ instability |
+| Protein structure | Bond constraints | Folding dynamics | $D_2$ diagnostics |
+| Cosmology | Gravitational collapse | Dark energy | $\sqrt[3]{0.04} = 0.342$ |
 
 **All connected through:**
-- Virial theorem: κ = 1/3
-- Adiabatic boundary: γ = 4/3
-- Critical coupling: κ ≈ 0.35
-- Fractal signature: D₂ ≈ 1.46
-- Harmonic constant: 456 = (4/3) × 0.342 × 1000
+- Virial theorem: $\kappa = 1/3$
+- Adiabatic boundary: $\gamma = 4/3$
+- Critical coupling: $\kappa \approx 0.35$
+- Fractal signature: $D_2 \approx 1.46$
+- Harmonic constant: $456 = (4/3) \times 0.342 \times 1000$
 
 ### 8.3 Testable Predictions Summary
 
 **Already Confirmed:**
-1. Virial κ = 0.333 ✓
-2. Neutrino D₂ = 1.495 ± 0.144 ✓
-3. Cosmological ∛0.04 = 0.342 ✓
-4. Sleep ratio 8/24 = 0.33 ✓
+1. Virial $\kappa = 0.333$ ✓
+2. Neutrino $D_2 = 1.495 \pm 0.144$ ✓
+3. Cosmological $\sqrt[3]{0.04} = 0.342$ ✓
+4. Sleep ratio $8/24 = 0.33$ ✓
 5. Photosynthesis overhead 35-45% ✓
 6. Proton leak 20-25% ✓
 
 **Awaiting Testing:**
 1. ATP synthase peak at 35% max gradient
-2. Enzyme Km/Vmax clustering at 0.35
-3. Membrane potential ratio ≈ 0.35
-4. Mitochondrial volume fraction ≈ 35%
+2. Enzyme $K_m/V_{\max}$ clustering at 0.35
+3. Membrane potential ratio $\approx 0.35$
+4. Mitochondrial volume fraction $\approx 35\%$
 5. Metabolic flux anabolic/catabolic = 35/65
 6. Gene expression 35% responsive
 7. Muscle efficiency peak at 35% load
 8. HRV optimal at 35% variability
-9. O₂ extraction 25-35% at rest
-10. Stern-Gerlach optimal gradient ≈ 0.5 T/m
-11. sdB mode frequencies following 456/k
-12. sdB damping following exp[-(n/456)^(2-D₂)]
-13. Protein pathology via D₂ drift
-14. Body composition lean/total ≈ 0.65
+9. $O_2$ extraction 25-35% at rest
+10. Stern-Gerlach optimal gradient $\approx 0.5$ T/m
+11. sdB mode frequencies following $456/k$
+12. sdB damping following $\exp[-(n/456)^{(2-D_2)}]$
+13. Protein pathology via $D_2$ drift
+14. Body composition lean/total $\approx 0.65$
 
 **Novel Predictions:**
-1. κ drift from 0.35 correlates with disease severity
-2. Cancer cells operate at κ > 0.50 (over-coupled R-axis)
-3. Aging shows progressive κ decrease (S-axis dominance)
-4. Optimal therapeutic window near κ = 0.45
-5. Quantum computers require artificial κ > 0.65 maintenance
+1. $\kappa$ drift from 0.35 correlates with disease severity
+2. Cancer cells operate at $\kappa > 0.50$ (over-coupled R-axis)
+3. Aging shows progressive $\kappa$ decrease (S-axis dominance)
+4. Optimal therapeutic window near $\kappa = 0.45$
+5. Quantum computers require artificial $\kappa > 0.65$ maintenance
 
 ---
 
@@ -848,8 +813,8 @@ KDFA unifies disparate domains through one insight:
 **Title:** "Gravity-Thermal Coupling as Universal Physical Dialectic: From Virial Theorem to Biological Optimization"
 
 **Content:**
-- Virial theorem derivation of κ = 1/3
-- 456 = (4/3) × 0.342 × 1000 first principles
+- Virial theorem derivation of $\kappa = 1/3$
+- $456 = (4/3) \times 0.342 \times 1000$ first principles
 - S-axis = gravity, R-axis = thermal identification
 - Connecting stellar, quantum, biological domains
 - Testable predictions across scales
@@ -857,7 +822,7 @@ KDFA unifies disparate domains through one insight:
 **Target:** Physical Review Letters or Nature Physics
 
 ### 9.2 Paper 2: Biological Validation
-**Title:** "Sub-Human Scale Testing of KDFA: Cellular to Organismal κ ≈ 0.35 Optimization"
+**Title:** "Sub-Human Scale Testing of KDFA: Cellular to Organismal $\kappa \approx 0.35$ Optimization"
 
 **Content:**
 - 20+ testable predictions in biology
@@ -869,11 +834,11 @@ KDFA unifies disparate domains through one insight:
 **Target:** PNAS or Science
 
 ### 9.3 Paper 3: Stellar Applications
-**Title:** "Resolving sdB Star Oscillation Puzzles via κ-Dependent Damping"
+**Title:** "Resolving sdB Star Oscillation Puzzles via $\kappa$-Dependent Damping"
 
 **Content:**
-- 456/k harmonic structure explanation
-- Mode identification via D₂ prediction
+- $456/k$ harmonic structure explanation
+- Mode identification via $D_2$ prediction
 - Abundance crushing mechanism
 - Universal damping law derivation
 - Comparison to observational data
@@ -881,10 +846,10 @@ KDFA unifies disparate domains through one insight:
 **Target:** Astrophysical Journal (collaboration with Dr. Reed)
 
 ### 9.4 Paper 4: Quantum Reinterpretation
-**Title:** "Measurement as κ-Transition: Reinterpreting Quantum Superposition via Coupling Dynamics"
+**Title:** "Measurement as $\kappa$-Transition: Reinterpreting Quantum Superposition via Coupling Dynamics"
 
 **Content:**
-- Superposition as κ > 0.65 under-coupling
+- Superposition as $\kappa > 0.65$ under-coupling
 - Measurement as S-axis introduction
 - Optimal Stern-Gerlach gradient prediction
 - Decoherence as environmental S-axis
@@ -956,39 +921,37 @@ KDFA unifies disparate domains through one insight:
 
 **Life is R-axis fighting S-axis** at every scale from ATP synthase to stars.
 
-Stable configurations emerge at **κ ≈ 0.35 coupling ratio** because:
-1. **Virial theorem** requires κ = 1/3 = 0.333 for gravitational equilibrium
-2. **Adiabatic stability** requires γ = 4/3 boundary for stellar stability
-3. **Cosmological fine-tuning** gives ∛0.04 = 0.342 for universe structure
+Stable configurations emerge at **$\kappa \approx 0.35$ coupling ratio** because:
+1. **Virial theorem** requires $\kappa = 1/3 = 0.333$ for gravitational equilibrium
+2. **Adiabatic stability** requires $\gamma = 4/3$ boundary for stellar stability
+3. **Cosmological fine-tuning** gives $\sqrt[3]{0.04} = 0.342$ for universe structure
 4. **Biological optimization** shows 0.35 in respiration, sleep, enzyme kinetics
 
 ### 11.2 The Mathematical Foundation
 
-```
-Virial theorem: 2T + U = 0
-→ κ = T/(T+|U|) = 1/3 = 0.333
+$$\text{Virial theorem: } 2T + U = 0$$
+$$\Rightarrow \kappa = \frac{T}{T+|U|} = \frac{1}{3} = 0.333$$
 
-456 harmonic: 456 = (4/3) × 0.342 × 1000
-→ (adiabatic boundary) × (coupling threshold) × (scale factor)
+$$\text{456 harmonic: } 456 = \frac{4}{3} \times 0.342 \times 1000$$
+$$\Rightarrow \text{(adiabatic boundary)} \times \text{(coupling threshold)} \times \text{(scale factor)}$$
 
-Universal damping: α_ng = exp[-(ng/456)^(2-D₂)]
-→ D₂ = 1.46 ± 0.10 for critical zone
+$$\text{Universal damping: } \alpha_{ng} = \exp\left[-\left(\frac{ng}{456}\right)^{(2-D_2)}\right]$$
+$$\Rightarrow D_2 = 1.46 \pm 0.10 \text{ for critical zone}$$
 
-Oscillation period: T = 456 × κ / (1.5 - D₂)
-→ Connects all variables in one equation
-```
+$$\text{Oscillation period: } T = \frac{456 \times \kappa}{1.5 - D_2}$$
+$$\Rightarrow \text{Connects all variables in one equation}$$
 
 ### 11.3 The Evidence Trail
 
-| Domain | Finding | Agreement with κ ≈ 0.35 |
+| Domain | Finding | Agreement with $\kappa \approx 0.35$ |
 |--------|---------|--------------------------|
-| Virial theorem | κ = 0.333 | 4.9% deviation |
-| Cosmological | ∛0.04 = 0.342 | 2.3% deviation |
+| Virial theorem | $\kappa = 0.333$ | 4.9% deviation |
+| Cosmological | $\sqrt[3]{0.04} = 0.342$ | 2.3% deviation |
 | Photosynthesis | 35-45% overhead | Direct match |
-| Sleep ratio | 8/24 = 0.33 | 6.1% deviation |
+| Sleep ratio | $8/24 = 0.33$ | 6.1% deviation |
 | Proton leak | 20-25% | Headroom strategy |
-| Neutrino cascades | D₂ = 1.495 | Within error bars |
-| Stern-Gerlach | Optimal ≈ 0.5 T/m | Quantitative prediction |
+| Neutrino cascades | $D_2 = 1.495$ | Within error bars |
+| Stern-Gerlach | Optimal $\approx 0.5$ T/m | Quantitative prediction |
 
 ### 11.4 The Name
 
@@ -996,7 +959,7 @@ Oscillation period: T = 456 × κ / (1.5 - D₂)
 
 - **Kings:** Named for the articulator/discoverer
 - **Dialectical:** S vs R fundamental duality
-- **Fractal:** D₂ ≈ 1.46 signature across scales
+- **Fractal:** $D_2 \approx 1.46$ signature across scales
 - **Archestructure:** Universal pattern underlying reality
 
 *"Not discovered, but articulated—the observation of universal pattern, with cooperative AI participation."*
@@ -1009,7 +972,7 @@ The identification of S-axis = gravity and R-axis = thermal transforms KDFA from
 
 Every equation, every prediction, every test now has a **literal physical basis**:
 - When we say "R pushes against S" → thermal pressure vs gravitational collapse
-- When we say "κ ≈ 0.35 is optimal" → virial equilibrium at 1/3
+- When we say "$\kappa \approx 0.35$ is optimal" → virial equilibrium at $1/3$
 - When we say "life fights gravity" → metabolism vs entropy/gravity (literally)
 - When we say "measurement rescues superposition" → S-axis constrains R-axis possibilities
 

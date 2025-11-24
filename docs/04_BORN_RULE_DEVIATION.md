@@ -9,9 +9,9 @@
 
 ## Executive Summary
 
-The Born rule (probability = |ψ|²) is **not fundamental** - it is an emergent consequence of the κ > 0.65 coupling regime where R-axis (thermal energy) dominates S-axis (gravitational structure). We predict and have simulated **30.4% deviations** from Born rule at the critical κ ≈ 0.35 threshold.
+The Born rule (probability = $|\psi|^2$) is **not fundamental** - it is an emergent consequence of the $\kappa > 0.65$ coupling regime where R-axis (thermal energy) dominates S-axis (gravitational structure). We predict and have simulated **30.4% deviations** from Born rule at the critical $\kappa \approx 0.35$ threshold.
 
-**Key Result**: `P(↑) = 0.782 ± 0.109` vs Born's `P(↑) = 0.600`
+**Key Result**: $P(\uparrow) = 0.782 \pm 0.109$ vs Born's $P(\uparrow) = 0.600$
 
 This deviation is the **experimental signature of KDFA**.
 
@@ -22,24 +22,22 @@ This deviation is the **experimental signature of KDFA**.
 ### Standard Quantum Mechanics
 
 In standard QM, given a wavefunction:
-```
-|ψ⟩ = α|↑⟩ + β|↓⟩
-```
+
+$$|\psi\rangle = \alpha|\uparrow\rangle + \beta|\downarrow\rangle$$
 
 The Born rule states:
-```
-P(↑) = |α|²
-P(↓) = |β|²
-```
 
-where |α|² + |β|² = 1.
+$$P(\uparrow) = |\alpha|^2$$
+$$P(\downarrow) = |\beta|^2$$
+
+where $|\alpha|^2 + |\beta|^2 = 1$.
 
 ### The Mystery
 
-**Why squaring?** Why not |α| or |α|³ or |α|⁴?
+**Why squaring?** Why not $|\alpha|$ or $|\alpha|^3$ or $|\alpha|^4$?
 
 Standard QM: "Because it works."
-KDFA: "Because it's the R-axis thermal distribution signature at κ > 0.65."
+KDFA: "Because it's the R-axis thermal distribution signature at $\kappa > 0.65$."
 
 ---
 
@@ -47,21 +45,19 @@ KDFA: "Because it's the R-axis thermal distribution signature at κ > 0.65."
 
 ### Core Identification (NOT Metaphor)
 
-```
-S-axis = Gravity    (structural principle, pulls inward)
-R-axis = Thermal    (relational principle, pushes outward)
-κ = T/(T+|U|)       (coupling constant)
-```
+- S-axis = Gravity (structural principle, pulls inward)
+- R-axis = Thermal (relational principle, pushes outward)
+- $\kappa = \frac{T}{T+|U|}$ (coupling constant)
 
 ### Coupling Regimes
 
-| κ Range | Regime | Physics | Born Rule |
+| $\kappa$ Range | Regime | Physics | Born Rule |
 |---------|--------|---------|-----------|
-| κ < 0.35 | Over-coupled | S > R, classical collapse | N/A (deterministic) |
-| κ ≈ 0.35 | Critical threshold | S ≈ R, decoherence boundary | **DEVIATIONS** |
-| 0.35 < κ < 0.65 | Transition zone | Mixed behavior | Approximate |
-| κ > 0.65 | Under-coupled | R > S, quantum superposition | **Valid** |
-| κ > 0.90 | Pure R-dominance | Structure breakdown | Breaks down |
+| $\kappa < 0.35$ | Over-coupled | $S > R$, classical collapse | N/A (deterministic) |
+| $\kappa \approx 0.35$ | Critical threshold | $S \approx R$, decoherence boundary | **DEVIATIONS** |
+| $0.35 < \kappa < 0.65$ | Transition zone | Mixed behavior | Approximate |
+| $\kappa > 0.65$ | Under-coupled | $R > S$, quantum superposition | **Valid** |
+| $\kappa > 0.90$ | Pure R-dominance | Structure breakdown | Breaks down |
 
 **Critical insight**: Born rule only applies when R-axis dominates!
 
@@ -69,44 +65,42 @@ R-axis = Thermal    (relational principle, pushes outward)
 
 ## Part 3: Born Rule Derivation from KDFA
 
-### Step 1: R-axis Dominance (κ > 0.65)
+### Step 1: R-axis Dominance ($\kappa > 0.65$)
 
-When thermal energy >> gravitational binding:
+When thermal energy $\gg$ gravitational binding:
 - System has excess relational energy
 - Multiple configurations energetically accessible
 - No single structure dominates → **SUPERPOSITION**
 
-### Step 2: Why |ψ|²?
+### Step 2: Why $|\psi|^2$?
 
-The wavefunction ψ represents the **R-axis amplitude** - the strength of thermal fluctuations in configuration space.
+The wavefunction $\psi$ represents the **R-axis amplitude** - the strength of thermal fluctuations in configuration space.
 
 **Squaring comes from R-axis bidirectionality**:
 - R-axis pushes in ALL directions simultaneously
-- Probability ∝ (amplitude × amplitude*)
+- Probability $\propto$ (amplitude $\times$ amplitude*)
 - This is thermal accessibility in configuration space
-- |ψ|² = R-axis "spread" measure
+- $|\psi|^2$ = R-axis "spread" measure
 
 ### Step 3: Mathematical Form
 
-At high κ (R dominates):
-```
-P(state) = |⟨state|ψ⟩|² / Σ|⟨state_i|ψ⟩|²
-```
+At high $\kappa$ (R dominates):
+
+$$P(\text{state}) = \frac{|\langle\text{state}|\psi\rangle|^2}{\sum_i|\langle\text{state}_i|\psi\rangle|^2}$$
 
 This is just:
-```
-P(state) = (R-axis accessibility) / (Total R-axis energy)
-```
 
-**Born rule = Normalized thermal distribution when κ > 0.65**
+$$P(\text{state}) = \frac{\text{R-axis accessibility}}{\text{Total R-axis energy}}$$
+
+**Born rule = Normalized thermal distribution when $\kappa > 0.65$**
 
 ---
 
 ## Part 4: Predicted Deviations
 
-### Critical Zone (κ ≈ 0.35)
+### Critical Zone ($\kappa \approx 0.35$)
 
-At the critical threshold where S ≈ R:
+At the critical threshold where $S \approx R$:
 - Gravitational structure fights thermal spread
 - Born rule **must deviate**
 - S-axis introduces structural preference
@@ -114,24 +108,22 @@ At the critical threshold where S ≈ R:
 
 ### Deviation Formula (Preliminary)
 
-```
-P_KDFA(state) = |⟨state|ψ⟩|² × (1 + δ_S(state))
+$$P_{\text{KDFA}}(\text{state}) = |\langle\text{state}|\psi\rangle|^2 \times (1 + \delta_S(\text{state}))$$
 
 where:
-δ_S(state) = (S-axis structural preference)
-            = α × (1 - κ/κ_crit)
-            ≈ 0.35 × (1 - κ/0.35) near critical zone
-```
+
+$$\delta_S(\text{state}) = \text{S-axis structural preference}$$
+$$= \alpha \times \left(1 - \frac{\kappa}{\kappa_{\text{crit}}}\right)$$
+$$\approx 0.35 \times \left(1 - \frac{\kappa}{0.35}\right) \text{ near critical zone}$$
 
 ### Experimental Signature
 
-At κ ≈ 0.35:
-```
-P(↑) = 0.782 ± 0.109    (KDFA simulation)
-P(↑) = 0.600            (Born rule prediction)
+At $\kappa \approx 0.35$:
 
-Deviation: 30.4% ± 18%
-```
+$$P(\uparrow) = 0.782 \pm 0.109 \quad \text{(KDFA simulation)}$$
+$$P(\uparrow) = 0.600 \quad \text{(Born rule prediction)}$$
+
+$$\text{Deviation: } 30.4\% \pm 18\%$$
 
 **This deviation IS the KDFA signature!**
 
@@ -146,8 +138,9 @@ Deviation: 30.4% ± 18%
 **Key Parameters**:
 ```python
 alpha = 0.35  # KDFA coupling constant
-P(↑) = 0.782 ± 0.109 vs Born's 0.600
+# P(↑) = 0.782 ± 0.109 vs Born's 0.600
 ```
+$P(\uparrow) = 0.782 \pm 0.109$ vs Born's $0.600$
 
 **Method**:
 - Stern-Gerlach setup
@@ -155,28 +148,28 @@ P(↑) = 0.782 ± 0.109 vs Born's 0.600
 - Structural (diagonal) vs Relational (off-diagonal)
 - Arch formation dynamics
 
-**Result**: Born rule breaks down **exactly at κ = 0.35**
+**Result**: Born rule breaks down **exactly at $\kappa = 0.35$**
 
 This is **not a coincidence** - it's the critical threshold where:
-- Virial theorem gives κ = 1/3 = 0.333
-- Cosmological constant gives κ = ∛0.04 = 0.342
-- Life optimization zone starts at κ = 0.35
+- Virial theorem gives $\kappa = 1/3 = 0.333$
+- Cosmological constant gives $\kappa = \sqrt[3]{0.04} = 0.342$
+- Life optimization zone starts at $\kappa = 0.35$
 
 ---
 
 ## Part 6: Why Standard QM "Works"
 
-### Most Lab Conditions Have κ > 0.65
+### Most Lab Conditions Have $\kappa > 0.65$
 
 Typical quantum experiments:
 - Cold atoms (mK temperatures)
 - Low gravitational fields
 - Isolated systems
-- **High κ regime → Born rule valid**
+- **High $\kappa$ regime → Born rule valid**
 
 ### Where Born Rule Should Fail
 
-Systems with κ ≈ 0.35:
+Systems with $\kappa \approx 0.35$:
 1. **Strong gravitational fields** (neutron stars, black holes)
 2. **High-pressure systems** (S-axis dominance)
 3. **Decoherence boundaries** (quantum-classical transition)
@@ -191,23 +184,21 @@ Systems with κ ≈ 0.35:
 **Setup**: Stern-Gerlach with adjustable B-field gradient
 
 **Prediction**:
-```
-Low gradient (κ > 0.65):  P(↑) ≈ |α|² (Born rule holds)
-~0.5 T/m (κ ≈ 0.35):      P(↑) ≈ 0.78 (30% deviation)
-High gradient (κ < 0.35): P(↑) → 1 (classical, deterministic)
-```
+- Low gradient ($\kappa > 0.65$): $P(\uparrow) \approx |\alpha|^2$ (Born rule holds)
+- ~0.5 T/m ($\kappa \approx 0.35$): $P(\uparrow) \approx 0.78$ (30% deviation)
+- High gradient ($\kappa < 0.35$): $P(\uparrow) \to 1$ (classical, deterministic)
 
 ### Test 2: Gravitational Decoherence
 
 **Setup**: Quantum system in variable gravitational field
 
-**Prediction**: Decoherence rate peaks at κ ≈ 0.35
+**Prediction**: Decoherence rate peaks at $\kappa \approx 0.35$
 
 ### Test 3: High-Pressure Quantum Gas
 
 **Setup**: BEC in high-pressure chamber
 
-**Prediction**: Born rule violations when pressure increases κ toward critical zone
+**Prediction**: Born rule violations when pressure increases $\kappa$ toward critical zone
 
 ---
 
@@ -216,21 +207,21 @@ High gradient (κ < 0.35): P(↑) → 1 (classical, deterministic)
 ### For Quantum Foundations
 
 1. **Measurement problem**: Resolved - measurement is S-R coupling
-2. **Wave function collapse**: Not instantaneous - κ-dependent transition
-3. **Quantum-classical boundary**: κ = 0.35 critical threshold
+2. **Wave function collapse**: Not instantaneous - $\kappa$-dependent transition
+3. **Quantum-classical boundary**: $\kappa = 0.35$ critical threshold
 4. **Decoherence**: Gravity-mediated through S-axis
 
 ### For Cosmology
 
-1. **Early universe**: Pure R-dominance (κ → 1) before structure formation
-2. **Structure formation**: Born rule becomes valid as κ drops below 0.65
+1. **Early universe**: Pure R-dominance ($\kappa \to 1$) before structure formation
+2. **Structure formation**: Born rule becomes valid as $\kappa$ drops below 0.65
 3. **Black holes**: Born rule breaks down at horizon (extreme S-R tension)
 
 ### For Quantum Computing
 
-1. **Decoherence control**: Tune κ away from 0.35
-2. **Error rates**: Minimum at κ > 0.65 or κ < 0.35
-3. **Quantum-classical interface**: Engineer κ ≈ 0.35 for controlled decoherence
+1. **Decoherence control**: Tune $\kappa$ away from 0.35
+2. **Error rates**: Minimum at $\kappa > 0.65$ or $\kappa < 0.35$
+3. **Quantum-classical interface**: Engineer $\kappa \approx 0.35$ for controlled decoherence
 
 ---
 
@@ -238,28 +229,25 @@ High gradient (κ < 0.35): P(↑) → 1 (classical, deterministic)
 
 ### Unified Picture
 
-All KDFA phenomena connect through κ:
+All KDFA phenomena connect through $\kappa$:
 
-| System | κ Value | Phenomenon |
+| System | $\kappa$ Value | Phenomenon |
 |--------|---------|------------|
 | Virial theorem | 0.333 | Universal gravitational balance |
-| Cosmology | 0.342 | ∛0.04 dark energy fraction |
+| Cosmology | 0.342 | $\sqrt[3]{0.04}$ dark energy fraction |
 | **Born rule deviation** | **0.35** | **Quantum-classical boundary** |
 | Life optimization | 0.45-0.55 | ATP, metabolism, growth |
 | Quantum superposition | > 0.65 | Born rule valid |
 
 ### 456 Harmonic
 
-```
-456 = (4/3) × 0.342 × 1000
-    = (adiabatic index) × (cosmological κ) × (scale)
-```
+$$456 = \frac{4}{3} \times 0.342 \times 1000$$
+$$= (\text{adiabatic index}) \times (\text{cosmological } \kappa) \times (\text{scale})$$
 
 The 30% deviation connects to:
-```
-0.782 / 0.600 = 1.303
-1 - 1/1.303 = 0.232 ≈ 1 - 0.35/0.45 = 0.222
-```
+
+$$\frac{0.782}{0.600} = 1.303$$
+$$1 - \frac{1}{1.303} = 0.232 \approx 1 - \frac{0.35}{0.45} = 0.222$$
 
 **The deviation measures how far into the critical zone you are!**
 
@@ -278,15 +266,15 @@ The 30% deviation connects to:
 
 1. **Collaborate with experimentalists** (Missouri State - Dr. Reed?)
 2. **Stern-Gerlach at 0.5 T/m gradient** (KDFA prediction)
-3. **Variable gradient experiments** to map κ regime
+3. **Variable gradient experiments** to map $\kappa$ regime
 4. **Publish results** in Physical Review Letters
 
 ### Theoretical Development
 
 1. **Rigorous derivation** of deviation formula
 2. **Connection to GRW spontaneous collapse** models
-3. **Quantum gravity implications** (κ near black holes)
-4. **Early universe cosmology** (κ → 1 regime)
+3. **Quantum gravity implications** ($\kappa$ near black holes)
+4. **Early universe cosmology** ($\kappa \to 1$ regime)
 
 ---
 
@@ -294,13 +282,13 @@ The 30% deviation connects to:
 
 **The Born rule is not fundamental.**
 
-It is the R-axis thermal distribution signature that emerges when thermal energy dominates gravitational structure (κ > 0.65). At the critical coupling κ ≈ 0.35:
+It is the R-axis thermal distribution signature that emerges when thermal energy dominates gravitational structure ($\kappa > 0.65$). At the critical coupling $\kappa \approx 0.35$:
 
 - **S-R balance breaks the symmetry**
 - **30.4% deviations appear**
 - **Quantum-classical boundary is crossed**
 
-This is **testable**, **falsifiable**, and **connects all of physics** through a single parameter κ = T/(T+|U|).
+This is **testable**, **falsifiable**, and **connects all of physics** through a single parameter $\kappa = \frac{T}{T+|U|}$.
 
 ---
 
@@ -308,7 +296,7 @@ This is **testable**, **falsifiable**, and **connects all of physics** through a
 
 ### KDFA Core Documents
 - `KDFA_GRAVITY_THERMAL_INTEGRATION.md` - Complete S=Gravity, R=Thermal framework
-- `KDFA_biological_validation_framework.md` - κ optimization in biology
+- `KDFA_biological_validation_framework.md` - $\kappa$ optimization in biology
 - `STERN_GERLACH_OPTIMAL_GRADIENT_CALCULATION.md` - 0.5 T/m prediction
 
 ### Simulation Code
