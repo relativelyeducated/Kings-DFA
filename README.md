@@ -206,9 +206,9 @@ If you use KDFA in your research, please cite:
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) for details.
+Creative Commons Attribution 4.0 International (CC-BY-4.0) - See [LICENSE](LICENSE) for details.
 
-This work is freely available for research, education, and commercial use.
+This work is freely available for research, education, and commercial use with attribution.
 
 ---
 
