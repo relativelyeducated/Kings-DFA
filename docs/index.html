@@ -4,248 +4,589 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kings DFA - The Reality Engine</title>
+
+    <!-- Distinctive Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg: #0d1117;
-            --card-bg: #161b22;
-            --text: #c9d1d9;
-            --accent: #58a6ff;
-            --border: #30363d;
-            --s-color: #f85149;
-            --r-color: #58a6ff;
-            --critical: #a371f7;
-            --life: #3fb950;
+            /* Distinctive color palette - warm physics aesthetic */
+            --bg-deep: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-elevated: #1a1a24;
+            --text-primary: #e8e6e3;
+            --text-secondary: #9a9590;
+            --text-muted: #6a6560;
+
+            /* Physics-inspired accent colors */
+            --s-color: #ff6b4a;      /* Gravity - warm red-orange */
+            --s-glow: rgba(255, 107, 74, 0.3);
+            --r-color: #4ecdc4;      /* Thermal - cool cyan */
+            --r-glow: rgba(78, 205, 196, 0.3);
+            --critical: #c49bff;     /* Critical point - violet */
+            --critical-glow: rgba(196, 155, 255, 0.3);
+            --life: #95d46c;         /* Life - organic green */
+
+            /* Borders and accents */
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.15);
         }
-        * { box-sizing: border-box; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: 'Crimson Pro', Georgia, serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 18px;
+            min-height: 100vh;
+
+            /* Layered background with subtle geometry */
+            background-image:
+                radial-gradient(ellipse at 20% 0%, rgba(255, 107, 74, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(78, 205, 196, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(196, 155, 255, 0.05) 0%, transparent 70%);
+            background-attachment: fixed;
+        }
+
+        .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2rem;
         }
-        h1 { color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; font-size: 2.5rem; }
-        h2 { color: var(--accent); margin-top: 3rem; font-size: 1.5rem; }
-        a { color: var(--accent); text-decoration: none; }
-        a:hover { text-decoration: underline; }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--critical) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            margin: 4rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--critical), transparent);
+        }
+
+        a {
+            color: var(--r-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--text-primary);
+            text-shadow: 0 0 20px var(--r-glow);
+        }
+
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        /* Hero Section */
         .hero {
             text-align: center;
-            padding: 2rem 0;
+            padding: 4rem 0 3rem;
+            animation: fadeInUp 0.8s ease-out;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
         .hero-equation {
-            font-size: 2rem;
-            color: #fff;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--text-primary);
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            display: inline-block;
+            animation: subtlePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(196, 155, 255, 0.1); }
+            50% { box-shadow: 0 0 50px rgba(196, 155, 255, 0.2); }
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Badges */
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
             margin: 1.5rem 0;
         }
+
         .badge {
-            display: inline-block;
-            background: var(--accent);
-            color: #000;
-            padding: 0.3rem 0.7rem;
-            border-radius: 3px;
-            font-size: 0.85rem;
-            margin: 0.2rem;
-            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .badge.s { background: var(--s-color); color: #fff; }
-        .badge.r { background: var(--r-color); color: #000; }
-        .badge.life { background: var(--life); color: #000; }
+
+        .badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge-physics { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border); }
+        .badge-quantum { background: rgba(196, 155, 255, 0.15); color: var(--critical); border: 1px solid var(--critical); }
+        .badge-testable { background: rgba(78, 205, 196, 0.15); color: var(--r-color); border: 1px solid var(--r-color); }
+        .badge-life { background: rgba(149, 212, 108, 0.15); color: var(--life); border: 1px solid var(--life); }
+
+        /* Insight Box */
+        .insight {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-left: 3px solid var(--critical);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .insight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, var(--s-glow) 0%, transparent 30%, transparent 70%, var(--r-glow) 100%);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .insight strong {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-primary);
+        }
+
+        .s-text { color: var(--s-color); font-weight: 600; }
+        .r-text { color: var(--r-color); font-weight: 600; }
+
+        /* Cards */
         .card {
-            background: var(--card-bg);
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 1.5rem;
-            margin: 1rem 0;
+            transition: all 0.3s ease;
         }
-        .card h3 { margin-top: 0; color: #fff; font-size: 1.2rem; }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .card ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .card ul li {
+            margin: 0.3rem 0;
+        }
+
+        .card-s { border-left: 3px solid var(--s-color); }
+        .card-r { border-left: 3px solid var(--r-color); }
+
+        .card-s h3 { color: var(--s-color); }
+        .card-r h3 { color: var(--r-color); }
+
+        /* Grid */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
         @media (max-width: 700px) {
             .grid, .grid-3 { grid-template-columns: 1fr; }
         }
+
+        /* SVG Container */
         .svg-container {
-            background: var(--card-bg);
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            text-align: center;
-        }
-        svg { max-width: 100%; height: auto; }
-        .equation-box {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border: 2px solid var(--critical);
             border-radius: 12px;
             padding: 2rem;
-            margin: 2rem 0;
-            text-align: center;
-        }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
-        th { color: #fff; }
-        .highlight-row { background: rgba(163, 113, 247, 0.15); }
-        .footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: #8b949e;
-        }
-        .insight {
-            background: linear-gradient(90deg, rgba(248, 81, 73, 0.1) 0%, rgba(88, 166, 255, 0.1) 100%);
-            border-left: 4px solid var(--critical);
-            padding: 1rem 1.5rem;
             margin: 1.5rem 0;
-            font-size: 1.1rem;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
         }
+
+        svg { max-width: 100%; height: auto; }
+
+        /* Equation Box */
+        .equation-box {
+            background: linear-gradient(135deg, rgba(196, 155, 255, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%);
+            border: 1px solid var(--critical);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equation-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--critical-glow), transparent 30%);
+            animation: rotate 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .equation-box-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .equation-box-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            color: var(--life);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .equation-box-main {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin: 1rem 0;
+        }
+
+        .equation-box-sub {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        .highlight-row {
+            background: rgba(196, 155, 255, 0.1);
+        }
+
+        .highlight-row td {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Iframe */
         iframe {
             width: 100%;
             height: 600px;
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             background: #fff;
         }
+
+        /* Footer */
+        .footer {
+            margin-top: 5rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+        }
+
+        .footer a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Link cards */
+        .link-card {
+            text-decoration: none;
+            display: block;
+        }
+
+        .link-card:hover {
+            text-decoration: none;
+        }
+
+        /* Prediction note */
+        .prediction-note {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        .prediction-note strong {
+            color: var(--text-primary);
+        }
+
+        /* Citation */
+        .citation {
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        /* Staggered animation for sections */
+        .section {
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
     </style>
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
+<div class="container">
+
 <!-- HERO -->
 <div class="hero">
     <h1>Kings DFA</h1>
-    <p style="font-size: 1.3rem; color: #8b949e; margin-bottom: 1rem;">The Reality Engine</p>
-    <p>
-        <span class="badge">Physics</span>
-        <span class="badge">Quantum Mechanics</span>
-        <span class="badge">Testable</span>
-        <span class="badge life">Biology</span>
-    </p>
+    <p class="hero-subtitle">The Reality Engine</p>
+
+    <div class="badges">
+        <span class="badge badge-physics">Theoretical Physics</span>
+        <span class="badge badge-quantum">Quantum Mechanics</span>
+        <span class="badge badge-testable">Experimentally Testable</span>
+        <span class="badge badge-life">Biology</span>
+    </div>
+
     <div class="hero-equation">\[ \kappa = \frac{T}{T + |U|} \approx 0.35 \]</div>
-    <p>One coupling constant unifies quantum mechanics, gravity, thermodynamics, and life.</p>
+
+    <p class="hero-description">
+        A single coupling constant unifies quantum mechanics, gravity, thermodynamics, and biological systems.
+    </p>
 </div>
 
-<!-- MAIN INSIGHT -->
+<!-- CORE INSIGHT -->
 <div class="insight">
-    <strong>The Core Insight:</strong> The universe operates at a critical balance between two forces —
-    <span style="color: var(--s-color);">GRAVITY</span> (structure, pulls inward) and
-    <span style="color: var(--r-color);">THERMAL</span> (relations, pushes outward).
-    At κ ≈ 0.35, they <em>interfere</em>.
+    <strong>The Core Insight:</strong> The universe operates at a critical balance between
+    <span class="s-text">GRAVITY</span> (structure, pulls inward) and
+    <span class="r-text">THERMAL</span> (relations, pushes outward).
+    At <em>κ ≈ 0.35</em>, these forces interfere, creating the conditions for measurement, life, and complexity.
 </div>
 
-<!-- KAPPA SCALE VISUALIZATION -->
+<!-- KAPPA SCALE -->
+<section class="section">
 <h2>The κ Coupling Scale</h2>
 <div class="svg-container">
     <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
-        <!-- Background -->
         <defs>
             <linearGradient id="scaleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#f85149;stop-opacity:0.8" />
-                <stop offset="35%" style="stop-color:#a371f7;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#3fb950;stop-opacity:0.8" />
-                <stop offset="100%" style="stop-color:#58a6ff;stop-opacity:0.8" />
+                <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:0.9" />
+                <stop offset="35%" style="stop-color:#c49bff;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#95d46c;stop-opacity:0.9" />
+                <stop offset="100%" style="stop-color:#4ecdc4;stop-opacity:0.9" />
             </linearGradient>
         </defs>
 
-        <!-- Scale bar -->
-        <rect x="50" y="80" width="700" height="40" rx="5" fill="url(#scaleGrad)" />
+        <rect x="50" y="80" width="700" height="40" rx="20" fill="url(#scaleGrad)" />
 
-        <!-- Tick marks and labels -->
-        <line x1="50" y1="125" x2="50" y2="140" stroke="#c9d1d9" stroke-width="2"/>
-        <text x="50" y="160" fill="#c9d1d9" text-anchor="middle" font-size="14">0</text>
-        <text x="50" y="180" fill="#8b949e" text-anchor="middle" font-size="11">Frozen</text>
+        <line x1="50" y1="125" x2="50" y2="140" stroke="#e8e6e3" stroke-width="2"/>
+        <text x="50" y="160" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="14">0</text>
+        <text x="50" y="180" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Frozen</text>
 
-        <line x1="283" y1="125" x2="283" y2="145" stroke="#a371f7" stroke-width="3"/>
-        <text x="283" y="165" fill="#a371f7" text-anchor="middle" font-size="14" font-weight="bold">0.333</text>
-        <text x="283" y="185" fill="#8b949e" text-anchor="middle" font-size="11">Virial</text>
+        <line x1="283" y1="125" x2="283" y2="145" stroke="#c49bff" stroke-width="3"/>
+        <text x="283" y="165" fill="#c49bff" text-anchor="middle" font-family="Space Grotesk" font-size="14" font-weight="bold">0.333</text>
+        <text x="283" y="185" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Virial</text>
 
-        <line x1="295" y1="70" x2="295" y2="80" stroke="#fff" stroke-width="3"/>
-        <text x="295" y="55" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">κ = 0.35</text>
-        <text x="295" y="35" fill="#a371f7" text-anchor="middle" font-size="12">CRITICAL</text>
+        <line x1="295" y1="65" x2="295" y2="80" stroke="#fff" stroke-width="3"/>
+        <text x="295" y="50" fill="#fff" text-anchor="middle" font-family="Space Grotesk" font-size="16" font-weight="bold">κ = 0.35</text>
+        <text x="295" y="30" fill="#c49bff" text-anchor="middle" font-family="Space Grotesk" font-size="11" letter-spacing="2">CRITICAL</text>
 
-        <line x1="400" y1="125" x2="400" y2="140" stroke="#3fb950" stroke-width="2"/>
-        <text x="400" y="160" fill="#3fb950" text-anchor="middle" font-size="14">0.45-0.55</text>
-        <text x="400" y="180" fill="#8b949e" text-anchor="middle" font-size="11">LIFE</text>
+        <line x1="400" y1="125" x2="400" y2="140" stroke="#95d46c" stroke-width="2"/>
+        <text x="400" y="160" fill="#95d46c" text-anchor="middle" font-family="Space Grotesk" font-size="14">0.45–0.55</text>
+        <text x="400" y="180" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Life Zone</text>
 
-        <line x1="505" y1="125" x2="505" y2="140" stroke="#c9d1d9" stroke-width="2"/>
-        <text x="505" y="160" fill="#c9d1d9" text-anchor="middle" font-size="14">0.65</text>
-        <text x="505" y="180" fill="#8b949e" text-anchor="middle" font-size="11">Quantum</text>
+        <line x1="505" y1="125" x2="505" y2="140" stroke="#e8e6e3" stroke-width="2"/>
+        <text x="505" y="160" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="14">0.65</text>
+        <text x="505" y="180" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Quantum</text>
 
-        <line x1="750" y1="125" x2="750" y2="140" stroke="#c9d1d9" stroke-width="2"/>
-        <text x="750" y="160" fill="#c9d1d9" text-anchor="middle" font-size="14">1</text>
-        <text x="750" y="180" fill="#8b949e" text-anchor="middle" font-size="11">Pure Wave</text>
+        <line x1="750" y1="125" x2="750" y2="140" stroke="#e8e6e3" stroke-width="2"/>
+        <text x="750" y="160" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="14">1</text>
+        <text x="750" y="180" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Pure Wave</text>
 
-        <!-- Labels on bar -->
-        <text x="120" y="105" fill="#fff" font-size="12" font-weight="bold">CLASSICAL</text>
-        <text x="550" y="105" fill="#fff" font-size="12" font-weight="bold">QUANTUM</text>
+        <text x="130" y="105" fill="#fff" font-family="Space Grotesk" font-size="11" font-weight="500" letter-spacing="1">CLASSICAL</text>
+        <text x="600" y="105" fill="#fff" font-family="Space Grotesk" font-size="11" font-weight="500" letter-spacing="1">QUANTUM</text>
     </svg>
 </div>
+</section>
 
 <!-- S-R IDENTIFICATION -->
+<section class="section">
 <h2>S-R Axis Identification</h2>
 <div class="svg-container">
     <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
-        <!-- S-axis (left) -->
-        <circle cx="150" cy="150" r="100" fill="none" stroke="#f85149" stroke-width="4"/>
-        <text x="150" y="140" fill="#f85149" text-anchor="middle" font-size="28" font-weight="bold">S</text>
-        <text x="150" y="170" fill="#c9d1d9" text-anchor="middle" font-size="14">GRAVITY</text>
-
-        <!-- Arrows pointing inward for S -->
-        <path d="M150 30 L150 50" stroke="#f85149" stroke-width="3" marker-end="url(#arrowS)"/>
-        <path d="M150 270 L150 250" stroke="#f85149" stroke-width="3" marker-end="url(#arrowS)"/>
-        <path d="M30 150 L50 150" stroke="#f85149" stroke-width="3" marker-end="url(#arrowS)"/>
-        <path d="M270 150 L250 150" stroke="#f85149" stroke-width="3" marker-end="url(#arrowS)"/>
-
-        <!-- R-axis (right) -->
-        <circle cx="650" cy="150" r="100" fill="none" stroke="#58a6ff" stroke-width="4"/>
-        <text x="650" y="140" fill="#58a6ff" text-anchor="middle" font-size="28" font-weight="bold">R</text>
-        <text x="650" y="170" fill="#c9d1d9" text-anchor="middle" font-size="14">THERMAL</text>
-
-        <!-- Arrows pointing outward for R -->
-        <path d="M650 50 L650 30" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrowR)"/>
-        <path d="M650 250 L650 270" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrowR)"/>
-        <path d="M550 150 L530 150" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrowR)"/>
-        <path d="M750 150 L770 150" stroke="#58a6ff" stroke-width="3" marker-end="url(#arrowR)"/>
-
-        <!-- VS in middle -->
-        <text x="400" y="140" fill="#a371f7" text-anchor="middle" font-size="24" font-weight="bold">κ = 0.35</text>
-        <text x="400" y="170" fill="#c9d1d9" text-anchor="middle" font-size="14">interference</text>
-
-        <!-- Connecting line -->
-        <line x1="250" y1="150" x2="350" y2="150" stroke="#a371f7" stroke-width="2" stroke-dasharray="5,5"/>
-        <line x1="450" y1="150" x2="550" y2="150" stroke="#a371f7" stroke-width="2" stroke-dasharray="5,5"/>
-
-        <!-- Arrow markers -->
         <defs>
             <marker id="arrowS" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                <path d="M0,0 L10,5 L0,10 Z" fill="#f85149"/>
+                <path d="M0,0 L10,5 L0,10 Z" fill="#ff6b4a"/>
             </marker>
             <marker id="arrowR" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                <path d="M0,0 L10,5 L0,10 Z" fill="#58a6ff"/>
+                <path d="M0,0 L10,5 L0,10 Z" fill="#4ecdc4"/>
             </marker>
         </defs>
 
-        <!-- Labels below -->
-        <text x="150" y="280" fill="#f85149" text-anchor="middle" font-size="12">Force • Potential • Constraint</text>
-        <text x="650" y="280" fill="#58a6ff" text-anchor="middle" font-size="12">Momentum • Kinetic • Entropy</text>
+        <!-- S-axis -->
+        <circle cx="150" cy="150" r="100" fill="none" stroke="#ff6b4a" stroke-width="3"/>
+        <text x="150" y="140" fill="#ff6b4a" text-anchor="middle" font-family="Space Grotesk" font-size="32" font-weight="bold">S</text>
+        <text x="150" y="170" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="13">GRAVITY</text>
+
+        <path d="M150 30 L150 50" stroke="#ff6b4a" stroke-width="3" marker-end="url(#arrowS)"/>
+        <path d="M150 270 L150 250" stroke="#ff6b4a" stroke-width="3" marker-end="url(#arrowS)"/>
+        <path d="M30 150 L50 150" stroke="#ff6b4a" stroke-width="3" marker-end="url(#arrowS)"/>
+        <path d="M270 150 L250 150" stroke="#ff6b4a" stroke-width="3" marker-end="url(#arrowS)"/>
+
+        <!-- R-axis -->
+        <circle cx="650" cy="150" r="100" fill="none" stroke="#4ecdc4" stroke-width="3"/>
+        <text x="650" y="140" fill="#4ecdc4" text-anchor="middle" font-family="Space Grotesk" font-size="32" font-weight="bold">R</text>
+        <text x="650" y="170" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="13">THERMAL</text>
+
+        <path d="M650 50 L650 30" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowR)"/>
+        <path d="M650 250 L650 270" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowR)"/>
+        <path d="M550 150 L530 150" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowR)"/>
+        <path d="M750 150 L770 150" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowR)"/>
+
+        <!-- Center -->
+        <text x="400" y="135" fill="#c49bff" text-anchor="middle" font-family="Space Grotesk" font-size="22" font-weight="bold">κ = 0.35</text>
+        <text x="400" y="165" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="14" font-style="italic">interference</text>
+
+        <line x1="250" y1="150" x2="350" y2="150" stroke="#c49bff" stroke-width="2" stroke-dasharray="8,4" opacity="0.6"/>
+        <line x1="450" y1="150" x2="550" y2="150" stroke="#c49bff" stroke-width="2" stroke-dasharray="8,4" opacity="0.6"/>
+
+        <text x="150" y="280" fill="#ff6b4a" text-anchor="middle" font-family="Crimson Pro" font-size="12">Force · Potential · Constraint</text>
+        <text x="650" y="280" fill="#4ecdc4" text-anchor="middle" font-family="Crimson Pro" font-size="12">Momentum · Kinetic · Entropy</text>
     </svg>
 </div>
 
 <div class="grid">
-    <div class="card" style="border-left: 4px solid var(--s-color);">
-        <h3 style="color: var(--s-color);">S-axis = GRAVITY</h3>
-        <ul style="margin: 0; padding-left: 1.2rem;">
+    <div class="card card-s">
+        <h3>S-axis = GRAVITY</h3>
+        <ul>
             <li>Force: \( \vec{F} = -\nabla U \)</li>
             <li>Potential Energy \( U \)</li>
             <li>Least Action Principle</li>
             <li>Structure, Constraint, Inward</li>
         </ul>
     </div>
-    <div class="card" style="border-left: 4px solid var(--r-color);">
-        <h3 style="color: var(--r-color);">R-axis = THERMAL</h3>
-        <ul style="margin: 0; padding-left: 1.2rem;">
+    <div class="card card-r">
+        <h3>R-axis = THERMAL</h3>
+        <ul>
             <li>Momentum: \( \vec{p} = m\vec{v} \)</li>
             <li>Kinetic Energy \( T \)</li>
             <li>Entropy Maximization</li>
@@ -253,72 +594,68 @@
         </ul>
     </div>
 </div>
+</section>
 
 <!-- LIFE EQUATION -->
 <div class="equation-box">
-    <p style="font-size: 1.3rem; margin: 0 0 1rem 0; color: var(--life);">The Equation of Life</p>
-    <div style="font-size: 1.8rem; color: #fff;">
-        \[ \text{Life} = \text{Thermal} \leftrightharpoons \text{Gravity} \]
+    <div class="equation-box-content">
+        <p class="equation-box-title">The Equation of Life</p>
+        <div class="equation-box-main">\[ \text{Life} = \text{Thermal} \leftrightharpoons \text{Gravity} \]</div>
+        <p class="equation-box-sub">
+            All living systems are <span class="r-text">R-axis</span> (thermal processes)
+            fighting against <span class="s-text">S-axis</span> (gravitational collapse).
+        </p>
     </div>
-    <p style="margin: 1rem 0 0 0; color: #8b949e;">
-        All living systems are <span style="color: var(--r-color);">R-axis</span> (thermal processes)
-        fighting against <span style="color: var(--s-color);">S-axis</span> (gravitational collapse).
-    </p>
 </div>
 
 <!-- PHASE SPACE -->
+<section class="section">
 <h2>Phase Space: The S-R Dialectic</h2>
 <div class="svg-container">
     <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
-        <!-- Axes -->
-        <line x1="50" y1="350" x2="450" y2="350" stroke="#c9d1d9" stroke-width="2"/>
-        <line x1="50" y1="350" x2="50" y2="50" stroke="#c9d1d9" stroke-width="2"/>
-
-        <!-- Arrow heads -->
-        <polygon points="450,350 440,345 440,355" fill="#c9d1d9"/>
-        <polygon points="50,50 45,60 55,60" fill="#c9d1d9"/>
-
-        <!-- Axis labels -->
-        <text x="460" y="355" fill="#f85149" font-size="16" font-weight="bold">x (S-axis)</text>
-        <text x="60" y="45" fill="#58a6ff" font-size="16" font-weight="bold">p (R-axis)</text>
-
-        <!-- Phase space trajectory (ellipse) -->
-        <ellipse cx="250" cy="200" rx="150" ry="120" fill="none" stroke="#a371f7" stroke-width="3"/>
-
-        <!-- Direction arrow on ellipse -->
-        <path d="M400 200 Q 400 100, 250 80" fill="none" stroke="#a371f7" stroke-width="2" marker-end="url(#arrowP)"/>
-
-        <!-- Points on trajectory -->
-        <circle cx="400" cy="200" r="8" fill="#f85149"/>
-        <text x="415" y="195" fill="#f85149" font-size="12">max x</text>
-
-        <circle cx="100" cy="200" r="8" fill="#f85149"/>
-        <text x="60" y="195" fill="#f85149" font-size="12">min x</text>
-
-        <circle cx="250" cy="80" r="8" fill="#58a6ff"/>
-        <text x="260" y="75" fill="#58a6ff" font-size="12">max p</text>
-
-        <circle cx="250" cy="320" r="8" fill="#58a6ff"/>
-        <text x="260" y="335" fill="#58a6ff" font-size="12">min p</text>
-
-        <!-- Center point -->
-        <circle cx="250" cy="200" r="5" fill="#3fb950"/>
-        <text x="260" y="205" fill="#3fb950" font-size="12">equilibrium</text>
-
-        <!-- Equation -->
-        <text x="250" y="380" fill="#c9d1d9" text-anchor="middle" font-size="14">
-            Newton's 2nd Law: F = dp/dt (S-axis curves R-axis)
-        </text>
-
         <defs>
             <marker id="arrowP" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                <path d="M0,0 L10,5 L0,10 Z" fill="#a371f7"/>
+                <path d="M0,0 L10,5 L0,10 Z" fill="#c49bff"/>
             </marker>
         </defs>
+
+        <line x1="50" y1="350" x2="450" y2="350" stroke="#e8e6e3" stroke-width="2"/>
+        <line x1="50" y1="350" x2="50" y2="50" stroke="#e8e6e3" stroke-width="2"/>
+
+        <polygon points="450,350 440,345 440,355" fill="#e8e6e3"/>
+        <polygon points="50,50 45,60 55,60" fill="#e8e6e3"/>
+
+        <text x="460" y="355" fill="#ff6b4a" font-family="Space Grotesk" font-size="14" font-weight="bold">x (S)</text>
+        <text x="60" y="45" fill="#4ecdc4" font-family="Space Grotesk" font-size="14" font-weight="bold">p (R)</text>
+
+        <ellipse cx="250" cy="200" rx="150" ry="120" fill="none" stroke="#c49bff" stroke-width="3"/>
+
+        <path d="M400 200 Q 400 100, 250 80" fill="none" stroke="#c49bff" stroke-width="2" marker-end="url(#arrowP)"/>
+
+        <circle cx="400" cy="200" r="8" fill="#ff6b4a"/>
+        <text x="415" y="195" fill="#ff6b4a" font-family="Crimson Pro" font-size="12">max x</text>
+
+        <circle cx="100" cy="200" r="8" fill="#ff6b4a"/>
+        <text x="60" y="195" fill="#ff6b4a" font-family="Crimson Pro" font-size="12">min x</text>
+
+        <circle cx="250" cy="80" r="8" fill="#4ecdc4"/>
+        <text x="260" y="75" fill="#4ecdc4" font-family="Crimson Pro" font-size="12">max p</text>
+
+        <circle cx="250" cy="320" r="8" fill="#4ecdc4"/>
+        <text x="260" y="335" fill="#4ecdc4" font-family="Crimson Pro" font-size="12">min p</text>
+
+        <circle cx="250" cy="200" r="6" fill="#95d46c"/>
+        <text x="260" y="205" fill="#95d46c" font-family="Crimson Pro" font-size="12">equilibrium</text>
+
+        <text x="250" y="385" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="13" font-style="italic">
+            Newton's 2nd Law: F = dp/dt — S-axis curves R-axis
+        </text>
     </svg>
 </div>
+</section>
 
 <!-- VALIDATED PREDICTIONS -->
+<section class="section">
 <h2>Validated Predictions</h2>
 <div class="card">
     <table>
@@ -332,124 +669,128 @@
             <td>Virial Theorem (1870)</td>
             <td>0.333</td>
             <td>\( 2T + U = 0 \)</td>
-            <td>✅ Validated</td>
+            <td>Validated</td>
         </tr>
         <tr>
             <td>Cosmology (Dark Energy)</td>
             <td>0.342</td>
             <td>\( \sqrt[3]{\Omega_\Lambda} \)</td>
-            <td>✅ Validated</td>
+            <td>Validated</td>
         </tr>
         <tr>
             <td>Biology (ATP Efficiency)</td>
-            <td>0.45-0.55</td>
+            <td>0.45–0.55</td>
             <td>Metabolic overhead</td>
-            <td>✅ Validated</td>
+            <td>Validated</td>
         </tr>
         <tr>
             <td>Sleep Ratio</td>
             <td>0.333</td>
             <td>8/24 hours</td>
-            <td>✅ Validated</td>
+            <td>Validated</td>
         </tr>
         <tr class="highlight-row">
             <td><strong>Born Rule Deviation</strong></td>
             <td><strong>~0.35</strong></td>
             <td>Stern-Gerlach @ 0.5 T/m</td>
-            <td>🔬 <strong>Testable</strong></td>
+            <td><strong>Testable</strong></td>
         </tr>
     </table>
 </div>
+</section>
 
 <!-- BORN RULE PREDICTION -->
+<section class="section">
 <h2>Key Prediction: Born Rule Deviation</h2>
 <div class="svg-container">
     <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
-        <!-- Axes -->
-        <line x1="80" y1="250" x2="550" y2="250" stroke="#c9d1d9" stroke-width="2"/>
-        <line x1="80" y1="250" x2="80" y2="50" stroke="#c9d1d9" stroke-width="2"/>
+        <line x1="80" y1="250" x2="550" y2="250" stroke="#e8e6e3" stroke-width="2"/>
+        <line x1="80" y1="250" x2="80" y2="50" stroke="#e8e6e3" stroke-width="2"/>
 
-        <!-- Axis labels -->
-        <text x="300" y="285" fill="#c9d1d9" text-anchor="middle" font-size="14">Magnetic Gradient (T/m)</text>
-        <text x="30" y="150" fill="#c9d1d9" text-anchor="middle" font-size="14" transform="rotate(-90, 30, 150)">P(↑)</text>
+        <text x="300" y="285" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="13">Magnetic Gradient (T/m)</text>
+        <text x="30" y="150" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="13" transform="rotate(-90, 30, 150)">P(↑)</text>
 
-        <!-- Grid lines -->
-        <line x1="80" y1="150" x2="550" y2="150" stroke="#30363d" stroke-width="1" stroke-dasharray="5,5"/>
-        <line x1="80" y1="100" x2="550" y2="100" stroke="#30363d" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="80" y1="150" x2="550" y2="150" stroke="#3a3a44" stroke-width="1" stroke-dasharray="5,5"/>
+        <line x1="80" y1="100" x2="550" y2="100" stroke="#3a3a44" stroke-width="1" stroke-dasharray="5,5"/>
 
-        <!-- Born rule line -->
-        <line x1="80" y1="150" x2="550" y2="150" stroke="#8b949e" stroke-width="2"/>
-        <text x="560" y="155" fill="#8b949e" font-size="12">Born: 0.60</text>
+        <line x1="80" y1="150" x2="550" y2="150" stroke="#6a6560" stroke-width="2"/>
+        <text x="560" y="155" fill="#6a6560" font-family="Crimson Pro" font-size="11">Born: 0.60</text>
 
-        <!-- KDFA prediction curve -->
-        <path d="M80 80 Q 200 80, 250 100 Q 300 130, 350 150 Q 450 150, 550 150"
-              fill="none" stroke="#a371f7" stroke-width="3"/>
+        <path d="M80 80 Q 200 80, 250 100 Q 300 130, 350 150 Q 450 150, 550 150" fill="none" stroke="#c49bff" stroke-width="3"/>
 
-        <!-- Deviation region -->
-        <path d="M80 150 L80 80 Q 200 80, 250 100 Q 300 130, 350 150 Z"
-              fill="#a371f7" fill-opacity="0.2"/>
+        <path d="M80 150 L80 80 Q 200 80, 250 100 Q 300 130, 350 150 Z" fill="#c49bff" fill-opacity="0.15"/>
 
-        <!-- Critical point marker -->
-        <line x1="200" y1="250" x2="200" y2="80" stroke="#f85149" stroke-width="2" stroke-dasharray="5,5"/>
-        <circle cx="200" cy="85" r="8" fill="#f85149"/>
-        <text x="200" y="270" fill="#f85149" text-anchor="middle" font-size="12">~0.5 T/m</text>
-        <text x="215" y="75" fill="#f85149" font-size="12">25% deviation</text>
+        <line x1="200" y1="250" x2="200" y2="80" stroke="#ff6b4a" stroke-width="2" stroke-dasharray="5,5"/>
+        <circle cx="200" cy="85" r="8" fill="#ff6b4a"/>
+        <text x="200" y="270" fill="#ff6b4a" text-anchor="middle" font-family="Space Grotesk" font-size="11">~0.5 T/m</text>
+        <text x="220" y="75" fill="#ff6b4a" font-family="Space Grotesk" font-size="11" font-weight="bold">25% deviation</text>
 
-        <!-- Y-axis labels -->
-        <text x="70" y="255" fill="#c9d1d9" text-anchor="end" font-size="12">0.50</text>
-        <text x="70" y="155" fill="#c9d1d9" text-anchor="end" font-size="12">0.60</text>
-        <text x="70" y="105" fill="#c9d1d9" text-anchor="end" font-size="12">0.70</text>
-        <text x="70" y="55" fill="#c9d1d9" text-anchor="end" font-size="12">0.80</text>
+        <text x="70" y="255" fill="#9a9590" text-anchor="end" font-family="JetBrains Mono" font-size="10">0.50</text>
+        <text x="70" y="155" fill="#9a9590" text-anchor="end" font-family="JetBrains Mono" font-size="10">0.60</text>
+        <text x="70" y="105" fill="#9a9590" text-anchor="end" font-family="JetBrains Mono" font-size="10">0.70</text>
+        <text x="70" y="55" fill="#9a9590" text-anchor="end" font-family="JetBrains Mono" font-size="10">0.80</text>
 
-        <!-- Legend -->
-        <rect x="400" y="60" width="140" height="50" fill="#161b22" stroke="#30363d" rx="5"/>
-        <line x1="410" y1="75" x2="440" y2="75" stroke="#a371f7" stroke-width="3"/>
-        <text x="450" y="80" fill="#c9d1d9" font-size="11">KDFA Prediction</text>
-        <line x1="410" y1="95" x2="440" y2="95" stroke="#8b949e" stroke-width="2"/>
-        <text x="450" y="100" fill="#c9d1d9" font-size="11">Standard QM</text>
+        <rect x="420" y="60" width="120" height="45" fill="#12121a" stroke="#3a3a44" rx="6"/>
+        <line x1="430" y1="75" x2="455" y2="75" stroke="#c49bff" stroke-width="3"/>
+        <text x="465" y="79" fill="#9a9590" font-family="Crimson Pro" font-size="10">KDFA Prediction</text>
+        <line x1="430" y1="92" x2="455" y2="92" stroke="#6a6560" stroke-width="2"/>
+        <text x="465" y="96" fill="#9a9590" font-family="Crimson Pro" font-size="10">Standard QM</text>
     </svg>
 </div>
-<p style="text-align: center; color: #8b949e;">
-    <strong>Testable prediction:</strong> At gradient ≈ 0.5 T/m (κ ≈ 0.35), quantum measurement shows ~25% deviation from Born rule.
-    <br>Cost: ~$50K | Timeline: 6-12 months
+<p class="prediction-note">
+    <strong>Testable prediction:</strong> At gradient ≈ 0.5 T/m (κ ≈ 0.35), quantum measurement shows ~25% deviation from Born rule.<br>
+    Cost: ~$50K · Timeline: 6–12 months
 </p>
+</section>
 
 <!-- INTERACTIVE NOTEBOOK -->
+<section class="section">
 <h2>Interactive Notebook</h2>
-<p>Run the simulations yourself — explore κ regimes, Born rule deviations, and phase space:</p>
+<p style="color: var(--text-secondary); margin-bottom: 1rem;">Run the simulations yourself — explore κ regimes, Born rule deviations, and phase space:</p>
 <iframe src="https://nbviewer.org/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb"></iframe>
-<p style="text-align: center;">
-    <a href="https://nbviewer.org/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb" target="_blank">Open full screen →</a> |
+<p style="text-align: center; margin-top: 1rem;">
+    <a href="https://nbviewer.org/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb" target="_blank">Open full screen →</a> ·
     <a href="https://colab.research.google.com/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb" target="_blank">Run in Google Colab →</a>
 </p>
+</section>
 
 <!-- DOCUMENTATION -->
+<section class="section">
 <h2>Documentation</h2>
 <div class="grid-3">
-    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/README.md" class="card" style="text-decoration: none;">
-        <h3>📖 README</h3>
-        <p style="color: var(--text); margin: 0;">Quick introduction to the framework</p>
+    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/README.md" class="link-card">
+        <div class="card">
+            <h3>Overview</h3>
+            <p>Quick introduction to the framework</p>
+        </div>
     </a>
-    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/MATHEMATICS.md" class="card" style="text-decoration: none;">
-        <h3>📐 Mathematics</h3>
-        <p style="color: var(--text); margin: 0;">Full derivations and calculations</p>
+    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/MATHEMATICS.md" class="link-card">
+        <div class="card">
+            <h3>Mathematics</h3>
+            <p>Full derivations and calculations</p>
+        </div>
     </a>
-    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/EXPERIMENTS.md" class="card" style="text-decoration: none;">
-        <h3>🔬 Experiments</h3>
-        <p style="color: var(--text); margin: 0;">12+ testable predictions</p>
+    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/EXPERIMENTS.md" class="link-card">
+        <div class="card">
+            <h3>Experiments</h3>
+            <p>12+ testable predictions</p>
+        </div>
     </a>
 </div>
+</section>
 
 <!-- CITATION -->
+<section class="section">
 <h2>Citation</h2>
 <div class="card">
-    <pre style="margin: 0; overflow-x: auto; color: var(--text);">@software{king2025kdfa,
+    <div class="citation">@software{king2025kdfa,
   author = {King, Jason A.},
   title = {Kings DFA: The Reality Engine},
   year = {2025},
   url = {https://github.com/relativelyeducated/Kings-DFA}
-}</pre>
+}</div>
 </div>
+</section>
 
 <!-- FOOTER -->
 <div class="footer">
@@ -460,5 +801,6 @@
     <p>Licensed under CC-BY-4.0 · Jason A. King · 2025</p>
 </div>
 
+</div>
 </body>
 </html>
