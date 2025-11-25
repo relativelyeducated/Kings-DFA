@@ -145,6 +145,11 @@ GitHub allows up to 20 topics. Here's the optimal set:
 19. `scientific-computing`
 20. `fundamental-physics`
 
+**Copy-paste ready:**
+```
+quantum-mechanics, theoretical-physics, physics, cosmology, born-rule, coupling-constant, virial-theorem, gravity, thermodynamics, biophysics, quantum-computing, simulation, python, jupyter-notebook, research, mathematical-physics, quantum-measurement, stellar-physics, scientific-computing, fundamental-physics
+```
+
 ---
 
 ## SEO-Optimized Repository Description
@@ -173,9 +178,12 @@ Consider adding these to the GitHub "About" section:
 When sharing on Twitter/LinkedIn/Reddit:
 
 ```
-#QuantumMechanics #TheoreticalPhysics #BornRule #Cosmology
-#Biophysics #Physics #OpenScience #Simulation #Python
-#QuantumComputing #ScientificResearch #PhysicsBreakthrough
+#QuantumMechanics #TheoreticalPhysics #BornRule #Cosmology #Biophysics #Physics #OpenScience #Simulation #Python #QuantumComputing #ScientificResearch #PhysicsBreakthrough
+```
+
+**Copy-paste ready (comma-separated):**
+```
+QuantumMechanics, TheoreticalPhysics, BornRule, Cosmology, Biophysics, Physics, OpenScience, Simulation, Python, QuantumComputing, ScientificResearch, PhysicsBreakthrough
 ```
 
 ---
@@ -184,11 +192,9 @@ When sharing on Twitter/LinkedIn/Reddit:
 
 When writing papers about KDFA:
 
+**Copy-paste ready:**
 ```
-Keywords: coupling constant, Born rule, quantum measurement,
-virial theorem, gravity-thermodynamics unification, critical phenomena,
-phase transitions, quantum-classical boundary, cosmological constant,
-biological optimization, metabolic efficiency, force-momentum duality
+coupling constant, Born rule, quantum measurement, virial theorem, gravity-thermodynamics unification, critical phenomena, phase transitions, quantum-classical boundary, cosmological constant, biological optimization, metabolic efficiency, force-momentum duality
 ```
 
 ---
