@@ -11,9 +11,9 @@ From quantum mechanics to cosmology to life itself, the universe operates at a s
 
 **This is not metaphor. This is physics.**
 
-> 🔬 **Testable Predictions**: Born rule deviations of 25-30% at critical coupling
-> 📊 **Validated**: Virial theorem (κ=0.333), cosmology (κ=0.342), biology (κ≈0.45)
-> 💻 **Runnable**: Working simulation code included
+> **Testable Predictions**: Born rule deviations of 25-30% at critical coupling
+> **Validated**: Virial theorem (κ=0.333), cosmology (κ=0.342), biology (κ≈0.45)
+> **Runnable**: Working simulation code included
 
 ---
 
@@ -36,11 +36,11 @@ At **κ ≈ 0.35**, force and momentum perspectives interfere → quantum-classi
 
 ## What KDFA Predicts
 
-✅ **Virial Theorem**: κ = 1/3 = 0.333 (4.9% from 0.35)
-✅ **Cosmology**: ∛0.04 = 0.342 (2.3% from 0.35) - explains dark energy fraction
-✅ **Life**: Optimal metabolism at κ = 0.45-0.55
-✅ **456 Harmonic**: (4/3) × 0.342 × 1000 = 456 (derived, not empirical)
-🔬 **Born Rule Deviation**: 25-30% at κ ≈ 0.35 (**testable NOW!**)
+**Virial Theorem**: κ = 1/3 = 0.333 (4.9% from 0.35)
+**Cosmology**: ∛0.04 = 0.342 (2.3% from 0.35) - explains dark energy fraction
+**Life**: Optimal metabolism at κ = 0.45-0.55
+**456 Harmonic**: (4/3) × 0.342 × 1000 = 456 (derived, not empirical)
+**Born Rule Deviation**: 25-30% at κ ≈ 0.35 (testable)
 
 ---
 
@@ -53,13 +53,13 @@ At **κ ≈ 0.35**, force and momentum perspectives interfere → quantum-classi
 **We've simulated this**:
 - Born Rule: P(↑) = 0.6000
 - KDFA (κ≈0.35): P(↑) = 0.7498
-- **Deviation: 24.97%** ✅
+- **Deviation: 24.97%**
 
 This is the experimental signature of KDFA - testable with Stern-Gerlach apparatus at ~0.5 T/m gradient.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Run The Simulation
 
@@ -89,13 +89,13 @@ jupyter notebook notebooks/01_KDFA_Interactive_Demo.ipynb
 
 ### See All Testable Predictions
 
-📋 **[EXPERIMENTS.md](EXPERIMENTS.md)** - Complete list of 12+ testable predictions
+**[EXPERIMENTS.md](EXPERIMENTS.md)** - Complete list of 12+ testable predictions
 
 **Highlights**:
-- 🔬 Born rule test (~$50K, 6-12 months)
-- 🧬 Biological EM at 456 Hz (~$100K, 6-12 months)
-- 🌱 Photosynthesis efficiency (~$25K, 3 months)
-- ⭐ Stellar oscillation modes (observational, free)
+- Born rule test (~$50K, 6-12 months)
+- Biological EM at 456 Hz (~$100K, 6-12 months)
+- Photosynthesis efficiency (~$25K, 3 months)
+- Stellar oscillation modes (observational, free)
 
 ---
 
@@ -160,26 +160,26 @@ Structure drives Relations
 ## Validated Predictions
 
 ### Cosmology
-- **Dark energy fraction**: 0.04 → ∛0.04 = 0.342 ✅
+- **Dark energy fraction**: 0.04 → ∛0.04 = 0.342
 - **Universe operates at κ ≈ 0.35**: Expansion (R) vs Gravity (S) balanced
 
 ### Gravity
-- **Virial theorem**: 2T + U = 0 → κ = 1/3 = 0.333 ✅
+- **Virial theorem**: 2T + U = 0 → κ = 1/3 = 0.333
 - **Universal for gravitationally bound systems**
 
 ### Biology
-- **ATP overhead**: 35-45% metabolic cost ✅
-- **Photosynthesis**: Same range ✅
-- **Proton leak**: 20-25% energy loss ✅
-- **Sleep**: 8/24 = 0.33 ✅
+- **ATP overhead**: 35-45% metabolic cost
+- **Photosynthesis**: Same range
+- **Proton leak**: 20-25% energy loss
+- **Sleep**: 8/24 = 0.33
 
 ### Quantum Mechanics
-- **Born rule deviation**: 24.97% simulated at κ ≈ 0.35 ✅
-- **Quantum-classical boundary**: κ = 0.35-0.65 transition zone ✅
-- **Optimal measurement gradient**: 0.491 T/m for κ = 0.50 ✅
+- **Born rule deviation**: 24.97% simulated at κ ≈ 0.35
+- **Quantum-classical boundary**: κ = 0.35-0.65 transition zone
+- **Optimal measurement gradient**: 0.491 T/m for κ = 0.50
 
 ### Social Systems (Broader Applications)
-- **Civilizational collapse**: κ > 0.55 (success crushes structure) 🔬
+- **Civilizational collapse**: κ > 0.55 (success crushes structure)
 - **Abundance paradox**: Rome, empires collapse at peak complexity
 - **Universal pattern**: Build → Abundance → Decouple → Collapse
 - **Same mathematics**: Stellar, quantum, biological, AND social
@@ -230,10 +230,10 @@ Structure drives Relations
 
 ## Current Status
 
-📚 **Theory**: Complete framework documented
-🔬 **Simulations**: Born rule deviation validated (24.97%)
-⏳ **Experiments**: Stern-Gerlach test pending
-📝 **Papers**: In preparation
+**Theory**: Complete framework documented
+**Simulations**: Born rule deviation validated (24.97%)
+**Experiments**: Stern-Gerlach test pending
+**Papers**: In preparation
 
 **This is falsifiable, testable physics.**
 
