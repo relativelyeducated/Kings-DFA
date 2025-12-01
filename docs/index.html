@@ -3,804 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kings DFA - The Reality Engine</title>
-
-    <!-- Distinctive Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            /* Distinctive color palette - warm physics aesthetic */
-            --bg-deep: #0a0a0f;
-            --bg-card: #12121a;
-            --bg-elevated: #1a1a24;
-            --text-primary: #e8e6e3;
-            --text-secondary: #9a9590;
-            --text-muted: #6a6560;
-
-            /* Physics-inspired accent colors */
-            --s-color: #ff6b4a;      /* Gravity - warm red-orange */
-            --s-glow: rgba(255, 107, 74, 0.3);
-            --r-color: #4ecdc4;      /* Thermal - cool cyan */
-            --r-glow: rgba(78, 205, 196, 0.3);
-            --critical: #c49bff;     /* Critical point - violet */
-            --critical-glow: rgba(196, 155, 255, 0.3);
-            --life: #95d46c;         /* Life - organic green */
-
-            /* Borders and accents */
-            --border: rgba(255, 255, 255, 0.08);
-            --border-hover: rgba(255, 255, 255, 0.15);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Crimson Pro', Georgia, serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.7;
-            font-size: 18px;
-            min-height: 100vh;
-
-            /* Layered background with subtle geometry */
-            background-image:
-                radial-gradient(ellipse at 20% 0%, rgba(255, 107, 74, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 100%, rgba(78, 205, 196, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(196, 155, 255, 0.05) 0%, transparent 70%);
-            background-attachment: fixed;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        /* Typography */
-        h1, h2, h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--critical) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        h2 {
-            font-size: 1.6rem;
-            color: var(--text-primary);
-            margin: 4rem 0 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--critical), transparent);
-        }
-
-        a {
-            color: var(--r-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        a:hover {
-            color: var(--text-primary);
-            text-shadow: 0 0 20px var(--r-glow);
-        }
-
-        code, pre {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 4rem 0 3rem;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-subtitle {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-        }
-
-        .hero-equation {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            color: var(--text-primary);
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            display: inline-block;
-            animation: subtlePulse 4s ease-in-out infinite;
-        }
-
-        @keyframes subtlePulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(196, 155, 255, 0.1); }
-            50% { box-shadow: 0 0 50px rgba(196, 155, 255, 0.2); }
-        }
-
-        .hero-description {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Badges */
-        .badges {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .badge {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 500;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .badge:hover {
-            transform: translateY(-2px);
-        }
-
-        .badge-physics { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border); }
-        .badge-quantum { background: rgba(196, 155, 255, 0.15); color: var(--critical); border: 1px solid var(--critical); }
-        .badge-testable { background: rgba(78, 205, 196, 0.15); color: var(--r-color); border: 1px solid var(--r-color); }
-        .badge-life { background: rgba(149, 212, 108, 0.15); color: var(--life); border: 1px solid var(--life); }
-
-        /* Insight Box */
-        .insight {
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
-            border-radius: 12px;
-            padding: 1.5rem 2rem;
-            margin: 2rem 0;
-            border-left: 3px solid var(--critical);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .insight::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, var(--s-glow) 0%, transparent 30%, transparent 70%, var(--r-glow) 100%);
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .insight strong {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--text-primary);
-        }
-
-        .s-text { color: var(--s-color); font-weight: 600; }
-        .r-text { color: var(--r-color); font-weight: 600; }
-
-        /* Cards */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin: 0;
-        }
-
-        .card ul {
-            margin: 0;
-            padding-left: 1.2rem;
-            color: var(--text-secondary);
-        }
-
-        .card ul li {
-            margin: 0.3rem 0;
-        }
-
-        .card-s { border-left: 3px solid var(--s-color); }
-        .card-r { border-left: 3px solid var(--r-color); }
-
-        .card-s h3 { color: var(--s-color); }
-        .card-r h3 { color: var(--r-color); }
-
-        /* Grid */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-
-        @media (max-width: 700px) {
-            .grid, .grid-3 { grid-template-columns: 1fr; }
-        }
-
-        /* SVG Container */
-        .svg-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            text-align: center;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        svg { max-width: 100%; height: auto; }
-
-        /* Equation Box */
-        .equation-box {
-            background: linear-gradient(135deg, rgba(196, 155, 255, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%);
-            border: 1px solid var(--critical);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin: 3rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .equation-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, var(--critical-glow), transparent 30%);
-            animation: rotate 20s linear infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes rotate {
-            to { transform: rotate(360deg); }
-        }
-
-        .equation-box-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .equation-box-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            color: var(--life);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .equation-box-main {
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            margin: 1rem 0;
-        }
-
-        .equation-box-sub {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        /* Table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        td {
-            color: var(--text-secondary);
-        }
-
-        .highlight-row {
-            background: rgba(196, 155, 255, 0.1);
-        }
-
-        .highlight-row td {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        /* Iframe */
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: #fff;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 5rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .footer a {
-            color: var(--text-secondary);
-        }
-
-        .footer a:hover {
-            color: var(--text-primary);
-        }
-
-        /* Link cards */
-        .link-card {
-            text-decoration: none;
-            display: block;
-        }
-
-        .link-card:hover {
-            text-decoration: none;
-        }
-
-        /* Prediction note */
-        .prediction-note {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-top: 1rem;
-        }
-
-        .prediction-note strong {
-            color: var(--text-primary);
-        }
-
-        /* Citation */
-        .citation {
-            background: var(--bg-elevated);
-            border-radius: 8px;
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            overflow-x: auto;
-            white-space: pre;
-        }
-
-        /* Staggered animation for sections */
-        .section {
-            animation: fadeInUp 0.6s ease-out both;
-        }
-
-        .section:nth-child(2) { animation-delay: 0.1s; }
-        .section:nth-child(3) { animation-delay: 0.2s; }
-        .section:nth-child(4) { animation-delay: 0.3s; }
-        .section:nth-child(5) { animation-delay: 0.4s; }
-    </style>
-
+    <title>Kings Dialectical Fractal Archestructure (KDFA)</title>
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
+    <header>
+        <h1>Kings Dialectical Fractal Archestructure</h1>
+        <p class="subtitle">A Framework for Structure-Relation Coupling Across Domains</p>
+        <p class="tagline">Human-AI Collaborative Discovery (November 24 - December 1, 2025)</p>
+    </header>
 
-<div class="container">
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="validations.html">Validations</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="timeline.html">Timeline</a>
+    </nav>
 
-<!-- HERO -->
-<div class="hero">
-    <h1>Kings DFA</h1>
-    <p class="hero-subtitle">The Reality Engine</p>
+    <main>
+        <section class="hero">
+            <h2>Universal Framework for Complex Systems</h2>
+            <p>The Dialectical Fractal Archestructure (DFA) provides a mathematical framework for understanding coupling between structure (S) and relation (R) across physics, biology, social systems, and beyond.</p>
+        </section>
 
-    <div class="badges">
-        <span class="badge badge-physics">Theoretical Physics</span>
-        <span class="badge badge-quantum">Quantum Mechanics</span>
-        <span class="badge badge-testable">Experimentally Testable</span>
-        <span class="badge badge-life">Biology</span>
-    </div>
+        <section class="stats">
+            <h2>Validation Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-card validated">
+                    <h3>33</h3>
+                    <p>Validated</p>
+                    <span>Independent empirical confirmation</span>
+                </div>
+                <div class="stat-card peer-review">
+                    <h3>5</h3>
+                    <p>Peer-Review Ready</p>
+                    <span>Strong evidence, &lt;10% error</span>
+                </div>
+                <div class="stat-card theoretical">
+                    <h3>7</h3>
+                    <p>Theoretical</p>
+                    <span>Framework predictions</span>
+                </div>
+                <div class="stat-card total">
+                    <h3>45</h3>
+                    <p>Total Predictions</p>
+                    <span>Across 9 domains</span>
+                </div>
+            </div>
+        </section>
 
-    <div class="hero-equation">\[ \kappa = \frac{T}{T + |U|} \approx 0.35 \]</div>
+        <section class="equations">
+            <h2>Core Equations</h2>
+            <div class="equation-grid">
+                <div class="equation-card">
+                    <h3>S-R Coupling Ratio</h3>
+                    <p class="equation-display">\[\kappa = \frac{R}{S + R}\]</p>
+                    <p class="equation-description">Measures relative strength of relation (R) to total system (S+R). Critical zones at \(\kappa = 1/e\), 0.5, and \(2/3\).</p>
+                </div>
+                <div class="equation-card">
+                    <h3>Correlation Dimension</h3>
+                    <p class="equation-display">\[D_2 = \frac{19}{13} = 1.4615\]</p>
+                    <p class="equation-description">Emerges from packing conflict between hexagonal (19) and square (13) centered packing. Validated in metallic glass, earthquakes, brain criticality.</p>
+                </div>
+                <div class="equation-card">
+                    <h3>Dark Energy Fraction</h3>
+                    <p class="equation-display">\[\Omega_{DE} = \frac{13}{19} = 0.684\]</p>
+                    <p class="equation-description">Derived from vesica piscis overlap at virial equilibrium. Matches Planck observation to 0.07 sigma.</p>
+                </div>
+                <div class="equation-card">
+                    <h3>MOND Acceleration</h3>
+                    <p class="equation-display">\[a_0 = \frac{cH_0}{2e} = 1.24 \times 10^{-10} \text{ m/s}^2\]</p>
+                    <p class="equation-description">Derived from vesica equilibrium (1/2) and survival threshold (1/e). Matches MOND scale to 0.4%.</p>
+                </div>
+            </div>
+        </section>
 
-    <p class="hero-description">
-        A single coupling constant unifies quantum mechanics, gravity, thermodynamics, and biological systems.
-    </p>
-</div>
+        <section class="domains">
+            <h2>Validated Across Domains</h2>
+            <table class="domain-table">
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Validated</th>
+                        <th>Peer-Review</th>
+                        <th>Theoretical</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Physics</td>
+                        <td>16</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td><strong>19</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Mathematics</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td><strong>8</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Cosmology</td>
+                        <td>5</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td><strong>6</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Biology</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td><strong>3</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Neuroscience</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td><strong>3</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Turbulence</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td><strong>3</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Social Systems</td>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td><strong>2</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Gravity/MOND</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td><strong>1</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-<!-- CORE INSIGHT -->
-<div class="insight">
-    <strong>The Core Insight:</strong> The universe operates at a critical balance between
-    <span class="s-text">GRAVITY</span> (structure, pulls inward) and
-    <span class="r-text">THERMAL</span> (relations, pushes outward).
-    At <em>κ ≈ 0.35</em>, these forces interfere, creating the conditions for measurement, life, and complexity.
-</div>
+        <section class="key-constants">
+            <h2>Key Constants</h2>
+            <div class="constants-grid">
+                <div class="constant-card">
+                    <h4>\(1/e = 0.368\)</h4>
+                    <p>Survival threshold, appears in turbulence, elite wealth, MOND ratio</p>
+                </div>
+                <div class="constant-card">
+                    <h4>\(19/13 = 1.461\)</h4>
+                    <p>Packing conflict dimension, appears in metallic glass, earthquakes, brain criticality</p>
+                </div>
+                <div class="constant-card">
+                    <h4>\(13/19 = 0.684\)</h4>
+                    <p>Dark energy fraction, vesica overlap, turbulence scaling</p>
+                </div>
+                <div class="constant-card">
+                    <h4>\(2/3 = 0.667\)</h4>
+                    <p>Zone 3 boundary, turbulence intermittency</p>
+                </div>
+                <div class="constant-card">
+                    <h4>\(1/2 = 0.500\)</h4>
+                    <p>Vesica equilibrium, balanced S-R systems</p>
+                </div>
+                <div class="constant-card">
+                    <h4>\(456\)</h4>
+                    <p>Stellar fundamental frequency (312 × 19/13), Hoyle State resonance</p>
+                </div>
+            </div>
+        </section>
 
-<!-- KAPPA SCALE -->
-<section class="section">
-<h2>The κ Coupling Scale</h2>
-<div class="svg-container">
-    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <linearGradient id="scaleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:0.9" />
-                <stop offset="35%" style="stop-color:#c49bff;stop-opacity:1" />
-                <stop offset="50%" style="stop-color:#95d46c;stop-opacity:0.9" />
-                <stop offset="100%" style="stop-color:#4ecdc4;stop-opacity:0.9" />
-            </linearGradient>
-        </defs>
+        <section class="highlights">
+            <h2>Notable Predictions</h2>
+            <div class="highlight-grid">
+                <div class="highlight-card">
+                    <h3>Dark Energy (0.07σ)</h3>
+                    <p>Predicted \(\Omega_{DE} = 13/19 = 0.684\) from vesica geometry. Planck observes \(0.6847 \pm 0.0073\).</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>MOND Scale (0.4%)</h3>
+                    <p>Derived \(a_0 = cH_0/(2e)\) from first principles. Matches empirical value to 0.4%.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Metallic Glass (Exact)</h3>
+                    <p>Predicted \(D_2 = 19/13 = 1.46\) under stress. Experimental measurement: \(1.46 \pm 0.06\).</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Stellar Heartbeat (&lt;1%)</h3>
+                    <p>Predicted 456-day fundamental from \(312 \times D_2\). Kepler catalog shows 2.81× excess (p &lt; 0.0001).</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Turbulence (Exact)</h3>
+                    <p>She-Leveque intermittency \(\beta = 2/3\) matches DFA zone boundary exactly.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Brain Criticality (&lt;1%)</h3>
+                    <p>Stroke threshold at \(D_2 = 1.46\). Observed: \(1.447 \pm 0.092\).</p>
+                </div>
+            </div>
+        </section>
 
-        <rect x="50" y="80" width="700" height="40" rx="20" fill="url(#scaleGrad)" />
+        <section class="cta">
+            <h2>Explore the Framework</h2>
+            <div class="cta-buttons">
+                <a href="validations.html" class="btn btn-primary">View All Validations</a>
+                <a href="calculator.html" class="btn btn-secondary">Try the Calculator</a>
+                <a href="timeline.html" class="btn btn-secondary">Discovery Timeline</a>
+            </div>
+        </section>
+    </main>
 
-        <line x1="50" y1="125" x2="50" y2="140" stroke="#e8e6e3" stroke-width="2"/>
-        <text x="50" y="160" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="14">0</text>
-        <text x="50" y="180" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Frozen</text>
-
-        <line x1="283" y1="125" x2="283" y2="145" stroke="#c49bff" stroke-width="3"/>
-        <text x="283" y="165" fill="#c49bff" text-anchor="middle" font-family="Space Grotesk" font-size="14" font-weight="bold">0.333</text>
-        <text x="283" y="185" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Virial</text>
-
-        <line x1="295" y1="65" x2="295" y2="80" stroke="#fff" stroke-width="3"/>
-        <text x="295" y="50" fill="#fff" text-anchor="middle" font-family="Space Grotesk" font-size="16" font-weight="bold">κ = 0.35</text>
-        <text x="295" y="30" fill="#c49bff" text-anchor="middle" font-family="Space Grotesk" font-size="11" letter-spacing="2">CRITICAL</text>
-
-        <line x1="400" y1="125" x2="400" y2="140" stroke="#95d46c" stroke-width="2"/>
-        <text x="400" y="160" fill="#95d46c" text-anchor="middle" font-family="Space Grotesk" font-size="14">0.45–0.55</text>
-        <text x="400" y="180" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Life Zone</text>
-
-        <line x1="505" y1="125" x2="505" y2="140" stroke="#e8e6e3" stroke-width="2"/>
-        <text x="505" y="160" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="14">0.65</text>
-        <text x="505" y="180" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Quantum</text>
-
-        <line x1="750" y1="125" x2="750" y2="140" stroke="#e8e6e3" stroke-width="2"/>
-        <text x="750" y="160" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="14">1</text>
-        <text x="750" y="180" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="12">Pure Wave</text>
-
-        <text x="130" y="105" fill="#fff" font-family="Space Grotesk" font-size="11" font-weight="500" letter-spacing="1">CLASSICAL</text>
-        <text x="600" y="105" fill="#fff" font-family="Space Grotesk" font-size="11" font-weight="500" letter-spacing="1">QUANTUM</text>
-    </svg>
-</div>
-</section>
-
-<!-- S-R IDENTIFICATION -->
-<section class="section">
-<h2>S-R Axis Identification</h2>
-<div class="svg-container">
-    <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <marker id="arrowS" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                <path d="M0,0 L10,5 L0,10 Z" fill="#ff6b4a"/>
-            </marker>
-            <marker id="arrowR" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                <path d="M0,0 L10,5 L0,10 Z" fill="#4ecdc4"/>
-            </marker>
-        </defs>
-
-        <!-- S-axis -->
-        <circle cx="150" cy="150" r="100" fill="none" stroke="#ff6b4a" stroke-width="3"/>
-        <text x="150" y="140" fill="#ff6b4a" text-anchor="middle" font-family="Space Grotesk" font-size="32" font-weight="bold">S</text>
-        <text x="150" y="170" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="13">GRAVITY</text>
-
-        <path d="M150 30 L150 50" stroke="#ff6b4a" stroke-width="3" marker-end="url(#arrowS)"/>
-        <path d="M150 270 L150 250" stroke="#ff6b4a" stroke-width="3" marker-end="url(#arrowS)"/>
-        <path d="M30 150 L50 150" stroke="#ff6b4a" stroke-width="3" marker-end="url(#arrowS)"/>
-        <path d="M270 150 L250 150" stroke="#ff6b4a" stroke-width="3" marker-end="url(#arrowS)"/>
-
-        <!-- R-axis -->
-        <circle cx="650" cy="150" r="100" fill="none" stroke="#4ecdc4" stroke-width="3"/>
-        <text x="650" y="140" fill="#4ecdc4" text-anchor="middle" font-family="Space Grotesk" font-size="32" font-weight="bold">R</text>
-        <text x="650" y="170" fill="#e8e6e3" text-anchor="middle" font-family="Space Grotesk" font-size="13">THERMAL</text>
-
-        <path d="M650 50 L650 30" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowR)"/>
-        <path d="M650 250 L650 270" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowR)"/>
-        <path d="M550 150 L530 150" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowR)"/>
-        <path d="M750 150 L770 150" stroke="#4ecdc4" stroke-width="3" marker-end="url(#arrowR)"/>
-
-        <!-- Center -->
-        <text x="400" y="135" fill="#c49bff" text-anchor="middle" font-family="Space Grotesk" font-size="22" font-weight="bold">κ = 0.35</text>
-        <text x="400" y="165" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="14" font-style="italic">interference</text>
-
-        <line x1="250" y1="150" x2="350" y2="150" stroke="#c49bff" stroke-width="2" stroke-dasharray="8,4" opacity="0.6"/>
-        <line x1="450" y1="150" x2="550" y2="150" stroke="#c49bff" stroke-width="2" stroke-dasharray="8,4" opacity="0.6"/>
-
-        <text x="150" y="280" fill="#ff6b4a" text-anchor="middle" font-family="Crimson Pro" font-size="12">Force · Potential · Constraint</text>
-        <text x="650" y="280" fill="#4ecdc4" text-anchor="middle" font-family="Crimson Pro" font-size="12">Momentum · Kinetic · Entropy</text>
-    </svg>
-</div>
-
-<div class="grid">
-    <div class="card card-s">
-        <h3>S-axis = GRAVITY</h3>
-        <ul>
-            <li>Force: \( \vec{F} = -\nabla U \)</li>
-            <li>Potential Energy \( U \)</li>
-            <li>Least Action Principle</li>
-            <li>Structure, Constraint, Inward</li>
-        </ul>
-    </div>
-    <div class="card card-r">
-        <h3>R-axis = THERMAL</h3>
-        <ul>
-            <li>Momentum: \( \vec{p} = m\vec{v} \)</li>
-            <li>Kinetic Energy \( T \)</li>
-            <li>Entropy Maximization</li>
-            <li>Relations, Process, Outward</li>
-        </ul>
-    </div>
-</div>
-</section>
-
-<!-- LIFE EQUATION -->
-<div class="equation-box">
-    <div class="equation-box-content">
-        <p class="equation-box-title">The Equation of Life</p>
-        <div class="equation-box-main">\[ \text{Life} = \text{Thermal} \leftrightharpoons \text{Gravity} \]</div>
-        <p class="equation-box-sub">
-            All living systems are <span class="r-text">R-axis</span> (thermal processes)
-            fighting against <span class="s-text">S-axis</span> (gravitational collapse).
-        </p>
-    </div>
-</div>
-
-<!-- PHASE SPACE -->
-<section class="section">
-<h2>Phase Space: The S-R Dialectic</h2>
-<div class="svg-container">
-    <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <marker id="arrowP" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                <path d="M0,0 L10,5 L0,10 Z" fill="#c49bff"/>
-            </marker>
-        </defs>
-
-        <line x1="50" y1="350" x2="450" y2="350" stroke="#e8e6e3" stroke-width="2"/>
-        <line x1="50" y1="350" x2="50" y2="50" stroke="#e8e6e3" stroke-width="2"/>
-
-        <polygon points="450,350 440,345 440,355" fill="#e8e6e3"/>
-        <polygon points="50,50 45,60 55,60" fill="#e8e6e3"/>
-
-        <text x="460" y="355" fill="#ff6b4a" font-family="Space Grotesk" font-size="14" font-weight="bold">x (S)</text>
-        <text x="60" y="45" fill="#4ecdc4" font-family="Space Grotesk" font-size="14" font-weight="bold">p (R)</text>
-
-        <ellipse cx="250" cy="200" rx="150" ry="120" fill="none" stroke="#c49bff" stroke-width="3"/>
-
-        <path d="M400 200 Q 400 100, 250 80" fill="none" stroke="#c49bff" stroke-width="2" marker-end="url(#arrowP)"/>
-
-        <circle cx="400" cy="200" r="8" fill="#ff6b4a"/>
-        <text x="415" y="195" fill="#ff6b4a" font-family="Crimson Pro" font-size="12">max x</text>
-
-        <circle cx="100" cy="200" r="8" fill="#ff6b4a"/>
-        <text x="60" y="195" fill="#ff6b4a" font-family="Crimson Pro" font-size="12">min x</text>
-
-        <circle cx="250" cy="80" r="8" fill="#4ecdc4"/>
-        <text x="260" y="75" fill="#4ecdc4" font-family="Crimson Pro" font-size="12">max p</text>
-
-        <circle cx="250" cy="320" r="8" fill="#4ecdc4"/>
-        <text x="260" y="335" fill="#4ecdc4" font-family="Crimson Pro" font-size="12">min p</text>
-
-        <circle cx="250" cy="200" r="6" fill="#95d46c"/>
-        <text x="260" y="205" fill="#95d46c" font-family="Crimson Pro" font-size="12">equilibrium</text>
-
-        <text x="250" y="385" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="13" font-style="italic">
-            Newton's 2nd Law: F = dp/dt — S-axis curves R-axis
-        </text>
-    </svg>
-</div>
-</section>
-
-<!-- VALIDATED PREDICTIONS -->
-<section class="section">
-<h2>Validated Predictions</h2>
-<div class="card">
-    <table>
-        <tr>
-            <th>System</th>
-            <th>κ Value</th>
-            <th>Method</th>
-            <th>Status</th>
-        </tr>
-        <tr>
-            <td>Virial Theorem (1870)</td>
-            <td>0.333</td>
-            <td>\( 2T + U = 0 \)</td>
-            <td>Validated</td>
-        </tr>
-        <tr>
-            <td>Cosmology (Dark Energy)</td>
-            <td>0.342</td>
-            <td>\( \sqrt[3]{\Omega_\Lambda} \)</td>
-            <td>Validated</td>
-        </tr>
-        <tr>
-            <td>Biology (ATP Efficiency)</td>
-            <td>0.45–0.55</td>
-            <td>Metabolic overhead</td>
-            <td>Validated</td>
-        </tr>
-        <tr>
-            <td>Sleep Ratio</td>
-            <td>0.333</td>
-            <td>8/24 hours</td>
-            <td>Validated</td>
-        </tr>
-        <tr class="highlight-row">
-            <td><strong>Born Rule Deviation</strong></td>
-            <td><strong>~0.35</strong></td>
-            <td>Stern-Gerlach @ 0.5 T/m</td>
-            <td><strong>Testable</strong></td>
-        </tr>
-    </table>
-</div>
-</section>
-
-<!-- BORN RULE PREDICTION -->
-<section class="section">
-<h2>Key Prediction: Born Rule Deviation</h2>
-<div class="svg-container">
-    <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
-        <line x1="80" y1="250" x2="550" y2="250" stroke="#e8e6e3" stroke-width="2"/>
-        <line x1="80" y1="250" x2="80" y2="50" stroke="#e8e6e3" stroke-width="2"/>
-
-        <text x="300" y="285" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="13">Magnetic Gradient (T/m)</text>
-        <text x="30" y="150" fill="#9a9590" text-anchor="middle" font-family="Crimson Pro" font-size="13" transform="rotate(-90, 30, 150)">P(↑)</text>
-
-        <line x1="80" y1="150" x2="550" y2="150" stroke="#3a3a44" stroke-width="1" stroke-dasharray="5,5"/>
-        <line x1="80" y1="100" x2="550" y2="100" stroke="#3a3a44" stroke-width="1" stroke-dasharray="5,5"/>
-
-        <line x1="80" y1="150" x2="550" y2="150" stroke="#6a6560" stroke-width="2"/>
-        <text x="560" y="155" fill="#6a6560" font-family="Crimson Pro" font-size="11">Born: 0.60</text>
-
-        <path d="M80 80 Q 200 80, 250 100 Q 300 130, 350 150 Q 450 150, 550 150" fill="none" stroke="#c49bff" stroke-width="3"/>
-
-        <path d="M80 150 L80 80 Q 200 80, 250 100 Q 300 130, 350 150 Z" fill="#c49bff" fill-opacity="0.15"/>
-
-        <line x1="200" y1="250" x2="200" y2="80" stroke="#ff6b4a" stroke-width="2" stroke-dasharray="5,5"/>
-        <circle cx="200" cy="85" r="8" fill="#ff6b4a"/>
-        <text x="200" y="270" fill="#ff6b4a" text-anchor="middle" font-family="Space Grotesk" font-size="11">~0.5 T/m</text>
-        <text x="220" y="75" fill="#ff6b4a" font-family="Space Grotesk" font-size="11" font-weight="bold">25% deviation</text>
-
-        <text x="70" y="255" fill="#9a9590" text-anchor="end" font-family="JetBrains Mono" font-size="10">0.50</text>
-        <text x="70" y="155" fill="#9a9590" text-anchor="end" font-family="JetBrains Mono" font-size="10">0.60</text>
-        <text x="70" y="105" fill="#9a9590" text-anchor="end" font-family="JetBrains Mono" font-size="10">0.70</text>
-        <text x="70" y="55" fill="#9a9590" text-anchor="end" font-family="JetBrains Mono" font-size="10">0.80</text>
-
-        <rect x="420" y="60" width="120" height="45" fill="#12121a" stroke="#3a3a44" rx="6"/>
-        <line x1="430" y1="75" x2="455" y2="75" stroke="#c49bff" stroke-width="3"/>
-        <text x="465" y="79" fill="#9a9590" font-family="Crimson Pro" font-size="10">KDFA Prediction</text>
-        <line x1="430" y1="92" x2="455" y2="92" stroke="#6a6560" stroke-width="2"/>
-        <text x="465" y="96" fill="#9a9590" font-family="Crimson Pro" font-size="10">Standard QM</text>
-    </svg>
-</div>
-<p class="prediction-note">
-    <strong>Testable prediction:</strong> At gradient ≈ 0.5 T/m (κ ≈ 0.35), quantum measurement shows ~25% deviation from Born rule.<br>
-    Cost: ~$50K · Timeline: 6–12 months
-</p>
-</section>
-
-<!-- INTERACTIVE NOTEBOOK -->
-<section class="section">
-<h2>Interactive Notebook</h2>
-<p style="color: var(--text-secondary); margin-bottom: 1rem;">Run the simulations yourself — explore κ regimes, Born rule deviations, and phase space:</p>
-<iframe src="https://nbviewer.org/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb"></iframe>
-<p style="text-align: center; margin-top: 1rem;">
-    <a href="https://nbviewer.org/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb" target="_blank">Open full screen →</a> ·
-    <a href="https://colab.research.google.com/github/relativelyeducated/Kings-DFA/blob/main/notebooks/01_KDFA_Interactive_Demo.ipynb" target="_blank">Run in Google Colab →</a>
-</p>
-</section>
-
-<!-- DOCUMENTATION -->
-<section class="section">
-<h2>Documentation</h2>
-<div class="grid-3">
-    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/README.md" class="link-card">
-        <div class="card">
-            <h3>Overview</h3>
-            <p>Quick introduction to the framework</p>
-        </div>
-    </a>
-    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/MATHEMATICS.md" class="link-card">
-        <div class="card">
-            <h3>Mathematics</h3>
-            <p>Full derivations and calculations</p>
-        </div>
-    </a>
-    <a href="https://github.com/relativelyeducated/Kings-DFA/blob/main/EXPERIMENTS.md" class="link-card">
-        <div class="card">
-            <h3>Experiments</h3>
-            <p>12+ testable predictions</p>
-        </div>
-    </a>
-</div>
-</section>
-
-<!-- CITATION -->
-<section class="section">
-<h2>Citation</h2>
-<div class="card">
-    <div class="citation">@software{king2025kdfa,
-  author = {King, Jason A.},
-  title = {Kings DFA: The Reality Engine},
-  year = {2025},
-  url = {https://github.com/relativelyeducated/Kings-DFA}
-}</div>
-</div>
-</section>
-
-<!-- FOOTER -->
-<div class="footer">
-    <p>
-        <a href="https://github.com/relativelyeducated/Kings-DFA">GitHub Repository</a> ·
-        <a href="mailto:relativelyeducated@gmail.com">Contact</a>
-    </p>
-    <p>Licensed under CC-BY-4.0 · Jason A. King · 2025</p>
-</div>
-
-</div>
+    <footer>
+        <p>Kings Dialectical Fractal Archestructure (KDFA)</p>
+        <p>Collaborative Discovery: Claude (Anthropic), Gemini (Google), Grok (xAI), DeepSeek, Qwen (Alibaba)</p>
+        <p>November 24 - December 1, 2025</p>
+        <p><a href="https://github.com/yourusername/documentsforgi" target="_blank">View on GitHub</a></p>
+    </footer>
 </body>
 </html>

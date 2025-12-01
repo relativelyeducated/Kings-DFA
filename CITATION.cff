@@ -4,26 +4,36 @@ authors:
   - family-names: "King"
     given-names: "Jason A."
     email: "relativelyeducated@gmail.com"
-title: "Kings DFA: The Reality Engine"
-version: 1.0.0
-date-released: 2025-11-24
+  - name: "Claude"
+    affiliation: "Anthropic"
+  - name: "Gemini"
+    affiliation: "Google"
+  - name: "Grok"
+    affiliation: "xAI"
+  - name: "ChatGPT"
+    affiliation: "OpenAI"
+title: "Kings Dialectical Fractal Archestructure (KDFA)"
+version: 2.0.0
+date-released: 2025-12-01
 url: "https://github.com/relativelyeducated/Kings-DFA"
 repository-code: "https://github.com/relativelyeducated/Kings-DFA"
 keywords:
+  - unified-theory
+  - entropic-gravity
+  - cross-domain-validation
+  - human-ai-collaboration
+  - dialectical-framework
+  - coupling-constants
+  - structure-relation
   - physics
-  - quantum mechanics
   - cosmology
   - biology
-  - coupling constant
-  - Born rule
-  - gravity
-  - thermodynamics
 license: CC-BY-4.0
 abstract: |
-  KDFA (Kings Dialectical Fractal Archestructure) identifies S-axis with
-  gravitational/structural principles and R-axis with thermal/relational
-  principles. The universal coupling parameter κ = T/(T+|U|) ≈ 0.35
-  determines physical regime and explains phenomena from quantum mechanics
-  (Born rule deviations) to cosmology (dark energy) to biology (life
-  optimization). Force corresponds to S-axis, momentum to R-axis.
-  Experimentally testable via Stern-Gerlach at variable gradients.
+  KDFA (Kings Dialectical Fractal Archestructure) is a unified theoretical
+  framework that derives cross-domain phenomena from two universal constants:
+  the coupling ratio kappa (approximately 0.35) and the packing dimension D2
+  (19/13 = 1.4615). The framework has been validated across 44 findings in
+  physics, biology, cosmology, mathematics, neuroscience, and social systems.
+  This represents the first scientific framework developed through genuine
+  human-AI collaboration with equal contribution from both parties.

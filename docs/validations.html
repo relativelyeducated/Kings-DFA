@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validations - KDFA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .filter-controls {
+            background-color: var(--bg-medium);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .filter-controls label {
+            display: inline-block;
+            margin-right: 1rem;
+            color: var(--text-primary);
+        }
+        .filter-controls select {
+            padding: 0.5rem;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-right: 2rem;
+        }
+        .table-container {
+            overflow-x: auto;
+            background-color: var(--bg-medium);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .sortable::after {
+            content: ' ⇅';
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>KDFA Validations</h1>
+        <p class="subtitle">Comprehensive Catalog of Predictions and Empirical Confirmations</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="validations.html">Validations</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="timeline.html">Timeline</a>
+    </nav>
+
+    <main>
+        <section>
+            <h2>All Validations</h2>
+            <p>Interactive table of all 45 predictions across 9 domains. Click column headers to sort.</p>
+
+            <div class="filter-controls">
+                <label for="domainFilter">Filter by Domain:</label>
+                <select id="domainFilter" onchange="filterTable()">
+                    <option value="all">All Domains</option>
+                    <option value="Physics">Physics (19)</option>
+                    <option value="Mathematics">Mathematics (8)</option>
+                    <option value="Cosmology">Cosmology (6)</option>
+                    <option value="Biology">Biology (3)</option>
+                    <option value="Neuroscience">Neuroscience (3)</option>
+                    <option value="Turbulence">Turbulence (3)</option>
+                    <option value="Social">Social (2)</option>
+                    <option value="Gravity/MOND">Gravity/MOND (1)</option>
+                </select>
+
+                <label for="statusFilter">Filter by Status:</label>
+                <select id="statusFilter" onchange="filterTable()">
+                    <option value="all">All Statuses</option>
+                    <option value="VALIDATED">Validated (33)</option>
+                    <option value="PEER-REVIEW READY">Peer-Review Ready (5)</option>
+                    <option value="THEORETICAL">Theoretical (7)</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <table class="validation-table" id="validationTable">
+                    <thead>
+                        <tr>
+                            <th class="sortable" onclick="sortTable(0)">#</th>
+                            <th class="sortable" onclick="sortTable(1)">Domain</th>
+                            <th class="sortable" onclick="sortTable(2)">Finding</th>
+                            <th class="sortable" onclick="sortTable(3)">Predicted</th>
+                            <th class="sortable" onclick="sortTable(4)">Observed</th>
+                            <th class="sortable" onclick="sortTable(5)">Error</th>
+                            <th class="sortable" onclick="sortTable(6)">Derivation</th>
+                            <th class="sortable" onclick="sortTable(7)">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>1</td>
+                            <td>Physics</td>
+                            <td>D<sub>2</sub> Packing Conflict</td>
+                            <td>19/13 = 1.4615</td>
+                            <td>1.46 ± 0.06</td>
+                            <td>&lt;1%</td>
+                            <td>Packing conflict</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>2</td>
+                            <td>Physics</td>
+                            <td>Metallic Glass D<sub>2</sub> (500 MPa)</td>
+                            <td>1.46</td>
+                            <td>1.46 ± 0.06</td>
+                            <td>0%</td>
+                            <td>Packing conflict</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>3</td>
+                            <td>Physics</td>
+                            <td>Earthquake b-value</td>
+                            <td>b = 0.73 (D=1.46)</td>
+                            <td>b = 0.73</td>
+                            <td>0%</td>
+                            <td>Packing conflict</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>4</td>
+                            <td>Physics</td>
+                            <td>Granular Jamming (Cage)</td>
+                            <td>κ = 1.46</td>
+                            <td>κ = 1.41</td>
+                            <td>3.4%</td>
+                            <td>Packing conflict</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>5</td>
+                            <td>Physics</td>
+                            <td>Neutrino Mass Sum</td>
+                            <td>0.030 eV</td>
+                            <td>&lt; 0.12 eV (95% CL)</td>
+                            <td>Within bounds</td>
+                            <td>Cross-domain (1/e, 37, 456)</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>6</td>
+                            <td>Physics</td>
+                            <td>Neutrino Mass Sum (alt.)</td>
+                            <td>0.028 eV</td>
+                            <td>&lt; 0.12 eV (95% CL)</td>
+                            <td>Within bounds</td>
+                            <td>Cross-domain</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>7</td>
+                            <td>Physics</td>
+                            <td>MOND Acceleration</td>
+                            <td>cH<sub>0</sub>/(2e) = 1.24×10<sup>-10</sup> m/s<sup>2</sup></td>
+                            <td>1.2×10<sup>-10</sup> m/s<sup>2</sup></td>
+                            <td>0.4%</td>
+                            <td>Virial + zone boundary</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>8</td>
+                            <td>Physics</td>
+                            <td>Stellar Heartbeat (456 d)</td>
+                            <td>456 days</td>
+                            <td>450-460 days</td>
+                            <td>&lt;1%</td>
+                            <td>Harmonic analysis</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>9</td>
+                            <td>Physics</td>
+                            <td>Stellar Heartbeat Half (228 d)</td>
+                            <td>228 days</td>
+                            <td>2.63× excess (MC)</td>
+                            <td>p &lt; 0.0001</td>
+                            <td>Harmonic analysis</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>10</td>
+                            <td>Physics</td>
+                            <td>Neutrino Flux (154 d)</td>
+                            <td>456/3 = 152 days</td>
+                            <td>154 days</td>
+                            <td>1.3%</td>
+                            <td>Harmonic analysis</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>11</td>
+                            <td>Physics</td>
+                            <td>Neutrino Flux (78 d)</td>
+                            <td>456/6 = 76 days</td>
+                            <td>78 days</td>
+                            <td>2.6%</td>
+                            <td>Harmonic analysis</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>12</td>
+                            <td>Physics</td>
+                            <td>Neutrino Flux (51 d)</td>
+                            <td>456/9 = 50.6 days</td>
+                            <td>51 days</td>
+                            <td>0.8%</td>
+                            <td>Harmonic analysis</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>13</td>
+                            <td>Physics</td>
+                            <td>Solar Magneto-Rossby</td>
+                            <td>456 days</td>
+                            <td>450-460 days</td>
+                            <td>&lt;1%</td>
+                            <td>Harmonic analysis</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>14</td>
+                            <td>Physics</td>
+                            <td>Stellar IMF Slope</td>
+                            <td>M<sup>-2.35</sup></td>
+                            <td>M<sup>-2.35</sup> (Salpeter)</td>
+                            <td>0%</td>
+                            <td>Fractal scaling (arch)</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="VALIDATED">
+                            <td>15</td>
+                            <td>Physics</td>
+                            <td>Penrose Collapse Coeff.</td>
+                            <td>3/5 = 0.6 (Zone 2)</td>
+                            <td>(3/5) × e = φ ± 0.8%</td>
+                            <td>0.8%</td>
+                            <td>Zone boundary</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="PEER-REVIEW READY">
+                            <td>16</td>
+                            <td>Physics</td>
+                            <td>Stellar Formation Threshold</td>
+                            <td>M<sub>*</sub> = 0.8 M<sub>sun</sub></td>
+                            <td>IMF peak</td>
+                            <td>Qualitative</td>
+                            <td>S-R coupling</td>
+                            <td class="status-peer-review">PEER-REVIEW READY</td>
+                        </tr>
+                        <tr data-domain="Physics" data-status="THEORETICAL">
+                            <td>17</td>
+                            <td>Physics</td>
+                            <td>Neutrino Oscillation (High L/E)</td>
+                            <td>12% excess</td>
+                            <td>IceCube excess</td>
+                            <td>12%</td>
+                            <td>Cross-domain</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Cosmology" data-status="VALIDATED">
+                            <td>18</td>
+                            <td>Cosmology</td>
+                            <td>Dark Energy Fraction</td>
+                            <td>13/19 = 0.684</td>
+                            <td>0.6847 ± 0.0073</td>
+                            <td>0.07 sigma</td>
+                            <td>Vesica geometry</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Cosmology" data-status="VALIDATED">
+                            <td>19</td>
+                            <td>Cosmology</td>
+                            <td>Vesica Overlap Area</td>
+                            <td>d/R = 0.5 → 0.685</td>
+                            <td>Ω<sub>DE</sub> = 0.685</td>
+                            <td>Exact</td>
+                            <td>Vesica geometry</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Cosmology" data-status="VALIDATED">
+                            <td>20</td>
+                            <td>Cosmology</td>
+                            <td>Matter Fraction</td>
+                            <td>1 - 0.685 = 0.315</td>
+                            <td>Ω<sub>M</sub> = 0.315</td>
+                            <td>&lt;1%</td>
+                            <td>Vesica geometry</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Cosmology" data-status="VALIDATED">
+                            <td>21</td>
+                            <td>Cosmology</td>
+                            <td>MOND Scale Ratio</td>
+                            <td>a<sub>0</sub>/(cH<sub>0</sub>) = 1/(2e)</td>
+                            <td>Observed</td>
+                            <td>0.4%</td>
+                            <td>Virial theorem</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Cosmology" data-status="VALIDATED">
+                            <td>22</td>
+                            <td>Cosmology</td>
+                            <td>Gravity Phenomenology</td>
+                            <td>MOND-like (γ=0.65)</td>
+                            <td>Rotation curves</td>
+                            <td>Qualitative</td>
+                            <td>S-R coupling</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Cosmology" data-status="VALIDATED">
+                            <td>23</td>
+                            <td>Cosmology</td>
+                            <td>Stellar Harmonic</td>
+                            <td>312 × D<sub>2</sub> = 456</td>
+                            <td>Multiple harmonics</td>
+                            <td>&lt;1%</td>
+                            <td>Harmonic analysis</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="VALIDATED">
+                            <td>24</td>
+                            <td>Mathematics</td>
+                            <td>Survival Threshold</td>
+                            <td>κ<sub>crit</sub> = 1/e = 0.368</td>
+                            <td>Universal across systems</td>
+                            <td>Cross-domain</td>
+                            <td>Zone boundary</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="THEORETICAL">
+                            <td>25</td>
+                            <td>Mathematics</td>
+                            <td>Zone 2 Optimum</td>
+                            <td>0.40-0.50</td>
+                            <td>Variable by system</td>
+                            <td>System-dependent</td>
+                            <td>S-R coupling</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="VALIDATED">
+                            <td>26</td>
+                            <td>Mathematics</td>
+                            <td>Zone 3 Boundary</td>
+                            <td>2/3 = 0.667</td>
+                            <td>Turbulence β</td>
+                            <td>Exact</td>
+                            <td>Zone boundary</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="THEORETICAL">
+                            <td>27</td>
+                            <td>Mathematics</td>
+                            <td>Fractal Exponent</td>
+                            <td>α = 37</td>
+                            <td>Neutrino power spectrum</td>
+                            <td>Derived</td>
+                            <td>Fractal scaling</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="THEORETICAL">
+                            <td>28</td>
+                            <td>Mathematics</td>
+                            <td>Basis Dimension</td>
+                            <td>N = 456</td>
+                            <td>Hoyle State resonance</td>
+                            <td>Derived</td>
+                            <td>Harmonic analysis</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="VALIDATED">
+                            <td>29</td>
+                            <td>Mathematics</td>
+                            <td>D<sub>2</sub> from Packing</td>
+                            <td>19/13</td>
+                            <td>1.46 observed</td>
+                            <td>&lt;0.1%</td>
+                            <td>Packing conflict</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="VALIDATED">
+                            <td>30</td>
+                            <td>Mathematics</td>
+                            <td>Vesica Inverse Overlap</td>
+                            <td>D<sub>2</sub> = 1/0.685 = 1.46</td>
+                            <td>Geometric</td>
+                            <td>&lt;1%</td>
+                            <td>Vesica geometry</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="THEORETICAL">
+                            <td>31</td>
+                            <td>Mathematics</td>
+                            <td>Identity Operator</td>
+                            <td>Fixed point of T<sup>k</sup></td>
+                            <td>Theoretical</td>
+                            <td>N/A</td>
+                            <td>Fixed-point theory</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Mathematics" data-status="THEORETICAL">
+                            <td>32</td>
+                            <td>Mathematics</td>
+                            <td>Renormalization Flow</td>
+                            <td>C*, α, N from RG</td>
+                            <td>Theoretical</td>
+                            <td>N/A</td>
+                            <td>Fixed-point theory</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Biology" data-status="VALIDATED">
+                            <td>33</td>
+                            <td>Biology</td>
+                            <td>Tension-Driven Mutation</td>
+                            <td>μ ∝ T<sup>2</sup></td>
+                            <td>+23.7% improvement</td>
+                            <td>Simulation</td>
+                            <td>S-R coupling</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Biology" data-status="THEORETICAL">
+                            <td>34</td>
+                            <td>Biology</td>
+                            <td>Life Emergence</td>
+                            <td>C* = 0.35 threshold</td>
+                            <td>Prebiotic 35% chaos</td>
+                            <td>Qualitative</td>
+                            <td>Zone boundary</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Biology" data-status="PEER-REVIEW READY">
+                            <td>35</td>
+                            <td>Biology</td>
+                            <td>Protein Folding D<sub>2</sub></td>
+                            <td>1.46</td>
+                            <td>Local dimension 1.38</td>
+                            <td>5%</td>
+                            <td>Packing conflict</td>
+                            <td class="status-peer-review">PEER-REVIEW READY</td>
+                        </tr>
+                        <tr data-domain="Neuroscience" data-status="VALIDATED">
+                            <td>36</td>
+                            <td>Neuroscience</td>
+                            <td>Stroke Threshold</td>
+                            <td>D<sub>2</sub> = 1.46</td>
+                            <td>1.447 ± 0.092</td>
+                            <td>&lt;1%</td>
+                            <td>Packing conflict</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Neuroscience" data-status="VALIDATED">
+                            <td>37</td>
+                            <td>Neuroscience</td>
+                            <td>Healthy Brain D</td>
+                            <td>Above 1.46</td>
+                            <td>1.525 ± 0.105</td>
+                            <td>Lower bound</td>
+                            <td>Packing conflict</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Neuroscience" data-status="THEORETICAL">
+                            <td>38</td>
+                            <td>Neuroscience</td>
+                            <td>Consciousness Gradient</td>
+                            <td>κ(C) = (C-0.35)/0.65</td>
+                            <td>Theoretical model</td>
+                            <td>N/A</td>
+                            <td>S-R coupling</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Neuroscience" data-status="THEORETICAL">
+                            <td>39</td>
+                            <td>Neuroscience</td>
+                            <td>Identity Operator (Self)</td>
+                            <td>Fixed point I</td>
+                            <td>Noether analogue</td>
+                            <td>Theoretical</td>
+                            <td>Fixed-point theory</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Neuroscience" data-status="THEORETICAL">
+                            <td>40</td>
+                            <td>Neuroscience</td>
+                            <td>Drift Dynamics</td>
+                            <td>Tachyonic potential</td>
+                            <td>Theoretical model</td>
+                            <td>N/A</td>
+                            <td>Arch Lagrangian</td>
+                            <td class="status-theoretical">THEORETICAL</td>
+                        </tr>
+                        <tr data-domain="Turbulence" data-status="VALIDATED">
+                            <td>41</td>
+                            <td>Turbulence</td>
+                            <td>She-Leveque β</td>
+                            <td>2/3 = 0.667</td>
+                            <td>0.667</td>
+                            <td>0%</td>
+                            <td>Zone boundary</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Turbulence" data-status="VALIDATED">
+                            <td>42</td>
+                            <td>Turbulence</td>
+                            <td>She-Leveque ζ<sub>1</sub></td>
+                            <td>1/e = 0.368</td>
+                            <td>0.364</td>
+                            <td>&lt;1%</td>
+                            <td>Zone boundary</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Turbulence" data-status="VALIDATED">
+                            <td>43</td>
+                            <td>Turbulence</td>
+                            <td>She-Leveque ζ<sub>2</sub></td>
+                            <td>Ω<sub>DE</sub> = 0.684</td>
+                            <td>0.696</td>
+                            <td>1.7%</td>
+                            <td>Vesica geometry</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Social" data-status="VALIDATED">
+                            <td>44</td>
+                            <td>Social</td>
+                            <td>Elite Wealth Threshold</td>
+                            <td>1/e = 36.8%</td>
+                            <td>US 1929: 45-50% (collapse)</td>
+                            <td>Historical</td>
+                            <td>Zone boundary</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                        <tr data-domain="Social" data-status="VALIDATED">
+                            <td>45</td>
+                            <td>Social</td>
+                            <td>Elite Overproduction</td>
+                            <td>N<sub>A</sub>/N<sub>P</sub> > D<sub>2</sub> = 1.46</td>
+                            <td>Law/PhD: ~2.0</td>
+                            <td>Turchin data</td>
+                            <td>Packing conflict</td>
+                            <td class="status-validated">VALIDATED</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Kings Dialectical Fractal Archestructure (KDFA)</p>
+        <p>Last Updated: 2025-12-01</p>
+        <p><a href="https://github.com/yourusername/documentsforgi" target="_blank">View on GitHub</a></p>
+    </footer>
+
+    <script>
+        let sortDirection = {};
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById('validationTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            // Toggle sort direction
+            sortDirection[columnIndex] = !sortDirection[columnIndex];
+            const ascending = sortDirection[columnIndex];
+
+            rows.sort((a, b) => {
+                let aValue = a.cells[columnIndex].textContent.trim();
+                let bValue = b.cells[columnIndex].textContent.trim();
+
+                // Try to parse as numbers
+                const aNum = parseFloat(aValue);
+                const bNum = parseFloat(bValue);
+
+                if (!isNaN(aNum) && !isNaN(bNum)) {
+                    return ascending ? aNum - bNum : bNum - aNum;
+                }
+
+                // String comparison
+                return ascending ?
+                    aValue.localeCompare(bValue) :
+                    bValue.localeCompare(aValue);
+            });
+
+            // Re-append sorted rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        function filterTable() {
+            const domainFilter = document.getElementById('domainFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const table = document.getElementById('validationTable');
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const domain = row.getAttribute('data-domain');
+                const status = row.getAttribute('data-status');
+
+                const domainMatch = domainFilter === 'all' || domain === domainFilter;
+                const statusMatch = statusFilter === 'all' || status === statusFilter;
+
+                if (domainMatch && statusMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

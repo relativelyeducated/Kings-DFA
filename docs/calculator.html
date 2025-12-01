@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kappa Calculator - KDFA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Kappa Calculator</h1>
+        <p class="subtitle">Calculate S-R Coupling Ratios and Determine System Zones</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="validations.html">Validations</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="timeline.html">Timeline</a>
+    </nav>
+
+    <main>
+        <section>
+            <h2>S-R Coupling Calculator</h2>
+            <p>Calculate the coupling constant \(\kappa = \frac{R}{S+R}\) for your system and determine which zone it falls into.</p>
+
+            <div class="calculator">
+                <div class="input-group">
+                    <label for="sValue">S (Structure) Value:</label>
+                    <input type="number" id="sValue" placeholder="Enter S value" step="any" oninput="calculateKappa()">
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        Structure component (stability, constraint, potential energy)
+                    </p>
+                </div>
+
+                <div class="input-group">
+                    <label for="rValue">R (Relation) Value:</label>
+                    <input type="number" id="rValue" placeholder="Enter R value" step="any" oninput="calculateKappa()">
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        Relation component (dynamics, flow, kinetic energy)
+                    </p>
+                </div>
+
+                <div class="result-box" id="resultBox" style="display: none;">
+                    <h3>Results</h3>
+                    <div class="result-value" id="kappaValue">κ = </div>
+                    <div class="zone-description" id="zoneDescription"></div>
+                    <div style="margin-top: 1.5rem;">
+                        <h4>System Interpretation:</h4>
+                        <p id="systemInterpretation" style="margin-top: 0.5rem;"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Zone Reference</h2>
+            <p>Understanding the different coupling zones and their characteristics:</p>
+
+            <div class="equation-grid">
+                <div class="equation-card">
+                    <h3>Zone 1: Subcritical</h3>
+                    <p class="equation-display">\[\kappa < 0.35\]</p>
+                    <p class="equation-description">
+                        <strong>Structure-dominated.</strong> System is stable but potentially rigid. Below the survival threshold of \(1/e \approx 0.368\).
+                        Examples: Frozen states, over-constrained systems, low glucose variability (healthy).
+                    </p>
+                </div>
+
+                <div class="equation-card">
+                    <h3>Zone 2: Critical/Life</h3>
+                    <p class="equation-display">\[0.35 \leq \kappa \leq 0.65\]</p>
+                    <p class="equation-description">
+                        <strong>Balanced coupling.</strong> The "life zone" where complexity emerges. Optimal at \(\kappa \approx 0.5\) for balanced systems.
+                        Examples: Living organisms, critical states, dark energy fraction, HRV balance.
+                    </p>
+                </div>
+
+                <div class="equation-card">
+                    <h3>Zone 3: Supercritical</h3>
+                    <p class="equation-display">\[\kappa > 0.65\]</p>
+                    <p class="equation-description">
+                        <strong>Relation-dominated.</strong> Dynamic but potentially chaotic. Above \(2/3 \approx 0.667\) indicates decoupling risk.
+                        Examples: Turbulent flows, quantum regimes, runaway dynamics.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Example Calculations</h2>
+            <div class="table-container">
+                <table class="domain-table">
+                    <thead>
+                        <tr>
+                            <th>System</th>
+                            <th>S Value</th>
+                            <th>R Value</th>
+                            <th>κ</th>
+                            <th>Zone</th>
+                            <th>Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Virial Equilibrium</td>
+                            <td>|U| = 2</td>
+                            <td>T = 1</td>
+                            <td>0.333</td>
+                            <td>Zone 1</td>
+                            <td>Stable gravitational system</td>
+                        </tr>
+                        <tr>
+                            <td>Dark Energy (Cosmology)</td>
+                            <td>Matter = 6</td>
+                            <td>Dark Energy = 13</td>
+                            <td>0.684</td>
+                            <td>Zone 3</td>
+                            <td>Universe at \(13/19\)</td>
+                        </tr>
+                        <tr>
+                            <td>HRV Balance (Healthy)</td>
+                            <td>HF = 1</td>
+                            <td>LF = 1</td>
+                            <td>0.50</td>
+                            <td>Zone 2</td>
+                            <td>Optimal autonomic balance</td>
+                        </tr>
+                        <tr>
+                            <td>Glucose (Healthy)</td>
+                            <td>Baseline = 100</td>
+                            <td>CV = 30</td>
+                            <td>0.23</td>
+                            <td>Zone 1</td>
+                            <td>Low variability (stable)</td>
+                        </tr>
+                        <tr>
+                            <td>Elite Wealth Threshold</td>
+                            <td>Bottom 99% = 63.2</td>
+                            <td>Top 1% = 36.8</td>
+                            <td>0.368</td>
+                            <td>Boundary</td>
+                            <td>At crisis threshold (1/e)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Key Thresholds</h2>
+            <div class="constants-grid">
+                <div class="constant-card">
+                    <h4>\(\kappa = 1/e = 0.368\)</h4>
+                    <p><strong>Survival Threshold.</strong> Minimum coupling for viability. Systems below this are stable/frozen; at this point represents the critical transition.</p>
+                </div>
+                <div class="constant-card">
+                    <h4>\(\kappa = 1/2 = 0.500\)</h4>
+                    <p><strong>Balanced Coupling.</strong> Optimal for balance systems. Equal contribution from S and R. Vesica equilibrium point.</p>
+                </div>
+                <div class="constant-card">
+                    <h4>\(\kappa = 2/3 = 0.667\)</h4>
+                    <p><strong>Decoupling Boundary.</strong> Upper limit of life zone. Beyond this, R dominates and coherence breaks down.</p>
+                </div>
+                <div class="constant-card">
+                    <h4>\(\kappa = 13/19 = 0.684\)</h4>
+                    <p><strong>Dark Energy Ratio.</strong> Cosmic expansion parameter. Appears in turbulence scaling and vesica geometry.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>System Type Guidelines</h2>
+            <div class="highlight-grid">
+                <div class="highlight-card">
+                    <h3>Stability Systems</h3>
+                    <p>
+                        <strong>Target: κ &lt; 0.35</strong><br>
+                        Healthy state = low variability. Multiple redundant control mechanisms.
+                        Examples: glucose, blood pressure, pH, body temperature.
+                        Threshold at 0.35 represents danger zone, not optimum.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Balance Systems</h3>
+                    <p>
+                        <strong>Target: κ ≈ 0.50</strong><br>
+                        Healthy state = equal contribution from both sides. U-shaped outcome curves.
+                        Examples: HRV, immune balance (Treg/Teff), stress hormones (DHEA/Cortisol).
+                        Optimal at balanced coupling.
+                    </p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Dynamic Systems</h3>
+                    <p>
+                        <strong>Target: 0.35 &lt; κ &lt; 0.65</strong><br>
+                        Operates in critical zone. Requires dynamic balance between structure and flow.
+                        Examples: living organisms, complex adaptive systems, critical phase transitions.
+                        Life exists in this band.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Kings Dialectical Fractal Archestructure (KDFA)</p>
+        <p><a href="https://github.com/yourusername/documentsforgi" target="_blank">View on GitHub</a></p>
+    </footer>
+
+    <script>
+        function calculateKappa() {
+            const sValue = parseFloat(document.getElementById('sValue').value);
+            const rValue = parseFloat(document.getElementById('rValue').value);
+            const resultBox = document.getElementById('resultBox');
+            const kappaValueEl = document.getElementById('kappaValue');
+            const zoneDescriptionEl = document.getElementById('zoneDescription');
+            const systemInterpretationEl = document.getElementById('systemInterpretation');
+
+            if (isNaN(sValue) || isNaN(rValue) || sValue < 0 || rValue < 0) {
+                resultBox.style.display = 'none';
+                return;
+            }
+
+            if (sValue + rValue === 0) {
+                resultBox.style.display = 'none';
+                return;
+            }
+
+            const kappa = rValue / (sValue + rValue);
+            resultBox.style.display = 'block';
+
+            kappaValueEl.textContent = `κ = ${kappa.toFixed(4)}`;
+
+            let zone, zoneColor, interpretation;
+
+            if (kappa < 0.35) {
+                zone = 'Zone 1: Subcritical (Structure-Dominated)';
+                zoneColor = 'var(--accent-validated)';
+                interpretation = 'System is in the stable, structure-dominated regime. Below the survival threshold of 1/e ≈ 0.368. ' +
+                    'For stability systems (like glucose regulation), this is the healthy target range. ' +
+                    'For balance systems, this indicates S-dominance and potential rigidity.';
+            } else if (kappa >= 0.35 && kappa <= 0.65) {
+                zone = 'Zone 2: Critical/Life Zone (Balanced Coupling)';
+                zoneColor = 'var(--accent-peer-review)';
+
+                if (kappa >= 0.45 && kappa <= 0.55) {
+                    interpretation = 'System is near optimal balance (κ ≈ 0.5). This is the target for balance systems like HRV, ' +
+                        'immune function, and stress response. Equal contribution from structure and relation creates ' +
+                        'maximum adaptability and resilience. This is the "life zone" where complexity emerges.';
+                } else if (kappa < 0.45) {
+                    interpretation = 'System is in the critical zone but slightly S-biased. Just above the survival threshold. ' +
+                        'For dynamic systems, this represents viable but structure-heavy coupling. ' +
+                        'Closer to the lower boundary of the life zone.';
+                } else {
+                    interpretation = 'System is in the critical zone but slightly R-biased. Approaching the upper boundary at 2/3. ' +
+                        'More dynamic than optimal for most balance systems. ' +
+                        'Nearing the transition to relation-dominated regime.';
+                }
+            } else {
+                zone = 'Zone 3: Supercritical (Relation-Dominated)';
+                zoneColor = 'var(--accent-total)';
+
+                if (kappa < 0.70) {
+                    interpretation = 'System is relation-dominated, just beyond the 2/3 boundary. ' +
+                        'This is the cosmic regime (dark energy at 13/19 = 0.684). ' +
+                        'High dynamics, lower structural constraint. May indicate quantum or turbulent behavior.';
+                } else {
+                    interpretation = 'System is strongly relation-dominated. Very high R/S ratio. ' +
+                        'Dynamics overwhelm structure. This may represent chaotic, decoupled, or pure-wave states. ' +
+                        'Far from equilibrium conditions.';
+                }
+            }
+
+            // Add specific threshold callouts
+            if (Math.abs(kappa - 1/Math.E) < 0.005) {
+                interpretation += '\n\n⚠ Note: Very close to 1/e ≈ 0.368 survival threshold!';
+            }
+            if (Math.abs(kappa - 0.5) < 0.005) {
+                interpretation += '\n\n✓ Note: Near perfect balance at κ = 0.5!';
+            }
+            if (Math.abs(kappa - 2/3) < 0.005) {
+                interpretation += '\n\n⚠ Note: Very close to 2/3 ≈ 0.667 decoupling boundary!';
+            }
+            if (Math.abs(kappa - 13/19) < 0.005) {
+                interpretation += '\n\n✓ Note: Matches dark energy fraction 13/19 ≈ 0.684!';
+            }
+
+            zoneDescriptionEl.innerHTML = `<strong style="color: ${zoneColor}">${zone}</strong>`;
+            systemInterpretationEl.textContent = interpretation;
+        }
+    </script>
+</body>
+</html>
