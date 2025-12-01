@@ -188,6 +188,34 @@ Structure drives Relations
 
 ---
 
+---
+
+## Latest Validations (v40-v44)
+
+We have recently confirmed 3 major predictions using the new validation framework:
+
+### 1. The 456-Day Cycle Derivation (v44)
+**Claim**: The 456-day stellar cycle is not random; it is the fundamental eigenvalue of the ellipse geometry.
+- **Formula**: $T = (0.65 - 0.35)^{-1} \times 137.2 \text{ days} = 457.33 \text{ days}$
+- **Result**: Matches observed 456 days with **0.29% error**.
+- **Proof**: [claims/validated/math_456_derivation_claim.md](claims/validated/math_456_derivation_claim.md)
+
+### 2. Exoplanet Radius Valley (v41)
+**Claim**: The gap in exoplanet sizes corresponds to the DFA coupling constant $\kappa \approx 0.50$.
+- **Simulation**: 5000-planet population model.
+- **Result**: Radius valley emerges exactly at $\kappa \approx 0.50$.
+- **Evidence**: ![Exoplanet Valley](evidence/v41_exoplanet_valley.png)
+- **Proof**: [claims/validated/physics_exoplanet_valley_claim.md](claims/validated/physics_exoplanet_valley_claim.md)
+
+### 3. Stellar Harmonic Tomography (v40)
+**Claim**: The 456 harmonic series segregates by physical depth (Surface vs Core).
+- **Result**: 
+    - **456d (1st)**: Whole star (Binary orbits)
+    - **152d (3rd)**: Core only (Neutrinos, Flares)
+- **Proof**: [claims/validated/physics_stellar_tomography_claim.md](claims/validated/physics_stellar_tomography_claim.md)
+
+---
+
 ## Documentation
 
 ### Theory Documents
