@@ -1,4 +1,4 @@
-# Kings-DFA Publication Session - November 24, 2025
+1# Kings-DFA Publication Session - November 24, 2025
 
 ## Mission: Repository Creation for KDFA Framework Publication
 
