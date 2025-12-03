@@ -1,0 +1,497 @@
+ 
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  Play,
+  Pause,
+  Send,
+  Cpu,
+  Cloud,
+  Zap,
+  Settings,
+  Terminal,
+  Code,
+  RotateCw,
+  MessageSquare,
+  Save,
+  Trash2
+} from 'lucide-react';
+
+// --- API Helpers ---
+
+const callGemini = async (apiKey, history, prompt, systemInstruction) => {
+  if (!apiKey) throw new Error("Gemini API Key missing");
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+  const payload = {
+    contents: [
+      { role: "user", parts: [{ text: `Here is the current plan history:\n${history}\n\nTask: ${prompt}` }] }
+    ],
+    systemInstruction: { parts: [{ text: systemInstruction || "You are a strategic planner." }] }
+  };
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) throw new Error("Gemini API Error");
+  const data = await response.json();
+  return data.candidates[0].content.parts[0].text;
+};
+
+const callClaude = async (apiKey, history, prompt, systemInstruction) => {
+  // NOTE: Direct browser calls to Anthropic often fail due to CORS.
+  // This is a structural implementation. In a real production app, this needs a backend proxy.
+  // For this "Antigravity" app, we assume the user might have a local proxy or browser extension allowing CORS.
+
+  if (!apiKey) throw new Error("Claude API Key missing");
+
+  const url = 'https://api.anthropic.com/v1/messages';
+
+  const payload = {
+    model: "claude-3-opus-20240229",
+    max_tokens: 1024,
+    system: systemInstruction || "You are a strategic planner.",
+    messages: [
+        { role: "user", content: `Here is the current plan history:\n${history}\n\nTask: ${prompt}` }
+    ]
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+        'dangerously-allow-browser': 'true' // strictly for dev/local tools
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+        const err = await response.text();
+        throw new Error(`Claude Error (CORS or Key): ${err}`);
+    }
+    const data = await response.json();
+    return data.content[0].text;
+  } catch (e) {
+      console.warn("Claude fetch failed, likely CORS. Falling back to simulation if enabled.");
+      throw e;
+  }
+};
+
+const callOllama = async (modelUrl, modelName, history, prompt, systemInstruction) => {
+  const url = `${modelUrl}/api/generate`;
+
+  const payload = {
+    model: modelName || "llama3",
+    prompt: `SYSTEM: ${systemInstruction}\n\nCONTEXT:\n${history}\n\nTASK: ${prompt}`,
+    stream: false
+  };
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) throw new Error("Ollama Connection Error");
+  const data = await response.json();
+  return data.response;
+};
+
+// --- Main App Component ---
+
+export default function TriMindPlanner() {
+  // --- State ---
+  const [isRunning, setIsRunning] = useState(false);
+  const [activeAgent, setActiveAgent] = useState(null); // 'gemini', 'claude', 'local'
+  const [planBuffer, setPlanBuffer] = useState(""); // The "Robin Dump"
+  const [userIntervention, setUserIntervention] = useState("");
+  const [logs, setLogs] = useState([]);
+  const [executionResult, setExecutionResult] = useState(null);
+
+  // Settings
+  const [showSettings, setShowSettings] = useState(false);
+  const [geminiKey, setGeminiKey] = useState("");
+  const [claudeKey, setClaudeKey] = useState("");
+  const [ollamaUrl, setOllamaUrl] = useState("http://localhost:11434");
+  const [ollamaModel, setOllamaModel] = useState("llama3");
+  const [simulationMode, setSimulationMode] = useState(true); // Default to true so UI works immediately
+
+  const bottomRef = useRef(null);
+
+  // --- Auto-Scroll ---
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [logs, planBuffer]);
+
+  // --- The Round Robin Engine ---
+  useEffect(() => {
+    if (!isRunning) return;
+
+    let isMounted = true;
+
+    const runTurn = async () => {
+      // 1. Determine who is up
+      const agents = ['gemini', 'claude', 'local'];
+      const currentIdx = activeAgent ? agents.indexOf(activeAgent) : -1;
+      const nextIdx = (currentIdx + 1) % agents.length;
+      const nextAgent = agents[nextIdx];
+
+      setActiveAgent(nextAgent);
+
+      // 2. Prepare Prompt
+      const systemPrompts = {
+        gemini: "You are the ARCHITECT. Review the plan. Identify structural weaknesses and propose broad strategies. Be concise.",
+        claude: "You are the CRITIC. Review the plan. Look for edge cases, ethical concerns, and logical fallacies. Refine the language.",
+        local: "You are the ENGINEER. Review the plan. Focus on implementation details, feasibility, and local resource constraints."
+      };
+
+      const taskPrompt = "Review the 'Current Plan Dump' above. Add your specific insight to it. Do not repeat the whole plan, just append your new thoughts or modifications clearly labeled with your name.";
+
+      try {
+        let responseText = "";
+
+        if (simulationMode) {
+          // Fake delay for effect
+          await new Promise(r => setTimeout(r, 2000));
+          const ideas = [
+             "suggests we optimize the database schema first.",
+             "thinks we need to consider the user authentication flow.",
+             "believes the UI latency will be an issue without edge caching.",
+             "recommends using a graph structure for the data.",
+             "points out a potential security vulnerability in the API."
+          ];
+          responseText = `[${nextAgent.toUpperCase()}] ${ideas[Math.floor(Math.random() * ideas.length)]}`;
+        } else {
+          // Real API Calls
+          if (nextAgent === 'gemini') {
+            responseText = await callGemini(geminiKey, planBuffer, taskPrompt, systemPrompts.gemini);
+          } else if (nextAgent === 'claude') {
+            responseText = await callClaude(claudeKey, planBuffer, taskPrompt, systemPrompts.claude);
+          } else if (nextAgent === 'local') {
+            responseText = await callOllama(ollamaUrl, ollamaModel, planBuffer, taskPrompt, systemPrompts.local);
+          }
+        }
+
+        if (!isMounted) return;
+
+        // 3. Update State
+        const newEntry = `\n\n--- ${nextAgent.toUpperCase()} TURN ---\n${responseText}`;
+        setPlanBuffer(prev => prev + newEntry);
+        setLogs(prev => [...prev, { agent: nextAgent, text: responseText, timestamp: new Date() }]);
+
+      } catch (error) {
+        console.error("Agent Error:", error);
+        setLogs(prev => [...prev, { agent: 'system', text: `Error with ${nextAgent}: ${error.message}`, timestamp: new Date(), error: true }]);
+        setIsRunning(false); // Stop on error
+      }
+    };
+
+    const timer = setTimeout(runTurn, 1000); // 1s pause between turns
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
+
+  }, [isRunning, activeAgent]); // Depend on activeAgent to trigger next loop
+
+  // --- Handlers ---
+
+  const handleStart = () => {
+    if (!planBuffer) {
+        setPlanBuffer("INITIAL GOAL: ");
+    }
+    setIsRunning(true);
+  };
+
+  const handleStop = () => {
+    setIsRunning(false);
+    setActiveAgent(null);
+  };
+
+  const handleIntervention = () => {
+    if (!userIntervention.trim()) return;
+    const entry = `\n\n--- USER INTERVENTION ---\n${userIntervention}`;
+    setPlanBuffer(prev => prev + entry);
+    setLogs(prev => [...prev, { agent: 'user', text: userIntervention, timestamp: new Date() }]);
+    setUserIntervention("");
+  };
+
+  const handleExecute = async () => {
+    setIsRunning(false);
+    setExecutionResult("Generating code based on plan...");
+
+    try {
+        let code = "";
+        if (simulationMode) {
+            await new Promise(r => setTimeout(r, 3000));
+            code = `// EXECUTED CODE BASED ON PLAN\nfunction initSystem() {\n  console.log("Initializing based on Architect, Critic, and Engineer consensus...");\n  // ... complex logic here\n}`;
+        } else {
+            code = await callGemini(geminiKey, planBuffer, "Create the final executable code (Python or JS) based on the consensus of this plan. Output ONLY code.", "You are a code generator.");
+        }
+        setExecutionResult(code);
+    } catch (err) {
+        setExecutionResult(`Execution Failed: ${err.message}`);
+    }
+  };
+
+  // --- UI Components ---
+
+  const AgentBadge = ({ name, type, isActive }) => {
+    const icons = {
+      gemini: <Zap size={18} />,
+      claude: <Cloud size={18} />,
+      local: <Cpu size={18} />,
+      user: <MessageSquare size={18} />
+    };
+
+    const colors = {
+      gemini: "bg-blue-600 border-blue-400 text-blue-100",
+      claude: "bg-orange-700 border-orange-500 text-orange-100",
+      local: "bg-emerald-700 border-emerald-500 text-emerald-100",
+      user: "bg-purple-600 border-purple-400 text-purple-100"
+    };
+
+    return (
+      <div className={`
+        flex items-center gap-2 px-4 py-2 rounded-lg border-l-4 transition-all duration-300
+        ${colors[type] || "bg-gray-700"}
+        ${isActive ? "scale-105 shadow-lg brightness-125 ring-2 ring-white/20" : "opacity-60 grayscale"}
+      `}>
+        {icons[type]}
+        <span className="font-bold tracking-wider uppercase text-sm">{name}</span>
+        {isActive && <span className="flex h-2 w-2 ml-auto relative">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+        </span>}
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0a0a12] text-gray-200 font-sans selection:bg-cyan-500/30 overflow-hidden flex flex-col">
+
+      {/* Header */}
+      <header className="h-16 border-b border-gray-800 bg-[#0f0f16]/80 backdrop-blur-md flex items-center justify-between px-6 z-20">
+        <div className="flex items-center gap-3">
+          <RotateCw className={`text-cyan-400 ${isRunning ? "animate-spin" : ""}`} />
+          <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+            ANTIGRAVITY // TRI-MIND
+          </h1>
+        </div>
+
+        <div className="flex items-center gap-4">
+           {/* Agent Status Indicators */}
+           <div className="flex gap-2 mr-8">
+              <AgentBadge name="Gemini" type="gemini" isActive={activeAgent === 'gemini'} />
+              <AgentBadge name="Claude" type="claude" isActive={activeAgent === 'claude'} />
+              <AgentBadge name="Local AI" type="local" isActive={activeAgent === 'local'} />
+           </div>
+
+           <button
+             onClick={() => setShowSettings(!showSettings)}
+             className="p-2 hover:bg-gray-800 rounded-full transition-colors"
+           >
+             <Settings size={20} />
+           </button>
+        </div>
+      </header>
+
+      {/* Main Workspace */}
+      <main className="flex-1 flex overflow-hidden relative">
+
+        {/* Left: The "Robin Dump" (Plan Buffer) */}
+        <div className="flex-1 flex flex-col border-r border-gray-800 relative bg-[#0d0d14]">
+          <div className="p-3 bg-gray-900/50 border-b border-gray-800 flex justify-between items-center">
+            <span className="text-xs font-mono text-gray-400 uppercase tracking-widest flex items-center gap-2">
+              <Save size={12} /> Master Plan / Dump File
+            </span>
+            <button
+                onClick={() => setPlanBuffer("")}
+                className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1"
+            >
+                <Trash2 size={12} /> Clear
+            </button>
+          </div>
+
+          <textarea
+            className="flex-1 bg-transparent p-6 font-mono text-sm leading-relaxed focus:outline-none resize-none text-gray-300"
+            value={planBuffer}
+            onChange={(e) => setPlanBuffer(e.target.value)}
+            placeholder="Initialize the plan here... e.g., 'Goal: Design a Dyson Sphere'"
+          />
+
+          {/* Controls Overlay (Bottom of Dump) */}
+          <div className="p-4 bg-gray-900 border-t border-gray-800 flex items-center gap-4">
+            <button
+              onClick={isRunning ? handleStop : handleStart}
+              className={`
+                px-6 py-3 rounded-md font-bold text-white flex items-center gap-2 transition-all
+                ${isRunning
+                  ? "bg-red-600 hover:bg-red-700 shadow-red-900/20"
+                  : "bg-cyan-600 hover:bg-cyan-700 shadow-cyan-900/20 shadow-lg"}
+              `}
+            >
+              {isRunning ? <><Pause size={18} /> HALT CYCLE</> : <><Play size={18} /> INITIATE ROUND ROBIN</>}
+            </button>
+
+            <div className="h-8 w-px bg-gray-700 mx-2"></div>
+
+            <div className="flex-1 relative">
+                <input
+                    type="text"
+                    value={userIntervention}
+                    onChange={(e) => setUserIntervention(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleIntervention()}
+                    placeholder="Inject guidance into the stream..."
+                    className="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-3 focus:border-cyan-500 focus:outline-none text-sm"
+                />
+                <button
+                    onClick={handleIntervention}
+                    className="absolute right-2 top-2 p-1 text-gray-400 hover:text-white"
+                >
+                    <Send size={16} />
+                </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Activity Log & Execution */}
+        <div className="w-[400px] flex flex-col bg-[#0f0f16]">
+
+            {/* Log Feed */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                <div className="text-xs font-mono text-gray-500 text-center mb-4">--- SYSTEM READY ---</div>
+                {logs.map((log, i) => (
+                    <div key={i} className={`p-3 rounded-lg border text-sm ${
+                        log.agent === 'user' ? 'bg-purple-900/20 border-purple-800' :
+                        log.agent === 'system' ? 'bg-red-900/20 border-red-800' :
+                        'bg-gray-800/40 border-gray-700'
+                    }`}>
+                        <div className="flex justify-between items-center mb-1">
+                            <span className={`text-xs font-bold uppercase ${
+                                log.agent === 'gemini' ? 'text-blue-400' :
+                                log.agent === 'claude' ? 'text-orange-400' :
+                                log.agent === 'local' ? 'text-emerald-400' :
+                                'text-gray-400'
+                            }`}>{log.agent}</span>
+                            <span className="text-[10px] text-gray-600">{log.timestamp.toLocaleTimeString()}</span>
+                        </div>
+                        <div className="opacity-90 leading-snug">{log.text}</div>
+                    </div>
+                ))}
+                <div ref={bottomRef}></div>
+            </div>
+
+            {/* Execution Panel */}
+            <div className="h-1/3 border-t border-gray-800 bg-[#0a0a10] p-4 flex flex-col">
+                <div className="flex justify-between items-center mb-2">
+                    <h3 className="text-xs font-bold text-gray-400 uppercase flex items-center gap-2">
+                        <Terminal size={14} /> Execution Output
+                    </h3>
+                    <button
+                        onClick={handleExecute}
+                        disabled={isRunning || !planBuffer}
+                        className="text-xs bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1 rounded transition-colors disabled:opacity-50 flex items-center gap-1"
+                    >
+                        <Code size={12} /> SEND TO GEMINI
+                    </button>
+                </div>
+                <div className="flex-1 bg-black rounded border border-gray-800 p-2 font-mono text-xs text-green-400 overflow-auto whitespace-pre-wrap">
+                    {executionResult || "// Waiting for final consensus..."}
+                </div>
+            </div>
+
+        </div>
+
+      </main>
+
+      {/* Settings Modal */}
+      {showSettings && (
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center">
+            <div className="bg-[#1a1a24] border border-gray-700 p-8 rounded-xl w-[500px] shadow-2xl">
+                <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                    <Settings size={20} /> Configuration
+                </h2>
+
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-gray-800 rounded border border-gray-700">
+                        <div>
+                            <span className="text-white font-bold block">Simulation Mode</span>
+                            <span className="text-xs text-gray-400">Mock responses for testing UI</span>
+                        </div>
+                        <button
+                            onClick={() => setSimulationMode(!simulationMode)}
+                            className={`w-12 h-6 rounded-full relative transition-colors ${simulationMode ? 'bg-cyan-600' : 'bg-gray-600'}`}
+                        >
+                            <span className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform ${simulationMode ? 'translate-x-6' : ''}`}></span>
+                        </button>
+                    </div>
+
+                    {!simulationMode && (
+                        <>
+                            <div>
+                                <label className="block text-xs text-gray-400 mb-1">Gemini API Key</label>
+                                <input
+                                    type="password"
+                                    value={geminiKey}
+                                    onChange={(e) => setGeminiKey(e.target.value)}
+                                    className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-sm focus:border-cyan-500 outline-none"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-gray-400 mb-1">Claude API Key (Proxies may be required)</label>
+                                <input
+                                    type="password"
+                                    value={claudeKey}
+                                    onChange={(e) => setClaudeKey(e.target.value)}
+                                    className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-sm focus:border-orange-500 outline-none"
+                                />
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label className="block text-xs text-gray-400 mb-1">Ollama URL</label>
+                                    <input
+                                        type="text"
+                                        value={ollamaUrl}
+                                        onChange={(e) => setOllamaUrl(e.target.value)}
+                                        className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-sm focus:border-emerald-500 outline-none"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-gray-400 mb-1">Local Model</label>
+                                    <input
+                                        type="text"
+                                        value={ollamaModel}
+                                        onChange={(e) => setOllamaModel(e.target.value)}
+                                        className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-sm focus:border-emerald-500 outline-none"
+                                    />
+                                </div>
+                            </div>
+                            <div className="p-2 bg-yellow-900/20 border border-yellow-800 rounded text-xs text-yellow-500">
+                                <strong>Note:</strong> Ensure Ollama is running with `OLLAMA_ORIGINS="*"` to allow browser access.
+                            </div>
+                        </>
+                    )}
+                </div>
+
+                <div className="mt-6 flex justify-end">
+                    <button
+                        onClick={() => setShowSettings(false)}
+                        className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded font-medium"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+      )}
+
+    </div>
+  );
+}
