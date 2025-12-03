@@ -1,0 +1,63 @@
+{
+    "version": "1.0",
+    "gateway": {
+        "port": 3001,
+        "cors": true,
+        "logging": {
+            "level": "info",
+            "file": "/home/king/Downloads/documentsforgi/workspace/logs/gateway.log"
+        }
+    },
+    "servers": [
+        {
+            "name": "filesystem",
+            "image": "docker/mcp-filesystem:latest",
+            "config": {
+                "root": "/home/king/Downloads/documentsforgi/workspace",
+                "allowWrite": true
+            }
+        },
+        {
+            "name": "bash",
+            "image": "docker/mcp-bash:latest",
+            "config": {
+                "workdir": "/home/king/Downloads/documentsforgi/workspace",
+                "timeout": 300
+            }
+        },
+        {
+            "name": "code-sandbox",
+            "image": "docker/mcp-code-sandbox:latest",
+            "config": {
+                "languages": [
+                    "python",
+                    "javascript",
+                    "bash"
+                ],
+                "timeout": 600,
+                "memory": "4g"
+            }
+        },
+        {
+            "name": "git",
+            "image": "docker/mcp-git:latest",
+            "config": {
+                "repos": "/home/king/Downloads/documentsforgi/workspace/repos"
+            }
+        }
+    ],
+    "clients": {
+        "claude": {
+            "enabled": true,
+            "rateLimit": null
+        },
+        "gemini": {
+            "enabled": true,
+            "rateLimit": null
+        },
+        "local": {
+            "enabled": true,
+            "rateLimit": null
+        }
+    }
+}

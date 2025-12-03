@@ -211,3 +211,10 @@ simulations/*/output/*
 # ============================================
 # Track large files with Git LFS instead of ignoring
 # See: https://git-lfs.github.com/
+
+# Node.js
+node_modules/
+
+# Quarto
+quarto-1.8.26/
+*.tar.gz
