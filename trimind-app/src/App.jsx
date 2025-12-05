@@ -16,135 +16,98 @@ import {
     Trash2
 } from 'lucide-react';
 
-// --- API Helpers ---
+// --- UNIFIED API via LiteLLM Proxy ---
+// All models go through localhost:4000 with OpenAI-compatible API
 
-const callGemini = async (apiKey, history, prompt, systemInstruction) => {
-    if (!apiKey) throw new Error("Gemini API Key missing");
+const LITELLM_URL = 'http://localhost:4000/v1/chat/completions';
+const LITELLM_KEY = 'sk-trimind-local';
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-    const payload = {
-        contents: [
-            { role: "user", parts: [{ text: `Here is the current plan history:\n${history}\n\nTask: ${prompt}` }] }
-        ],
-        systemInstruction: { parts: [{ text: systemInstruction || "You are a strategic planner." }] }
-    };
-
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) throw new Error("Gemini API Error");
-    const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
+// Model mapping for LiteLLM
+const MODELS = {
+    gemini: 'gemini-flash',      // gemini/gemini-2.0-flash
+    claude: 'claude-sonnet',      // anthropic/claude-sonnet-4
+    local: 'llama3'               // ollama/llama3:8b (faster than deepseek)
 };
 
-const callClaude = async (apiKey, history, prompt, systemInstruction) => {
-    // NOTE: Direct browser calls to Anthropic often fail due to CORS.
-    // This is a structural implementation. In a real production app, this needs a backend proxy.
-    // For this "Antigravity" app, we assume the user might have a local proxy or browser extension allowing CORS.
+const callLiteLLM = async (modelName, history, prompt, systemInstruction) => {
+    const response = await fetch(LITELLM_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${LITELLM_KEY}`
+        },
+        body: JSON.stringify({
+            model: MODELS[modelName] || modelName,
+            messages: [
+                { role: 'system', content: systemInstruction || 'You are a strategic planner.' },
+                { role: 'user', content: `Current plan:\n${history}\n\nTask: ${prompt}` }
+            ],
+            max_tokens: 1024
+        })
+    });
 
-    if (!apiKey) throw new Error("Claude API Key missing");
-
-    const url = 'https://api.anthropic.com/v1/messages';
-
-    const payload = {
-        model: "claude-3-opus-20240229",
-        max_tokens: 1024,
-        system: systemInstruction || "You are a strategic planner.",
-        messages: [
-            { role: "user", content: `Here is the current plan history:\n${history}\n\nTask: ${prompt}` }
-        ]
-    };
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'x-api-key': apiKey,
-                'anthropic-version': '2023-06-01',
-                'content-type': 'application/json',
-                'dangerously-allow-browser': 'true' // strictly for dev/local tools
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            const err = await response.text();
-            throw new Error(`Claude Error (CORS or Key): ${err}`);
-        }
-        const data = await response.json();
-        return data.content[0].text;
-    } catch (e) {
-        console.warn("Claude fetch failed, likely CORS. Falling back to simulation if enabled.");
-        throw e;
+    if (!response.ok) {
+        const err = await response.text();
+        throw new Error(`LiteLLM Error (${modelName}): ${err}`);
     }
-};
 
-const callOllama = async (modelUrl, modelName, history, prompt, systemInstruction) => {
-    const url = `${modelUrl}/api/generate`;
-
-    const payload = {
-        model: modelName || "llama3",
-        prompt: `SYSTEM: ${systemInstruction}\n\nCONTEXT:\n${history}\n\nTASK: ${prompt}`,
-        stream: false
-    };
-
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) throw new Error("Ollama Connection Error");
     const data = await response.json();
-    return data.response;
+    return data.choices[0].message.content;
 };
+
+// Legacy wrappers for compatibility
+const callGemini = (_, history, prompt, systemInstruction) =>
+    callLiteLLM('gemini', history, prompt, systemInstruction);
+
+const callClaude = (_, history, prompt, systemInstruction) =>
+    callLiteLLM('claude', history, prompt, systemInstruction);
+
+const callOllama = (_, __, history, prompt, systemInstruction) =>
+    callLiteLLM('local', history, prompt, systemInstruction);
 
 // --- Main App Component ---
 
 export default function TriMindPlanner() {
-    // --- State ---
     const [isRunning, setIsRunning] = useState(false);
-    const [activeAgent, setActiveAgent] = useState(null); // 'gemini', 'claude', 'local'
-    const [planBuffer, setPlanBuffer] = useState(""); // The "Robin Dump"
+    const [activeAgent, setActiveAgent] = useState(null);
+    const [planBuffer, setPlanBuffer] = useState("");
     const [userIntervention, setUserIntervention] = useState("");
     const [logs, setLogs] = useState([]);
     const [executionResult, setExecutionResult] = useState(null);
 
-    // Settings
     const [showSettings, setShowSettings] = useState(false);
     const [geminiKey, setGeminiKey] = useState("");
     const [claudeKey, setClaudeKey] = useState("");
     const [ollamaUrl, setOllamaUrl] = useState("http://localhost:11434");
     const [ollamaModel, setOllamaModel] = useState("llama3");
-    const [simulationMode, setSimulationMode] = useState(true); // Default to true so UI works immediately
+    const [simulationMode, setSimulationMode] = useState(true);
+    const [geminiEnabled, setGeminiEnabled] = useState(false); // Gemini off by default
+    const [claudeEnabled, setClaudeEnabled] = useState(false); // Claude off by default (needs API key)
 
     const bottomRef = useRef(null);
 
-    // --- Auto-Scroll ---
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [logs, planBuffer]);
 
-    // --- The Round Robin Engine ---
     useEffect(() => {
         if (!isRunning) return;
 
         let isMounted = true;
 
         const runTurn = async () => {
-            // 1. Determine who is up
-            const agents = ['gemini', 'claude', 'local'];
+            // Build agent list based on what's enabled
+            const agents = [];
+            if (geminiEnabled) agents.push('gemini');
+            if (claudeEnabled) agents.push('claude');
+            agents.push('local'); // Local always enabled (no API key needed)
+
             const currentIdx = activeAgent ? agents.indexOf(activeAgent) : -1;
             const nextIdx = (currentIdx + 1) % agents.length;
             const nextAgent = agents[nextIdx];
 
             setActiveAgent(nextAgent);
 
-            // 2. Prepare Prompt
             const systemPrompts = {
                 gemini: "You are the ARCHITECT. Review the plan. Identify structural weaknesses and propose broad strategies. Be concise.",
                 claude: "You are the CRITIC. Review the plan. Look for edge cases, ethical concerns, and logical fallacies. Refine the language.",
@@ -157,7 +120,6 @@ export default function TriMindPlanner() {
                 let responseText = "";
 
                 if (simulationMode) {
-                    // Fake delay for effect
                     await new Promise(r => setTimeout(r, 2000));
                     const ideas = [
                         "suggests we optimize the database schema first.",
@@ -168,7 +130,6 @@ export default function TriMindPlanner() {
                     ];
                     responseText = `[${nextAgent.toUpperCase()}] ${ideas[Math.floor(Math.random() * ideas.length)]}`;
                 } else {
-                    // Real API Calls
                     if (nextAgent === 'gemini') {
                         responseText = await callGemini(geminiKey, planBuffer, taskPrompt, systemPrompts.gemini);
                     } else if (nextAgent === 'claude') {
@@ -180,7 +141,6 @@ export default function TriMindPlanner() {
 
                 if (!isMounted) return;
 
-                // 3. Update State
                 const newEntry = `\n\n--- ${nextAgent.toUpperCase()} TURN ---\n${responseText}`;
                 setPlanBuffer(prev => prev + newEntry);
                 setLogs(prev => [...prev, { agent: nextAgent, text: responseText, timestamp: new Date() }]);
@@ -188,19 +148,17 @@ export default function TriMindPlanner() {
             } catch (error) {
                 console.error("Agent Error:", error);
                 setLogs(prev => [...prev, { agent: 'system', text: `Error with ${nextAgent}: ${error.message}`, timestamp: new Date(), error: true }]);
-                setIsRunning(false); // Stop on error
+                setIsRunning(false);
             }
         };
 
-        const timer = setTimeout(runTurn, 1000); // 1s pause between turns
+        const timer = setTimeout(runTurn, 1000);
         return () => {
             isMounted = false;
             clearTimeout(timer);
         };
 
-    }, [isRunning, activeAgent]); // Depend on activeAgent to trigger next loop
-
-    // --- Handlers ---
+    }, [isRunning, activeAgent]);
 
     const handleStart = () => {
         if (!planBuffer) {
@@ -232,15 +190,14 @@ export default function TriMindPlanner() {
                 await new Promise(r => setTimeout(r, 3000));
                 code = `// EXECUTED CODE BASED ON PLAN\nfunction initSystem() {\n  console.log("Initializing based on Architect, Critic, and Engineer consensus...");\n  // ... complex logic here\n}`;
             } else {
-                code = await callGemini(geminiKey, planBuffer, "Create the final executable code (Python or JS) based on the consensus of this plan. Output ONLY code.", "You are a code generator.");
+                // Use local deepseek for code generation (fast, no API cost)
+                code = await callLiteLLM('local', planBuffer, "Create the final executable code (Python or JS) based on the consensus of this plan. Output ONLY code.", "You are a code generator.");
             }
             setExecutionResult(code);
         } catch (err) {
             setExecutionResult(`Execution Failed: ${err.message}`);
         }
     };
-
-    // --- UI Components ---
 
     const AgentBadge = ({ name, type, isActive }) => {
         const icons = {
@@ -288,8 +245,8 @@ export default function TriMindPlanner() {
                 <div className="flex items-center gap-4">
                     {/* Agent Status Indicators */}
                     <div className="flex gap-2 mr-8">
-                        <AgentBadge name="Gemini" type="gemini" isActive={activeAgent === 'gemini'} />
-                        <AgentBadge name="Claude" type="claude" isActive={activeAgent === 'claude'} />
+                        {geminiEnabled && <AgentBadge name="Gemini" type="gemini" isActive={activeAgent === 'gemini'} />}
+                        {claudeEnabled && <AgentBadge name="Claude" type="claude" isActive={activeAgent === 'claude'} />}
                         <AgentBadge name="Local AI" type="local" isActive={activeAgent === 'local'} />
                     </div>
 
@@ -369,14 +326,14 @@ export default function TriMindPlanner() {
                         <div className="text-xs font-mono text-gray-500 text-center mb-4">--- SYSTEM READY ---</div>
                         {logs.map((log, i) => (
                             <div key={i} className={`p-3 rounded-lg border text-sm ${log.agent === 'user' ? 'bg-purple-900/20 border-purple-800' :
-                                    log.agent === 'system' ? 'bg-red-900/20 border-red-800' :
-                                        'bg-gray-800/40 border-gray-700'
+                                log.agent === 'system' ? 'bg-red-900/20 border-red-800' :
+                                    'bg-gray-800/40 border-gray-700'
                                 }`}>
                                 <div className="flex justify-between items-center mb-1">
                                     <span className={`text-xs font-bold uppercase ${log.agent === 'gemini' ? 'text-blue-400' :
-                                            log.agent === 'claude' ? 'text-orange-400' :
-                                                log.agent === 'local' ? 'text-emerald-400' :
-                                                    'text-gray-400'
+                                        log.agent === 'claude' ? 'text-orange-400' :
+                                            log.agent === 'local' ? 'text-emerald-400' :
+                                                'text-gray-400'
                                         }`}>{log.agent}</span>
                                     <span className="text-[10px] text-gray-600">{log.timestamp.toLocaleTimeString()}</span>
                                 </div>
@@ -433,24 +390,52 @@ export default function TriMindPlanner() {
 
                             {!simulationMode && (
                                 <>
-                                    <div>
-                                        <label className="block text-xs text-gray-400 mb-1">Gemini API Key</label>
-                                        <input
-                                            type="password"
-                                            value={geminiKey}
-                                            onChange={(e) => setGeminiKey(e.target.value)}
-                                            className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-sm focus:border-cyan-500 outline-none"
-                                        />
+                                    <div className="flex items-center justify-between p-3 bg-blue-900/20 rounded border border-blue-800">
+                                        <div>
+                                            <span className="text-blue-100 font-bold block">Gemini Agent</span>
+                                            <span className="text-xs text-blue-400">Include Gemini in round robin</span>
+                                        </div>
+                                        <button
+                                            onClick={() => setGeminiEnabled(!geminiEnabled)}
+                                            className={`w-12 h-6 rounded-full relative transition-colors ${geminiEnabled ? 'bg-blue-600' : 'bg-gray-600'}`}
+                                        >
+                                            <span className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform ${geminiEnabled ? 'translate-x-6' : ''}`}></span>
+                                        </button>
                                     </div>
-                                    <div>
-                                        <label className="block text-xs text-gray-400 mb-1">Claude API Key (Proxies may be required)</label>
-                                        <input
-                                            type="password"
-                                            value={claudeKey}
-                                            onChange={(e) => setClaudeKey(e.target.value)}
-                                            className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-sm focus:border-orange-500 outline-none"
-                                        />
+                                    {geminiEnabled && (
+                                        <div>
+                                            <label className="block text-xs text-gray-400 mb-1">Gemini API Key</label>
+                                            <input
+                                                type="password"
+                                                value={geminiKey}
+                                                onChange={(e) => setGeminiKey(e.target.value)}
+                                                className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-sm focus:border-cyan-500 outline-none"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="flex items-center justify-between p-3 bg-orange-900/20 rounded border border-orange-800">
+                                        <div>
+                                            <span className="text-orange-100 font-bold block">Claude Agent</span>
+                                            <span className="text-xs text-orange-400">Include Claude in round robin (needs API key)</span>
+                                        </div>
+                                        <button
+                                            onClick={() => setClaudeEnabled(!claudeEnabled)}
+                                            className={`w-12 h-6 rounded-full relative transition-colors ${claudeEnabled ? 'bg-orange-600' : 'bg-gray-600'}`}
+                                        >
+                                            <span className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform ${claudeEnabled ? 'translate-x-6' : ''}`}></span>
+                                        </button>
                                     </div>
+                                    {claudeEnabled && (
+                                        <div>
+                                            <label className="block text-xs text-gray-400 mb-1">Claude API Key (set in LiteLLM container)</label>
+                                            <input
+                                                type="password"
+                                                value={claudeKey}
+                                                onChange={(e) => setClaudeKey(e.target.value)}
+                                                className="w-full bg-black border border-gray-700 rounded px-3 py-2 text-sm focus:border-orange-500 outline-none"
+                                            />
+                                        </div>
+                                    )}
                                     <div className="grid grid-cols-2 gap-2">
                                         <div>
                                             <label className="block text-xs text-gray-400 mb-1">Ollama URL</label>

@@ -1,0 +1,7 @@
+{
+  "total_failures": 4,
+  "over_constrained_failures": 1,
+  "under_constrained_failures": 3,
+  "failure_ratio_high_to_low_kappa": 3.0,
+  "interpretation": "Moderate high-\u03ba clustering (3.0:1). Some inversion likely."
+}

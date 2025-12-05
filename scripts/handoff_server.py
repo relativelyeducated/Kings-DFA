@@ -65,6 +65,27 @@ HTML_TEMPLATE = """
 </html>
 """
 
+@app.route('/gemini', methods=['POST'])
+def proxy_gemini():
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        return {"error": "Server-side GEMINI_API_KEY not set"}, 500
+
+    data = request.json
+    
+    # Forward to Google Gemini API
+    try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+        resp = requests.post(
+            url,
+            headers={"Content-Type": "application/json"},
+            json=data,
+            timeout=60
+        )
+        return resp.json(), resp.status_code
+    except Exception as e:
+        return {"error": str(e)}, 500
+
 @app.route('/')
 def index():
     if not os.path.exists(HANDOFF_FILE):

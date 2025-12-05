@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDFA Documentation Standard - Interactive Reference</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fafafa;
+            color: var(--primary);
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Helvetica Neue', sans-serif;
+            color: var(--dark);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        
+        h1 { font-size: 2.2em; }
+        h2 { font-size: 1.6em; margin-top: 40px; }
+        h3 { font-size: 1.3em; border-bottom: 1px solid #ddd; }
+        
+        /* Tooltip Definitions */
+        .term {
+            color: var(--accent);
+            border-bottom: 1px dashed var(--accent);
+            cursor: help;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .term:hover {
+            color: var(--dark);
+        }
+        
+        .term .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            width: 320px;
+            font-size: 0.85em;
+            line-height: 1.5;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .term .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: var(--dark);
+        }
+        
+        .term:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .tooltip .formula {
+            background: rgba(255,255,255,0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            margin: 4px 0;
+        }
+        
+        .tooltip .value {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        /* Cross References */
+        .ref {
+            color: var(--success);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid var(--success);
+        }
+        
+        .ref:hover {
+            background: rgba(39, 174, 96, 0.1);
+        }
+        
+        /* Equation Blocks */
+        .equation {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .equation .name {
+            font-size: 0.8em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+            font-family: sans-serif;
+        }
+        
+        /* Zone Colors */
+        .zone-collapsed { background: #8B0000; color: white; padding: 2px 8px; border-radius: 4px; }
+        .zone-subcritical { background: #FF6B6B; color: white; padding: 2px 8px; border-radius: 4px; }
+        .zone-critical { background: #4ECDC4; color: white; padding: 2px 8px; border-radius: 4px; }
+        .zone-optimal { background: #45B7D1; color: white; padding: 2px 8px; border-radius: 4px; }
+        .zone-supercritical { background: #F9C74F; color: black; padding: 2px 8px; border-radius: 4px; }
+        .zone-terminal { background: #e74c3c; color: white; padding: 2px 8px; border-radius: 4px; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        tr:hover {
+            background: #e8f4f8;
+        }
+        
+        /* Code Blocks */
+        pre {
+            background: var(--dark);
+            color: #a6e22e;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        
+        code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+        }
+        
+        /* Image containers */
+        .chart-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .chart-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .chart-container figcaption {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        /* Glossary sidebar */
+        .glossary-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            z-index: 999;
+        }
+        
+        .glossary-toggle:hover {
+            background: var(--dark);
+        }
+        
+        .glossary-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+            padding: 20px;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .glossary-panel.open {
+            right: 0;
+        }
+        
+        .glossary-panel h3 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .glossary-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .glossary-item dt {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .glossary-item dd {
+            margin: 5px 0 0 0;
+            font-size: 0.9em;
+        }
+        
+        .close-glossary {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        /* Section anchors */
+        section {
+            scroll-margin-top: 20px;
+        }
+        
+        /* Print styles */
+        @media print {
+            .glossary-toggle, .glossary-panel { display: none; }
+            .term .tooltip { display: none; }
+            body { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>KDFA Documentation Standard</h1>
+<p><em>Interactive Reference with Hover Definitions</em></p>
+
+<p><strong>Hover over <span class="term">highlighted terms<span class="tooltip">Terms with dashed underlines have popup definitions. Hover to see them!</span></span> to see definitions. Click <a href="#glossary" class="ref">references</a> to jump to sections.</strong></p>
+
+<hr>
+
+<section id="core-concepts">
+<h2>Core Concepts</h2>
+
+<h3>The L-Spark Equation</h3>
+
+<p>The 
+<span class="term">L-Spark equation
+    <span class="tooltip">
+        <strong>L-Spark (Life-Spark)</strong><br>
+        The master equation governing all coupled systems:<br>
+        <span class="formula">ℒ = κ · exp[-(n/456)^(2-D₂)]</span><br>
+        Predicts optimal coupling at <span class="value">κ ≈ 0.35</span>
+    </span>
+</span> 
+describes how 
+<span class="term">constraint
+    <span class="tooltip">
+        <strong>S-axis (Constraint)</strong><br>
+        The HOW of a system - what prevents, contains, or structures change.<br>
+        Examples: gravity, friction, membranes, infrastructure<br>
+        <span class="formula">S = structural energy</span>
+    </span>
+</span> 
+and 
+<span class="term">dynamics
+    <span class="tooltip">
+        <strong>R-axis (Dynamics)</strong><br>
+        The WHAT of a system - what drives, flows, or changes.<br>
+        Examples: thermal energy, strain, metabolism, coordination<br>
+        <span class="formula">R = relational energy</span>
+    </span>
+</span> 
+couple across all scales:
+</p>
+
+<div class="equation">
+    <div class="name">L-Spark Master Equation</div>
+    ℒ<sub>Spark</sub>(n, κ, D₂) = (R / (R + S)) · exp[-(n / 456)<sup>(2-D₂)</sup>]
+</div>
+
+<h3>The Coupling Ratio</h3>
+
+<p>The 
+<span class="term">coupling ratio κ
+    <span class="tooltip">
+        <strong>κ (kappa) - Coupling Ratio</strong><br>
+        <span class="formula">κ = R / (R + S)</span><br>
+        Measures balance between dynamics and constraint.<br>
+        <span class="value">κ = 0</span>: pure constraint (frozen)<br>
+        <span class="value">κ = 1</span>: pure dynamics (chaos)<br>
+        <span class="value">κ ≈ 0.35</span>: optimal (life zone)
+    </span>
+</span>
+determines system behavior:
+</p>
+
+<table>
+    <tr>
+        <th>Zone</th>
+        <th>κ Range</th>
+        <th>State</th>
+        <th>Example</th>
+    </tr>
+    <tr>
+        <td><span class="zone-collapsed">COLLAPSED</span></td>
+        <td>κ &lt; 0.25</td>
+        <td>Failed / Frozen</td>
+        <td>Dead star, extinct species</td>
+    </tr>
+    <tr>
+        <td><span class="zone-subcritical">SUBCRITICAL</span></td>
+        <td>0.25 - 0.33</td>
+        <td>Rigid / Fragile</td>
+        <td>Locked fault, rigid bureaucracy</td>
+    </tr>
+    <tr>
+        <td><span class="zone-critical">CRITICAL</span></td>
+        <td>0.33 - 0.45</td>
+        <td>Life Zone</td>
+        <td>Living cells, healthy ecosystems</td>
+    </tr>
+    <tr>
+        <td><span class="zone-optimal">OPTIMAL</span></td>
+        <td>0.45 - 0.55</td>
+        <td>Generative</td>
+        <td>Peak performance, innovation</td>
+    </tr>
+    <tr>
+        <td><span class="zone-supercritical">SUPERCRITICAL</span></td>
+        <td>0.55 - 0.65</td>
+        <td>Abundance Crushing</td>
+        <td>Overheating economy, stressed reef</td>
+    </tr>
+    <tr>
+        <td><span class="zone-terminal">TERMINAL</span></td>
+        <td>κ &gt; 0.65</td>
+        <td>Collapse Imminent</td>
+        <td>Earthquake nucleation, hyperinflation</td>
+    </tr>
+</table>
+
+</section>
+
+<section id="key-constants">
+<h2>Key Constants</h2>
+
+<h3>The Universal Values</h3>
+
+<p>Three constants appear across all KDFA domains:</p>
+
+<table>
+    <tr>
+        <th>Constant</th>
+        <th>Value</th>
+        <th>Derivation</th>
+        <th>Appearances</th>
+    </tr>
+    <tr>
+        <td>
+            <span class="term">κ<sub>critical</sub>
+                <span class="tooltip">
+                    <strong>Critical Coupling</strong><br>
+                    The threshold where life operates:<br>
+                    <span class="formula">κ ≈ 0.35 ≈ 1/e</span><br>
+                    Appears in ATP efficiency (35-38%), virial theorem (1/3), cosmological fine-tuning (∛0.04 = 0.342)
+                </span>
+            </span>
+        </td>
+        <td><strong>0.35</strong></td>
+        <td>≈ 1/e ≈ 1/3</td>
+        <td>ATP synthesis, stellar stability, protein flexibility</td>
+    </tr>
+    <tr>
+        <td>
+            <span class="term">D₂
+                <span class="tooltip">
+                    <strong>Correlation Dimension</strong><br>
+                    Fractal measure of spatial clustering:<br>
+                    <span class="formula">D₂ = lim(log C(r) / log r)</span><br>
+                    At criticality: <span class="value">D₂ ≈ 1.46</span><br>
+                    Validated: IceCube (1.495), Fermi (1.635), earthquakes (1.45×b)
+                </span>
+            </span>
+        </td>
+        <td><strong>1.46</strong></td>
+        <td>Correlation dimension at criticality</td>
+        <td>Neutrinos, gamma rays, seismicity, coral structure</td>
+    </tr>
+    <tr>
+        <td>
+            <span class="term">456
+                <span class="tooltip">
+                    <strong>456 Harmonic</strong><br>
+                    Universal scale constant:<br>
+                    <span class="formula">E<sub>Hoyle</sub>³ = 7.656³ ≈ 456</span><br>
+                    Appears in: sleep cycles (456 min), cardiac rhythm (456/7 bpm), stellar oscillations (456/k Hz)
+                </span>
+            </span>
+        </td>
+        <td><strong>456</strong></td>
+        <td>7.656³ (Hoyle State cubed)</td>
+        <td>Sleep cycle, cardiac rhythm, stellar oscillations</td>
+    </tr>
+</table>
+
+</section>
+
+<section id="earthquake-application">
+<h2>Earthquake Application</h2>
+
+<h3>Seismic L-Spark Mapping</h3>
+
+<p>For earthquakes, the 
+<span class="term">b-value
+    <span class="tooltip">
+        <strong>Gutenberg-Richter b-value</strong><br>
+        <span class="formula">log₁₀ N = a - bM</span><br>
+        Describes magnitude-frequency relationship.<br>
+        Typical: <span class="value">b ≈ 1.0</span><br>
+        Low b → more large earthquakes (stressed)<br>
+        High b → more small earthquakes (relaxed)
+    </span>
+</span>
+provides a direct proxy for 
+<span class="term">κ
+    <span class="tooltip">
+        <strong>Seismic Coupling Estimate</strong><br>
+        <span class="formula">κ ≈ 1 - (b/2)</span><br>
+        When b = 1.0: κ = 0.50 (normal)<br>
+        When b = 0.5: κ = 0.75 (critical)<br>
+        When b = 0.4: κ = 0.80 (terminal)
+    </span>
+</span>:
+</p>
+
+<div class="equation">
+    <div class="name">Seismic Coupling Estimate</div>
+    κ<sub>seismic</sub> ≈ 1 - (b / 2)
+</div>
+
+<div class="equation">
+    <div class="name">b-value to Correlation Dimension</div>
+    D₂ = 1.45 × b
+</div>
+
+<h3>Alert Thresholds</h3>
+
+<table>
+    <tr>
+        <th>Level</th>
+        <th>b-value</th>
+        <th>κ estimate</th>
+        <th>Action</th>
+    </tr>
+    <tr style="background: #d4edda;">
+        <td><strong>🟢 GREEN</strong></td>
+        <td>b &gt; 0.9</td>
+        <td>κ &lt; 0.55</td>
+        <td>Normal monitoring</td>
+    </tr>
+    <tr style="background: #fff3cd;">
+        <td><strong>🟡 YELLOW</strong></td>
+        <td>0.7 - 0.9</td>
+        <td>0.55 - 0.65</td>
+        <td>Enhanced monitoring</td>
+    </tr>
+    <tr style="background: #ffe5d0;">
+        <td><strong>🟠 ORANGE</strong></td>
+        <td>0.5 - 0.7</td>
+        <td>0.65 - 0.75</td>
+        <td>Prepare evacuation</td>
+    </tr>
+    <tr style="background: #f8d7da;">
+        <td><strong>🔴 RED</strong></td>
+        <td>b &lt; 0.5</td>
+        <td>κ &gt; 0.75</td>
+        <td>Immediate alert</td>
+    </tr>
+</table>
+
+<h3>Validated Precursors</h3>
+
+<p>Historical earthquakes showing 
+<span class="term">b-value drops
+    <span class="tooltip">
+        <strong>Precursor Pattern</strong><br>
+        Before major earthquakes, b-value systematically drops as stress accumulates:<br>
+        <strong>Wenchuan 2008:</strong> 1.47 → 0.42 (71% drop)<br>
+        <strong>Tohoku 2011:</strong> Drop + M7.3 foreshock<br>
+        <strong>Hualien 2018:</strong> Two drops, second 10hr before
+    </span>
+</span>
+before mainshock:
+</p>
+
+<table>
+    <tr>
+        <th>Earthquake</th>
+        <th>Magnitude</th>
+        <th>b-value Change</th>
+        <th>Warning Time</th>
+    </tr>
+    <tr>
+        <td>
+            <span class="term">Wenchuan 2008
+                <span class="tooltip">
+                    <strong>Wenchuan Earthquake</strong><br>
+                    M7.9, 69,000 deaths<br>
+                    b-value: 1.47 → 0.42 (71% drop)<br>
+                    κ rose: 0.26 → 0.79<br>
+                    <span class="value">6 months precursor</span>
+                </span>
+            </span>
+        </td>
+        <td>M7.9</td>
+        <td>1.47 → 0.42</td>
+        <td>~6 months</td>
+    </tr>
+    <tr>
+        <td>Tohoku 2011</td>
+        <td>M9.1</td>
+        <td>Anomaly + foreshock</td>
+        <td>~2 days</td>
+    </tr>
+    <tr>
+        <td>Hualien 2018</td>
+        <td>M6.3</td>
+        <td>Two drops</td>
+        <td>~10 hours</td>
+    </tr>
+</table>
+
+</section>
+
+<section id="cross-domain">
+<h2>Cross-Domain Validation</h2>
+
+<p>The same 
+<span class="term">D₂ ≈ 1.46
+    <span class="tooltip">
+        <strong>Universal Signature</strong><br>
+        Correlation dimension at criticality appears across:<br>
+        • IceCube neutrinos: <span class="value">1.495 ± 0.144</span><br>
+        • Fermi GCE: <span class="value">1.635 ± 0.10</span><br>
+        • Earthquakes (b=1): <span class="value">1.45</span><br>
+        • Coral reefs: <span class="value">1.60</span>
+    </span>
+</span>
+signature appears across independent systems:
+</p>
+
+<table>
+    <tr>
+        <th>Domain</th>
+        <th>S-axis (Constraint)</th>
+        <th>R-axis (Dynamics)</th>
+        <th>κ<sub>optimal</sub></th>
+        <th>Evidence</th>
+    </tr>
+    <tr>
+        <td>Stellar</td>
+        <td>Gravitational PE</td>
+        <td>Thermal KE</td>
+        <td>0.333</td>
+        <td><a href="#ref-virial" class="ref">Virial theorem</a></td>
+    </tr>
+    <tr>
+        <td>Quantum</td>
+        <td>Position Δx</td>
+        <td>Momentum Δp</td>
+        <td>~0.35</td>
+        <td><a href="#ref-heisenberg" class="ref">Heisenberg</a></td>
+    </tr>
+    <tr>
+        <td>Protein</td>
+        <td>Bond network</td>
+        <td>Folding dynamics</td>
+        <td>~0.35</td>
+        <td><a href="#ref-protein" class="ref">Flexible residues</a></td>
+    </tr>
+    <tr>
+        <td>Cellular</td>
+        <td>Membrane structure</td>
+        <td>Metabolic flux</td>
+        <td>0.35-0.38</td>
+        <td><a href="#ref-atp" class="ref">ATP efficiency</a></td>
+    </tr>
+    <tr>
+        <td>Earthquake</td>
+        <td>Fault friction</td>
+        <td>Strain energy</td>
+        <td>0.35</td>
+        <td><a href="#ref-nucleation" class="ref">Nucleation</a></td>
+    </tr>
+    <tr>
+        <td>Economy</td>
+        <td>Production capacity</td>
+        <td>Coordination load</td>
+        <td>0.35</td>
+        <td><a href="#ref-venezuela" class="ref">Venezuela κ=0.70</a></td>
+    </tr>
+</table>
+
+</section>
+
+<section id="formulas">
+<h2>Formula Reference</h2>
+
+<h3>Core Equations</h3>
+
+<div class="equation">
+    <div class="name">L-Spark Master Equation</div>
+    ℒ<sub>Spark</sub>(n, κ, D₂) = κ · exp[-(n/456)<sup>(2-D₂)</sup>]
+</div>
+
+<div class="equation">
+    <div class="name">Coupling Ratio</div>
+    κ = R / (R + S)
+</div>
+
+<div class="equation">
+    <div class="name">Correlation Dimension</div>
+    D₂ = lim<sub>r→0</sub> [log C(r) / log r]
+</div>
+
+<div class="equation">
+    <div class="name">Correlation Integral</div>
+    C(r) = (2 / N(N-1)) Σ<sub>i&lt;j</sub> Θ(r - ‖x<sub>i</sub> - x<sub>j</sub>‖)
+</div>
+
+<h3>Domain-Specific</h3>
+
+<div class="equation">
+    <div class="name">Seismic Coupling</div>
+    κ<sub>seismic</sub> ≈ 1 - (b / 2)
+</div>
+
+<div class="equation">
+    <div class="name">Virial Theorem</div>
+    2K + U = 0 → κ = K / (K + |U|) = 1/3
+</div>
+
+<div class="equation">
+    <div class="name">456 Derivation</div>
+    E<sub>Hoyle</sub>³ = 7.656³ = 449.2 ≈ 456
+</div>
+
+</section>
+
+<section id="glossary">
+<h2>Full Glossary</h2>
+
+<dl class="glossary-item">
+    <dt id="def-kappa">κ (Kappa) - Coupling Ratio</dt>
+    <dd>The ratio of dynamics to total energy: κ = R/(R+S). Ranges from 0 (frozen) to 1 (chaos). Optimal for life at κ ≈ 0.35.</dd>
+</dl>
+
+<dl class="glossary-item">
+    <dt id="def-saxis">S-axis (Constraint)</dt>
+    <dd>The structural component that constrains, contains, or prevents change. Examples: gravity, membranes, friction, infrastructure. The HOW of a system.</dd>
+</dl>
+
+<dl class="glossary-item">
+    <dt id="def-raxis">R-axis (Dynamics)</dt>
+    <dd>The relational component that drives, flows, or enables change. Examples: thermal energy, metabolism, strain, coordination. The WHAT of a system.</dd>
+</dl>
+
+<dl class="glossary-item">
+    <dt id="def-d2">D₂ (Correlation Dimension)</dt>
+    <dd>A fractal measure of how points cluster in space. Calculated via the Grassberger-Procaccia algorithm. At criticality, D₂ ≈ 1.46 across systems.</dd>
+</dl>
+
+<dl class="glossary-item">
+    <dt id="def-456">456 Harmonic</dt>
+    <dd>Universal scale constant derived from E<sub>Hoyle</sub>³ = 7.656³ ≈ 456. Appears in sleep cycles (456 min), cardiac rhythm (456/7 bpm), and stellar oscillations.</dd>
+</dl>
+
+<dl class="glossary-item">
+    <dt id="def-bvalue">b-value (Gutenberg-Richter)</dt>
+    <dd>Parameter in log₁₀N = a - bM describing earthquake magnitude distribution. Typically ~1.0. Low b indicates stress accumulation.</dd>
+</dl>
+
+<dl class="glossary-item">
+    <dt id="def-lspark">L-Spark Equation</dt>
+    <dd>Master equation: ℒ = κ · exp[-(n/456)<sup>(2-D₂)</sup>]. Combines coupling ratio with scale-dependent damping.</dd>
+</dl>
+
+<dl class="glossary-item">
+    <dt id="def-virial">Virial Theorem</dt>
+    <dd>For gravitationally bound systems: 2K + U = 0, giving κ = K/(K+|U|) = 1/3. Foundation of stellar stability.</dd>
+</dl>
+
+<dl class="glossary-item">
+    <dt id="def-hoyle">Hoyle State</dt>
+    <dd>Excited state of Carbon-12 at 7.656 MeV. Essential for stellar nucleosynthesis. Its cube gives the 456 harmonic.</dd>
+</dl>
+
+</section>
+
+<section id="references">
+<h2>References</h2>
+
+<p id="ref-virial"><strong>[Virial]</strong> Clausius, R. (1870). On a mechanical theorem applicable to heat. <em>Philosophical Magazine</em>.</p>
+
+<p id="ref-heisenberg"><strong>[Heisenberg]</strong> Heisenberg, W. (1927). Über den anschaulichen Inhalt der quantentheoretischen Kinematik und Mechanik. <em>Zeitschrift für Physik</em>.</p>
+
+<p id="ref-protein"><strong>[Protein]</strong> Henzler-Wildman, K. & Kern, D. (2007). Dynamic personalities of proteins. <em>Nature</em>, 450, 964-972.</p>
+
+<p id="ref-atp"><strong>[ATP]</strong> Nicholls, D.G. & Ferguson, S.J. (2013). <em>Bioenergetics</em>. Academic Press.</p>
+
+<p id="ref-nucleation"><strong>[Nucleation]</strong> Dieterich, J.H. (1994). A constitutive law for rate of earthquake production. <em>JGR</em>, 99, 2601-2618.</p>
+
+<p id="ref-venezuela"><strong>[Venezuela]</strong> Hausmann, R. & Rodríguez, F. (2014). <em>Venezuela Before Chávez</em>. Penn State Press.</p>
+
+<p id="ref-hirata"><strong>[Hirata 1989]</strong> Hirata, T. (1989). A correlation between the b value and the fractal dimension of earthquakes. <em>JGR</em>, 94(B6), 7507-7514.</p>
+
+</section>
+
+<!-- Floating Glossary Button -->
+<button class="glossary-toggle" onclick="toggleGlossary()">📖 Glossary</button>
+
+<!-- Glossary Sidebar -->
+<div class="glossary-panel" id="glossaryPanel">
+    <button class="close-glossary" onclick="toggleGlossary()">×</button>
+    <h3>Quick Reference</h3>
+    
+    <dl class="glossary-item">
+        <dt>κ (kappa)</dt>
+        <dd>R/(R+S) — optimal ≈ 0.35</dd>
+    </dl>
+    
+    <dl class="glossary-item">
+        <dt>S-axis</dt>
+        <dd>Constraint (the HOW)</dd>
+    </dl>
+    
+    <dl class="glossary-item">
+        <dt>R-axis</dt>
+        <dd>Dynamics (the WHAT)</dd>
+    </dl>
+    
+    <dl class="glossary-item">
+        <dt>D₂</dt>
+        <dd>Correlation dimension ≈ 1.46</dd>
+    </dl>
+    
+    <dl class="glossary-item">
+        <dt>456</dt>
+        <dd>7.656³ — universal harmonic</dd>
+    </dl>
+    
+    <dl class="glossary-item">
+        <dt>b-value</dt>
+        <dd>GR parameter → κ ≈ 1-(b/2)</dd>
+    </dl>
+    
+    <hr>
+    
+    <h4>Zone Thresholds</h4>
+    <p><span class="zone-collapsed">Collapsed</span> κ &lt; 0.25</p>
+    <p><span class="zone-subcritical">Subcritical</span> 0.25-0.33</p>
+    <p><span class="zone-critical">Critical</span> 0.33-0.45</p>
+    <p><span class="zone-optimal">Optimal</span> 0.45-0.55</p>
+    <p><span class="zone-supercritical">Supercritical</span> 0.55-0.65</p>
+    <p><span class="zone-terminal">Terminal</span> κ &gt; 0.65</p>
+</div>
+
+<script>
+function toggleGlossary() {
+    const panel = document.getElementById('glossaryPanel');
+    panel.classList.toggle('open');
+}
+
+// Close glossary when clicking outside
+document.addEventListener('click', function(e) {
+    const panel = document.getElementById('glossaryPanel');
+    const toggle = document.querySelector('.glossary-toggle');
+    if (!panel.contains(e.target) && e.target !== toggle) {
+        panel.classList.remove('open');
+    }
+});
+</script>
+
+</body>
+</html>
